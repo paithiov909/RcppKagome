@@ -1,0 +1,30 @@
+Package: RcppKagome
+Type: Package
+Title: 'Rcpp' Interface to Kagome
+Version: 0.0.0.111
+Authors@R: person("Kato", "Akiru", email = "paithiov909@gmail.com", role = c("aut", "cre"))
+Author: paithiov909 [aut, cre]
+Maintainer: Kato Akiru <paithiov909@gmail.com>
+Description: R Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
+    written in pure Go.
+Depends:
+    R (>= 3.2.0)
+SystemRequirements:
+    GNU make,
+    GNU GCC,
+    Go,
+    C++11
+License: MIT + file LICENSE
+URL: https://github.com/paithiov909/RcppKagome
+BugReports: https://github.com/paithiov909/RcppKagome/issues 
+Encoding: UTF-8
+LazyData: true
+Imports:
+    Rcpp,
+    jsonlite,
+    stringi
+LinkingTo:
+    Rcpp
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat

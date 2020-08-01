@@ -1,0 +1,3 @@
+[submodule "src/go/src/github.com/ikawaha/kagome"]
+	path = src/go/src/github.com/ikawaha/kagome
+	url = https://github.com/ikawaha/kagome
