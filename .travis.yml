@@ -1,0 +1,31 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+language: R
+
+os: linux
+dist: bionic
+r:
+  - release
+
+warnings_are_errors: false
+
+git:
+  depth: 1
+
+env:
+  global:
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-build-vignettes --no-manual --timings"  ## do not build vignettes or manual
+    - _R_CHECK_TIMINGS_="0"  ## get the timing information for the examples for all of your functions
+
+# do not build vignettes...takes too long and times out on travis
+r_build_args: --no-build-vignettes --no-manual
+r_check_args: --no-build-vignettes --no-manual --timings
+
+r_github_packages:
+  - jimhester/lintr
+
+after_success:
+  - R CMD INSTALL $PKG_TARBALL
+  - Rscript -e 'lintr::lint_package()'
+
+cache: packages
