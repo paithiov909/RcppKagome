@@ -10,13 +10,13 @@
 
 **まだちゃんと動きません**
 
-R Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
+Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
 
 - GNU make
 - GNU GCC
-- ccache, clang++ (in case Linux/Unix OS)
+- ccache and clang++ (in case Linux/Unix OS)
 - Go
 - C++11
 
@@ -25,6 +25,10 @@ R Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contain
 ```r
 remotes::install_github("paithiov909/RcppKagome")
 ```
+
+## Contributing
+
+ (何も考えていない) 
 
 ## License
 
