@@ -4,18 +4,20 @@ sentence <- enc2utf8("\u3075\u3068\u632F\u308A\u5411\u304F\u3068\u3001\u305F\u30
 describe("Test", {
   describe("Check output 1", {
     it("Output is list?", {
-      res <- kagome(sentence)
+      res <- RcppKagome::kagome(sentence)
       expect_type(res, "list")
     })
     it("Valid output?", {
-      res <- kagome(sentence)
-      expect_equal(unlist(res)["14.Surface"], enc2utf8("\u4eba\u9593"))
+      res <- RcppKagome::kagome(sentence)
+      res <- unlist(res)["14.Surface"]
+      names(res) <- NULL
+      expect_equal(res, enc2utf8("\u4eba\u9593"))
     })
   })
   describe("Check output 2", {
     it("Valid output?", {
-      res <- kagome(sentence)
-      res <- prettify(res)
+      res <- RcppKagome::kagome(sentence)
+      res <- RcppKagome::prettify(res)
       expect_equal(res[6, 2], enc2utf8("\u4eba\u9593"))
     })
   })

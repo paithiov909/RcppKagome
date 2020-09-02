@@ -3,6 +3,7 @@
 #' @param list output of \code{RcppKagome::kagome}
 #' @return data.frame
 #'
+#' @import dplyr
 #' @importFrom purrr imap_dfr
 #' @importFrom purrr map_dfr
 #'

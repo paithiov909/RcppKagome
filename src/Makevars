@@ -9,7 +9,7 @@ CXX = ccache clang++ -Qunused-arguments
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 PKG_LIBS += -L$(CURDIR) -lm -llibkagome
-LDFLAGS += $(PKG_LIBS)
+LDFLAGS += $(PKG_LIBS) $(SHLIB_LIBADD)
 
 .PHONY: all
 

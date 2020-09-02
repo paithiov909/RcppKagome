@@ -24,7 +24,8 @@ Imports:
     Rcpp,
     jsonlite,
     stringi,
-    purrr
+    purrr,
+    dplyr
 LinkingTo:
     Rcpp
 RoxygenNote: 7.1.1
