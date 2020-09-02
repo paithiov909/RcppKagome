@@ -1,12 +1,13 @@
-CURDIR = $(shell Rscript -e "cat(getwd())")
+CURDIR = .
 GOPATH = $(CURDIR)/go
 GOFMT = go fmt
 GOBUILD = go build
 GOCLEAN = go clean
 CXX_STD = CXX11
 CCACHE_CPP2 = yes
-CXX = ccache clang++ -Qunused-arguments
-PKG_CXXFLAGS += -I'$(CURDIR)' -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
+CXX = ccache g++
+PKG_CPPFLAGS += -I'$(CURDIR)'
+PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 PKG_LIBS += -L$(CURDIR) -lm -llibkagome
 LDFLAGS += $(PKG_LIBS) $(SHLIB_LIBADD) $(LIBR)
 
@@ -22,4 +23,3 @@ build:
 clean:
 	cp libkagome.h ../inst/include/
 	$(GOCLEAN) -i -x
-	
