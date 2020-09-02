@@ -12,7 +12,6 @@ Depends:
 SystemRequirements:
     GNU make,
     GNU GCC,
-    ccache and clang++ (in case Linux/Unix OS),
     Go,
     C++11
 License: MIT + file LICENSE

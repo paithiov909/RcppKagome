@@ -24,7 +24,6 @@ Self-contained Japanese morphological analyzer written in pure Go.
 
   - GNU make
   - GNU GCC
-  - ccache and clang++ (in case Linux/Unix OS)
   - Go
   - C++11
 

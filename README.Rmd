@@ -32,7 +32,6 @@ Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained
 
 - GNU make
 - GNU GCC
-- ccache and clang++ (in case Linux/Unix OS)
 - Go
 - C++11
 
