@@ -8,7 +8,7 @@ CCACHE_CPP2 = yes
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L$(CURDIR) -L$(GOPATH) -lm -llibkagome.so
+PKG_LIBS += -L$(CURDIR) -L$(GOPATH) -lm -llibkagome
 LDFLAGS += $(PKG_LIBS)
 
 .PHONY: all
@@ -22,5 +22,4 @@ build:
 
 clean:
 	cp libkagome.h ../inst/include/
-	$(GOCLEAN) -i -x
 	ls
