@@ -8,7 +8,7 @@ CCACHE_CPP2 = yes
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L$(CURDIR) -L$(GOPATH) -lm -llibkagome
+PKG_LIBS += -L$(CURDIR) -L$(GOPATH) -lm -llibkagome.so
 LDFLAGS += $(PKG_LIBS)
 
 .PHONY: all
@@ -18,8 +18,9 @@ all: build clean
 build:
 	rm -f ../inst/include/libkagome.h
 	$(GOFMT) github.com/paithiov909/cmd/libkagome
-	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o $(SHLIB) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/cmd/libkagome
+	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome$(SHLIB_EXT) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/cmd/libkagome
 
 clean:
 	cp libkagome.h ../inst/include/
 	$(GOCLEAN) -i -x
+	ls
