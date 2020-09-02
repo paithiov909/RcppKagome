@@ -1,4 +1,4 @@
-CURDIR = .
+CURDIR = $(shell Rscript -e "cat(getwd())")
 GOPATH = $(CURDIR)/go
 GOFMT = go fmt
 GOBUILD = go build
