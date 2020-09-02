@@ -22,4 +22,4 @@ build:
 
 clean:
 	cp libkagome.h ../inst/include/
-	ls
+	cp libkagome$(SHLIB_EXT) ../inst/libs
