@@ -7,7 +7,7 @@
 prettify(list)
 }
 \arguments{
-\item{list}{output of \code{kagome}}
+\item{list}{output of \code{RcppKagome::kagome}}
 }
 \value{
 data.frame

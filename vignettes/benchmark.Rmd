@@ -1,0 +1,44 @@
+---
+title: "Benchmark"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+header-includes:
+  - \usepackage[utf8]{inputenc}
+vignette: >
+  %\VignetteIndexEntry{Benchmark}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  tidy = "styler",
+  collapse = TRUE,
+  comment = "#>"
+)
+stopifnot(require(RMeCab))
+stopifnot(require(RcppMeCab))
+stopifnot(require(RcppKagome))
+```
+
+```{r}
+str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
+str_utf8 <- stringi::stri_enc_toutf8(str)
+
+tm <- microbenchmark::microbenchmark(
+  RMeCab = RMeCab::RMeCabC(str),
+  RcppMeCab = RcppMeCab::pos(str_utf8), ## MeCabの辞書はUTF-8でコンパイルしています
+  RcppKagome = RcppKagome::kagome(str),
+  times = 500L
+)
+summary(tm)
+```
+
+```{r}
+ggplot2::autoplot(tm)
+```
+
+```{r}
+sessioninfo::session_info()
+```
+

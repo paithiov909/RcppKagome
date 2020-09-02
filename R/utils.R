@@ -1,6 +1,6 @@
 #' Prettify kagome output
 #'
-#' @param list output of \code{kagome}
+#' @param list output of \code{RcppKagome::kagome}
 #' @return data.frame
 #'
 #' @importFrom purrr imap_dfr

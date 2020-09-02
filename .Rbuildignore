@@ -1,7 +1,9 @@
-^*\.dll$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^\.travis\.yml$
+^README\.Rmd$
+^CODE_OF_CONDUCT\.md$
+^\.github$
