@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Japanese morphological analyzer — kagome • RcppKagome</title>
+<title>Prettify kagome output — prettify • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Japanese morphological analyzer — kagome" />
-<meta property="og:description" content="Call kagome tokenizer." />
+<meta property="og:title" content="Prettify kagome output — prettify" />
+<meta property="og:description" content="Prettify kagome output" />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -113,33 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Japanese morphological analyzer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/kagome.R'><code>R/kagome.R</code></a></small>
-    <div class="hidden name"><code>kagome.Rd</code></div>
+    <h1>Prettify kagome output</h1>
+    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>prettify.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Call kagome tokenizer.</p>
+    <p>Prettify kagome output</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kagome</span>(<span class='no'>text</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>prettify</span>(<span class='no'>list</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>character vector</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>all other args are passed to <code><a href='https://jeroen.cran.dev/jsonlite/reference/fromJSON.html'>jsonlite::toJSON</a></code></p></td>
+      <th>list</th>
+      <td><p>output of <code>kagome</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list</p>
+    <p>data.frame</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

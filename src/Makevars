@@ -1,5 +1,6 @@
 CURDIR = $(shell Rscript -e "cat(getwd())")
 GOPATH = $(CURDIR)/go
+GOFMT = go fmt
 GOBUILD = go build
 GOCLEAN = go clean
 CXX_STD = CXX11

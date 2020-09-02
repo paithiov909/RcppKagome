@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/ikawaha/kagome/tokenizer"
 	"strconv"
-	"unsafe"
 )
 
 type TokenInfo struct {
@@ -45,12 +44,10 @@ func tokenize(text string) *C.char {
 	if err != nil {
 		fmt.Println("json.Marshal failed:", err)
 		s := C.CString(string("ERROR::json.Marshal failed."))
-		defer C.free(unsafe.Pointer(s))
 		return s
 	} else {
-		fmt.Println("DEBUG Go-side:", string(data))
+		// fmt.Println("DEBUG Go-side:", string(data))
 		s := C.CString(string(data))
-		defer C.free(unsafe.Pointer(s))
 		return s
 	}
 }

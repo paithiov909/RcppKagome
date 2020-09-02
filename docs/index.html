@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Rcpp Interface to Kagome">
-<meta property="og:description" content="R Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
+<meta property="og:description" content="Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
     written in pure Go.">
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png">
 <meta name="twitter:card" content="summary">
@@ -78,6 +78,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rcppkagome-" class="anchor"></a>RcppKagome <a href="https://paithiov909.github.io/RcppKagome"><img src="reference/figures/logo.png" align="right" height="139"></a>
 </h1></div>
+<!-- badges: start -->
 
 <blockquote>
 <p>‘Rcpp’ Interface to Kagome</p>
@@ -86,7 +87,7 @@
 <h2 class="hasAnchor">
 <a href="#about" class="anchor"></a>About</h2>
 <p><strong>まだちゃんと動きません</strong></p>
-<p>R Interface to <a href="https://github.com/ikawaha/kagome">ikawaha/Kagome</a>; Self-contained Japanese morphological analyzer written in pure Go.</p>
+<p>Interface to <a href="https://github.com/ikawaha/kagome">ikawaha/Kagome</a>; Self-contained Japanese morphological analyzer written in pure Go.</p>
 </div>
 <div id="system-requirements" class="section level2">
 <h2 class="hasAnchor">
@@ -94,6 +95,7 @@
 <ul>
 <li>GNU make</li>
 <li>GNU GCC</li>
+<li>ccache and clang++ (in case Linux/Unix OS)</li>
 <li>Go</li>
 <li>C++11</li>
 </ul>
@@ -101,7 +103,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"paithoiov909/RcppKagome"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"paithiov909/RcppKagome"</span>)</span></code></pre></div>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
@@ -145,8 +147,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="#"><img src="https://img.shields.io/github/last-commit/paithiov909/RcppKagome" alt="GitHub last commit"></a></li>
+<li><a href="https://travis-ci.org/paithiov909/RcppKagome"><img src="https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://github.com/paithiov909/RcppKagome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/paithiov909/RcppKagome" alt="GitHub license"></a></li>
-<li><a href="https://github.com/ellerbrock/open-source-badges/"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source Love"></a></li>
 </ul>
 </div>
 </div>

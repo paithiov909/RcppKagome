@@ -1,21 +1,14 @@
-#' On Attach
+#' Settings
 #' @noRd
 #' @param libname libname
 #' @param pkgname pkgname
-#' @useDynLib libkagome, .registration = TRUE
-#' @useDynLib RcppKagome, .registration = TRUE
+#' @useDynLib libkagome
+#' @useDynLib RcppKagome
 ## usethis namespace: start
 #' @importFrom Rcpp sourceCpp
 ## usethis namespace: end
 #' @keywords internal
-.onAttach <- function(libname, pkgname) {}
-
-#' On Load
-#' @noRd
-#' @param libname libname
-#' @param pkgname pkgname
-#' @keywords internal
-.onLoad <- function(libname, pkgname) {}
+NULL
 
 #' On Unload
 #' @noRd
