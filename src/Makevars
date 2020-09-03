@@ -4,11 +4,10 @@ GOFMT = go fmt
 GOBUILD = go build
 GOCLEAN = go clean
 CXX_STD = CXX11
-CCACHE_CPP2 = yes
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L$(CURDIR) -lm -lkagome
+PKG_LIBS += -L../inst/libs -lm -lkagome
 LDFLAGS += $(PKG_LIBS)
 
 .PHONY: all
