@@ -24,8 +24,11 @@ r_check_args: --no-build-vignettes --no-manual --timings
 r_github_packages:
   - jimhester/lintr
 
+script:
+  - R CMD INSTALL --preclean --no-multiarch .
+  - Rscript -e 'devtools::test()'
+
 after_success:
-  - R CMD INSTALL $PKG_TARBALL
   - Rscript -e 'lintr::lint_package()'
 
 cache: packages

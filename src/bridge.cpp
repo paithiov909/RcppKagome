@@ -6,7 +6,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <Rcpp.h>
-#include "libkagome.h"
+#include "../inst/include/libkagome.h"
 
 using namespace std;
 using namespace Rcpp;
