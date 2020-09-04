@@ -7,7 +7,7 @@ CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L../inst/libs -lm -lkagome
+PKG_LIBS += -L../inst/libs/x64 -lm -lkagome
 LDFLAGS += $(PKG_LIBS)
 
 .PHONY: all
@@ -20,4 +20,4 @@ build:
 
 clean:
 	cp libkagome.h ../inst/include/
-	cp libkagome$(SHLIB_EXT) ../inst/libs/
+	cp libkagome$(SHLIB_EXT) ../inst/libs/x64/
