@@ -20,5 +20,5 @@ build:
 
 clean:
 	cd $(CURDIR)
-	cp libkagome.h ../inst/include/
-	cp libkagome$(SHLIB_EXT) ../inst/libs/$(R_ARCH)/
+	cp libkagome.h ../inst/include
+	cp libkagome$(SHLIB_EXT) ../inst/libs/$(R_ARCH)
