@@ -25,9 +25,6 @@ r_github_packages:
   - r-lib/devtools
   - jimhester/lintr
 
-install:
-  - R CMD INSTALL --preclean --no-multiarch .
-
 script:
   - Rscript -e 'devtools::test()'
 
