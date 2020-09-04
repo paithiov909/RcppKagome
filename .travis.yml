@@ -11,6 +11,10 @@ warnings_are_errors: false
 git:
   depth: 1
 
+addons:
+  apt:
+    packages:
+      - rename
 env:
   global:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
@@ -26,11 +30,10 @@ r_github_packages:
 
 script:
   - R CMD build --no-build-vignettes --no-manual .
-  - ls
   - rename 's/(_)[\.0-9]+(\.tar\.gz)/\.tar\.gz/' RcppKagome_*.tar.gz
   - ls
   - R CMD INSTALL RcppKagome.tar.gz
-  - R CMD check RcppKagome.tar.gz
+  - R CMD check --no-build-vignettes --no-manual --timings RcppKagome.tar.gz
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
