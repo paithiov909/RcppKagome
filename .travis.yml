@@ -22,8 +22,11 @@ r_build_args: --no-build-vignettes --no-manual
 r_check_args: --no-build-vignettes --no-manual --timings
 
 r_github_packages:
-  - r-lib/devtools
   - jimhester/lintr
+
+script:
+  - R CMD INSTALL $PKG_TARBALL
+  - R CMD CHECK $PKG_TARBALL --no-build-vignettes --no-manual --timings
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
