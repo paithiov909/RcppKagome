@@ -25,9 +25,6 @@ r_github_packages:
   - r-lib/devtools
   - jimhester/lintr
 
-script:
-  - Rscript -e 'devtools::test()'
-
 after_success:
   - Rscript -e 'lintr::lint_package()'
 
