@@ -2,7 +2,6 @@ CURDIR = $(shell Rscript -e "cat(getwd())")
 GOPATH = $(CURDIR)/go
 GOFMT = go fmt
 GOBUILD = go build
-GOCLEAN = go clean
 CXX_STD = CXX11
 CXX11 = "g++"
 PKG_CPPFLAGS += -I'$(CURDIR)'
@@ -21,4 +20,4 @@ build:
 
 clean:
 	cp libkagome.h ../inst/include/
-	cp libkagome$(SHLIB_EXT) ../inst/libs/x64/
+	cp libkagome$(SHLIB_EXT) ../inst/libs/
