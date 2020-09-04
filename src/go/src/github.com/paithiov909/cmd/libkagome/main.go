@@ -5,6 +5,7 @@ import "C"
 import (
 	"encoding/json"
 	"fmt"
+	ipa "github.com/ikawaha/kagome-dict-ipa"
 	"github.com/ikawaha/kagome/tokenizer"
 	"strconv"
 )
@@ -20,7 +21,10 @@ type TokenInfo struct {
 //export tokenize
 func tokenize(text string) *C.char {
 
-	t := tokenizer.New()
+	t, e := tokenizer.New(ipa.Dict())
+	if e != nil {
+		panic(e)
+	}
 	tokens := t.Tokenize(text)
 
 	m := make(map[string]*TokenInfo)
