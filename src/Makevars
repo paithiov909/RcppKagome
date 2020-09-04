@@ -7,7 +7,7 @@ CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L../libs -lm -lkagome
+PKG_LIBS += -L$(CURDIR) -lm -lkagome
 LDFLAGS += $(PKG_LIBS)
 
 .PHONY: all
@@ -19,5 +19,8 @@ build:
 	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome$(SHLIB_EXT) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/cmd/libkagome
 
 clean:
+	cp libkagome.h ../inst/include/
+	if [ ! -d ../include ]; then mkdir -p ../include; fi
 	cp libkagome.h ../include/
+	if [ ! -d ../libs ]; then mkdir -p ../libs; fi
 	cp libkagome$(SHLIB_EXT) ../libs/
