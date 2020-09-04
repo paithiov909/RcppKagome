@@ -3,7 +3,7 @@
 #' Call kagome tokenizer.
 #'
 #' @param text character vector
-#' @param ... all other args are passed to jsonlite::toJSON
+#' @param ... all other args are passed to \code{jsonlite::toJSON}
 #' @return list
 #'
 #' @importFrom stringi stri_conv
@@ -14,13 +14,9 @@ kagome <- function(text, ...) {
   lapply(text, function(str) {
     json <- .Call("_RcppKagome_tokenize",
       PACKAGE = "RcppKagome",
-      stringi::stri_conv(text, to = "UTF-8")
+      stringi::stri_conv(str, to = "UTF-8")
     )
-    print(json)
-    lapply(json, function(elem) {
-      s <- elem
-      Encoding(s) <- "UTF-8"
-      jsonlite::fromJSON(s, ...)
-    })
+    Encoding(json) <- "UTF-8"
+    return(jsonlite::fromJSON(json, ...))
   })
 }

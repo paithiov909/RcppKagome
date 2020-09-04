@@ -2,10 +2,11 @@
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
 #include <string>
+#include <cstdlib>
 #include <R.h>
 #include <Rinternals.h>
 #include <Rcpp.h>
-#include "libkagome.h"
+#include "../inst/include/libkagome.h"
 
 using namespace std;
 using namespace Rcpp;
@@ -32,10 +33,12 @@ Rcpp::CharacterVector tokenize(std::string text)
    const std::ptrdiff_t len = n;
 
    GoString s = { t, len };
-   const char* tokens = tokenize(s);
+   char* tokens = tokenize(s);
    const std::string str = tokens;
+   free(tokens);
 
    lt.push_back(str);
+   // std::cout << lt << std::endl;
 
    return lt;
 }

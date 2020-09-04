@@ -1,0 +1,76 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  tidy = "styler",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='man/figures/logo.png' align="right" height="139" /></a>
+
+<!-- badges: start -->
+[![GitHub last commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
+[![Travis build status](https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master)](https://travis-ci.org/paithiov909/RcppKagome)
+[![GitHub license](https://img.shields.io/github/license/paithiov909/RcppKagome)](https://github.com/paithiov909/RcppKagome/blob/master/LICENSE)
+<!-- badges: end -->
+
+> 'Rcpp' Interface to Kagome
+
+## About
+
+Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
+
+## System Requirements
+
+- GNU make
+- GNU GCC
+- Go
+- C++11
+
+## Installation
+
+```r
+remotes::install_github("paithiov909/RcppKagome")
+```
+
+**Linuxでコケる場合（未確認）**
+
+```r
+remotes::install_github("paithiov909/RcppKagome", INSTALL_opts = c("--no-test-load"))
+```
+
+## Usage
+
+```{r usage_1}
+res <- RcppKagome::kagome("東京特許許可局")
+print(res)
+```
+
+```{r usage_2}
+res <- RcppKagome::kagome(c("東京特許許可局", "赤巻紙青巻紙黄巻紙"))
+res <- RcppKagome::prettify(res)
+head(res)
+```
+
+## Code of Conduct
+
+Please note that the RcppKagome project is released with a [Contributor Code of Conduct](https://paithiov909.github.io/RcppKagome/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+## License
+
+Copyright (c) 2020 Kato Akiru
+
+Released under the MIT license https://github.com/paithiov909/RcppKagome/blob/master/LICENSE
+
+> [Kagome](https://github.com/ikawaha/kagome) is licensed under the Apache License v2.0 and uses the MeCab-IPADIC, UniDic dictionary/statistical model. See [NOTICE.txt](https://github.com/ikawaha/kagome/blob/master/NOTICE.txt) for license details.
+
+Icons made by [Freepik](http://www.freepik.com/) from [www.flaticon.com](https://www.flaticon.com/).
+

@@ -5,10 +5,10 @@ Version: 0.0.0.111
 Authors@R: person("Kato", "Akiru", email = "paithiov909@gmail.com", role = c("aut", "cre"))
 Author: paithiov909 [aut, cre]
 Maintainer: Kato Akiru <paithiov909@gmail.com>
-Description: R Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
+Description: Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
     written in pure Go.
 Depends:
-    R (>= 3.2.0)
+    R (>= 4.0.0)
 SystemRequirements:
     GNU make,
     GNU GCC,
@@ -22,9 +22,13 @@ LazyData: true
 Imports:
     Rcpp,
     jsonlite,
-    stringi
+    stringi,
+    purrr,
+    dplyr
 LinkingTo:
     Rcpp
 RoxygenNote: 7.1.1
 Suggests: 
-    testthat
+    testthat,
+    microbenchmark,
+    ggplot2
