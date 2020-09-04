@@ -25,8 +25,12 @@ r_github_packages:
   - jimhester/lintr
 
 script:
-  - R CMD INSTALL $PKG_TARBALL
-  - R CMD CHECK $PKG_TARBALL --no-build-vignettes --no-manual --timings
+  - R CMD build --no-build-vignettes --no-manual .
+  - ls
+  - rename 's/(_)[\.0-9]+(\.tar\.gz)/\.tar\.gz/' RcppKagome_*.tar.gz
+  - ls
+  - R CMD INSTALL RcppKagome.tar.gz
+  - R CMD check RcppKagome.tar.gz
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
