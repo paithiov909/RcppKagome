@@ -33,6 +33,12 @@ Self-contained Japanese morphological analyzer written in pure Go.
 remotes::install_github("paithiov909/RcppKagome")
 ```
 
+**Linuxでコケる場合（未確認）**
+
+``` r
+remotes::install_github("paithiov909/RcppKagome", INSTALL_opts = c("--no-test-load"))
+```
+
 ## Usage
 
 ``` r

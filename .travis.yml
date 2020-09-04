@@ -25,8 +25,13 @@ r_build_args: --no-build-vignettes --no-manual
 r_check_args: --install-args='--no-staged-install --no-test-load' --no-build-vignettes --no-manual --timings
 
 r_github_packages:
-  - r-lib/devtools
   - jimhester/lintr
+
+script:
+  - R CMD build --no-build-vignettes --no-manual .
+  - rename 's/(_)[\.0-9]+(\.tar\.gz)/\.tar\.gz/' RcppKagome_*.tar.gz
+  - R CMD INSTALL --no-staged-install --no-test-load RcppKagome.tar.gz
+  - R CMD check --no-install --no-build-vignettes --no-manual --timings RcppKagome.tar.gz
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
