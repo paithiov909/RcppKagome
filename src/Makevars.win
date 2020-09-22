@@ -6,8 +6,12 @@ CXX_STD = CXX11
 CXX11 = "g++"
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L$(CURDIR) -lm -llibkagome
-LDFLAGS += $(PKG_LIBS)
+
+ifeq "$(WIN)" "64"
+PKG_LIBS = -L../inst/libs/x64 -lm -llibkagome
+else
+PKG_LIBS = -L../inst/libs/i386 -lm -llibkagome
+endif
 
 .PHONY: all
 
