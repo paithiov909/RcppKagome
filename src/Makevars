@@ -1,22 +1,22 @@
 CURDIR = $(shell Rscript -e "cat(getwd())")
+PKGPATH = $(shell Rscript -e "cat(file.path(.libPaths()[1], 'RcppKagome', 'libs'))")
 GOPATH = $(CURDIR)/go
 GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
-PKG_CPPFLAGS += -I'$(CURDIR)'
-PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L$(CURDIR) -lm -lkagome
-LDFLAGS += $(PKG_LIBS)
+PKG_CPPFLAGS += -I'$(CURDIR)' -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
+PKG_LIBS += -L../inst/libs$(R_ARCH) -Wl,-rpath,$(PKGPATH)$(R_ARCH) -lm -lkagome
 
 .PHONY: all
 
-all: build clean
+all: $(SHLIB)
+$(SHLIB): build copy
 
 build:
 	rm -f ../inst/include/libkagome.h
 	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome$(SHLIB_EXT) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/cmd/libkagome
 
-clean:
+copy:
 	cd $(CURDIR)
 	cp libkagome.h ../inst/include
-	cp libkagome$(SHLIB_EXT) ../inst/libs
+	cp libkagome$(SHLIB_EXT) ../inst/libs$(R_ARCH)
