@@ -4,7 +4,7 @@ GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I'$(CURDIR)' -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
-PKG_LIBS += -L../inst/libs -lm -lkagome
+PKG_LIBS += -L../inst/libs/$(R_ARCH) -lm -lkagome
 
 .PHONY: all
 
@@ -18,4 +18,4 @@ build:
 copy:
 	cd $(CURDIR)
 	cp libkagome.h ../inst/include
-	cp libkagome$(SHLIB_EXT) ../inst/libs
+	cp libkagome$(SHLIB_EXT) ../inst/libs/$(R_ARCH)
