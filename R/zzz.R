@@ -7,8 +7,11 @@
 ## usethis namespace: end
 #' @keywords internal
 .onLoad <- function(libname, pkgname) {
-  library.dynam("libkagome", pkgname, .libPaths(), DLLpath = system.file("libs", package = pkgname))
-  library.dynam("RcppKagome", pkgname, .libPaths())
+  library.dynam("RcppKagome",
+    pkgname,
+    .libPaths(),
+    DLLpath = system.file("libs", package = pkgname)
+  )
 }
 
 #' On Unload
@@ -17,5 +20,4 @@
 #' @keywords internal
 .onUnload <- function(libpath) {
   library.dynam.unload("RcppKagome", libpath)
-  library.dynam.unload("libkagome", libpath)
 }
