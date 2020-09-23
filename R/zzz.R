@@ -7,7 +7,7 @@
 ## usethis namespace: end
 #' @keywords internal
 .onLoad <- function(libname, pkgname) {
-  library.dynam("libkagome", pkgname, .libPaths())
+  library.dynam("libkagome", pkgname, .libPaths(), DLLpath = system.file("libs", package = pkgname))
   library.dynam("RcppKagome", pkgname, .libPaths())
 }
 
