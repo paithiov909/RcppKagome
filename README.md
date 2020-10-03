@@ -4,7 +4,6 @@
 # RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
-
 [![GitHub last
 commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
 [![Travis build

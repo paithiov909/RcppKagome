@@ -8,9 +8,9 @@ PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 
 ifeq "$(WIN)" "64"
-PKG_LIBS = -L../inst/libs/x64 -lm -llibkagome
+	PKG_LIBS = -L../inst/libs/x64 -lm -llibkagome
 else
-PKG_LIBS = -L../inst/libs/i386 -lm -llibkagome
+	PKG_LIBS = -L../inst/libs/i386 -lm -llibkagome
 endif
 
 .PHONY: all

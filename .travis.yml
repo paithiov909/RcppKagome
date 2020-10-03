@@ -11,10 +11,6 @@ warnings_are_errors: false
 git:
   depth: 1
 
-addons:
-  apt:
-    packages:
-      - rename
 env:
   global:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"

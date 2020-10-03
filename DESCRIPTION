@@ -20,15 +20,15 @@ BugReports: https://github.com/paithiov909/RcppKagome/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
-    Rcpp,
-    jsonlite,
-    stringi,
-    purrr,
-    dplyr
+    Rcpp (>= 1.0.5),
+    jsonlite (>= 1.7.1),
+    stringi (>= 1.5.3),
+    purrr (>= 0.3.4),
+    dplyr (>= 1.0.2)
 LinkingTo:
-    Rcpp
+    Rcpp (>= 1.0.5)
 RoxygenNote: 7.1.1
 Suggests: 
-    testthat,
-    microbenchmark,
-    ggplot2
+    testthat (>= 2.3.2),
+    microbenchmark (>= 1.4.7),
+    ggplot2 (>= 3.3.2)
