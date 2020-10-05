@@ -10,7 +10,7 @@
   library.dynam("RcppKagome",
     pkgname,
     .libPaths(),
-    DLLpath = system.file("libs", package = pkgname)
+    DLLpath = system.file("libs", pkgname)
   )
 }
 

@@ -1,44 +1,44 @@
 // [[Rcpp::plugins(cpp11)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
-#include <string>
 #include <cstdlib>
-#include <R.h>
-#include <Rinternals.h>
 #include <Rcpp.h>
 #include "../inst/include/libkagome.h"
 
-using namespace std;
 using namespace Rcpp;
+using namespace std;
 
-//' Triger kagome tokenizer
+//' Trigger kagome tokenizer
 //'
-//' For internal use. The argument should be UTF8 encoded. This func just
-//' returns an UTF8-encoded json string vector.
+//' For internal use. The argument should be UTF8 encoded. This function just
+//' returns an UTF8-encoded json as character scalar.
 //'
-//' @param text string
-//' @return res character vectors that each elem contains escaped json strings.
+//' @param text character vector
+//' @return res character scalar (JSON string)
 //'
+//' @name tokenize
 //' @keywords internal
 //' @export
-//'
+//
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::CharacterVector tokenize(std::string text)
+Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text)
 {
-   Rcpp::CharacterVector lt = {};
+   std::function< Rcpp::String(Rcpp::String) > func_obj = [](Rcpp::String x) {
+      const char* s = x.get_cstring();
+      const std::size_t n = std::strlen(s);
+      const std::ptrdiff_t len = n;
+      const GoString mes = { s, len };
 
-   const char* t = text.c_str();
-   const std::size_t n = std::strlen(t);
-   const std::ptrdiff_t len = n;
+      char* tokens = tokenize(mes);
+      const std::string res = tokens;
 
-   GoString s = { t, len };
-   char* tokens = tokenize(s);
-   const std::string str = tokens;
-   free(tokens);
+      free(tokens);
 
-   lt.push_back(str);
-   // std::cout << lt << std::endl;
+      const Rcpp::String result = res;
+      return result;
+   };
 
-   return lt;
+   const Rcpp::CharacterVector result = sapply(text, func_obj) ;
+   return result;
 }

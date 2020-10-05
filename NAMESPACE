@@ -2,6 +2,7 @@
 
 export(kagome)
 export(prettify)
+export(tokenize)
 import(dplyr)
 importFrom(Rcpp,sourceCpp)
 importFrom(jsonlite,fromJSON)

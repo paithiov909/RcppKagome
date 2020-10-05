@@ -19,11 +19,11 @@ all: $(SHLIB)
 $(SHLIB): build copy
 
 build:
-	rm -f ../inst/include/libkagome.h
-	$(GOFMT) github.com/paithiov909/cmd/libkagome
-	GOOS="windows" GOPATH="$(GOPATH)" CXX="$(CXX11)" CGO_ENABLED=1 $(GOBUILD) -o libkagome$(SHLIB_EXT) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/cmd/libkagome
+	$(GOFMT) github.com/paithiov909/libkagome
+	GOOS="windows" GOPATH="$(GOPATH)" CXX="$(CXX11)" CGO_ENABLED=1 $(GOBUILD) -o libkagome$(SHLIB_EXT) -i -a -x -compiler gc -buildmode=c-shared github.com/paithiov909/libkagome
 
 copy:
 	cd $(CURDIR)
+	rm -f ../inst/include/libkagome.h
 	cp libkagome.h ../inst/include
 	cp libkagome$(SHLIB_EXT) ../inst/libs$(R_ARCH)

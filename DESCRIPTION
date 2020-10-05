@@ -1,7 +1,7 @@
 Package: RcppKagome
 Type: Package
 Title: 'Rcpp' Interface to Kagome
-Version: 0.0.0.112
+Version: 0.0.0.113
 Authors@R: person("Kato", "Akiru", email = "paithiov909@gmail.com", role = c("aut", "cre"))
 Author: paithiov909 [aut, cre]
 Maintainer: Kato Akiru <paithiov909@gmail.com>
@@ -27,8 +27,9 @@ Imports:
     dplyr (>= 1.0.2)
 LinkingTo:
     Rcpp (>= 1.0.5)
-RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.3.2),
     microbenchmark (>= 1.4.7),
     ggplot2 (>= 3.3.2)
+RoxygenNote: 7.1.1
+
