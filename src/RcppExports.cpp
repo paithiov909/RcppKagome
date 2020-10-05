@@ -9,11 +9,11 @@
 using namespace Rcpp;
 
 // tokenize
-Rcpp::CharacterVector tokenize(std::string text);
+Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text);
 static SEXP _RcppKagome_tokenize_try(SEXP textSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< std::string >::type text(textSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type text(textSEXP);
     rcpp_result_gen = Rcpp::wrap(tokenize(text));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -47,7 +47,7 @@ RcppExport SEXP _RcppKagome_tokenize(SEXP textSEXP) {
 static int _RcppKagome_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Rcpp::CharacterVector(*tokenize)(std::string)");
+        signatures.insert("Rcpp::CharacterVector(*tokenize)(Rcpp::CharacterVector)");
     }
     return signatures.find(sig) != signatures.end();
 }

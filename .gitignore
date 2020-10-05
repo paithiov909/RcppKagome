@@ -35,24 +35,18 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-# ./src/go/pkg
-src/go/pkg/*
-
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
+*.slo
+*.obj
+*.o
 
 # Prerequisites
 *.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
 # Precompiled Headers
 *.gch

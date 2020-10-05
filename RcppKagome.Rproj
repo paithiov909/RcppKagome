@@ -17,11 +17,10 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch
+PackageInstallArgs: --no-multiarch --without-keep.source
 PackageBuildArgs: --no-build-vignettes --no-manual
 PackageBuildBinaryArgs: --no-build-vignettes --no-manual
-PackageCheckArgs: --no-build-vignettes --no-manual
-PackageRoxygenize: rd,namespace
+PackageRoxygenize: rd,collate,namespace
 
 QuitChildProcessesOnExit: Yes
 DisableExecuteRprofile: Yes

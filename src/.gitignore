@@ -1,3 +1,2 @@
-*.o
-*.so
-*.dll
+# go/pkg
+go/pkg/*
