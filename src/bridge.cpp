@@ -35,10 +35,11 @@ Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text)
 
       free(tokens);
 
+      // Rcout << res << "\n";
       const Rcpp::String result = res;
       return result;
    };
 
-   const Rcpp::CharacterVector result = sapply(text, func_obj) ;
+   const Rcpp::CharacterVector result = sapply(text, func_obj);
    return result;
 }

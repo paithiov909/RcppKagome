@@ -19,5 +19,8 @@ kagome <- function(text, ...) {
     Encoding(elem) <- "UTF-8"
     return(jsonlite::fromJSON(elem, ...))
   })
+  res <- lapply(res, function(list) {
+    return(list[order(as.integer(names(list)))])
+  })
   return(res)
 }
