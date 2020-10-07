@@ -7,10 +7,15 @@
 ## usethis namespace: end
 #' @keywords internal
 .onLoad <- function(libname, pkgname) {
+  dll_path <- ifelse(
+    .Platform$r_arch == "i386",
+    system.file("libs/i386", package = pkgname),
+    system.file("libs/x64", package = pkgname)
+  )
   library.dynam("RcppKagome",
     pkgname,
     .libPaths(),
-    DLLpath = system.file("libs", pkgname)
+    DLLpath = dll_path
   )
 }
 
