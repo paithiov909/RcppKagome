@@ -16,12 +16,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-stopifnot(require(RMeCab))
-stopifnot(require(RcppMeCab))
-stopifnot(require(RcppKagome))
+stopifnot(
+  require(RMeCab),
+  require(RcppMeCab),
+  require(RcppKagome)
+)
 ```
 
-```{r}
+```{r benchmark_1}
 str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
 str_utf8 <- stringi::stri_enc_toutf8(str)
 
@@ -34,11 +36,11 @@ tm <- microbenchmark::microbenchmark(
 summary(tm)
 ```
 
-```{r}
+```{r becnhmark_2}
 ggplot2::autoplot(tm)
 ```
 
-```{r}
+```{r session_info}
 sessioninfo::session_info()
 ```
 

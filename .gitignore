@@ -44,6 +44,7 @@ vignettes/*.pdf
 *.slo
 *.obj
 *.o
+*.a
 
 # Prerequisites
 *.d

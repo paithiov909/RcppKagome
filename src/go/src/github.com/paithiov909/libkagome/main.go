@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	ipa "github.com/ikawaha/kagome-dict/ipa"
-	"github.com/ikawaha/kagome/v2/tokenizer"
+	"github.com/ikawaha/kagome/tokenizer"
 	"strconv"
 )
 
@@ -21,7 +21,7 @@ type TokenInfo struct {
 //export tokenize
 func tokenize(text string) *C.char {
 
-	t, e := tokenizer.New(ipa.Dict())
+	t, e := tokenizer.New(ipa.Dict(), tokenizer.OmitBosEos())
 	if e != nil {
 		panic(e)
 	}

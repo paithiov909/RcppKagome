@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![GitHub last commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master)](https://travis-ci.org/paithiov909/RcppKagome)
+[![Codecov test coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=master)
 <!-- badges: end -->
 
 ## About
@@ -41,10 +42,14 @@ remotes::install_github("paithiov909/RcppKagome")
 
 ## Usage
 
+### Call Kagome
+
 ```{r usage_1}
 res <- RcppKagome::kagome("にわにはにわにわとりがいる")
 print(res)
 ```
+
+### Prettify Output
 
 ```{r usage_2}
 res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
@@ -59,7 +64,5 @@ Please note that the RcppKagome project is released with a [Contributor Code of 
 ## License
 
 Released under the MIT license https://github.com/paithiov909/RcppKagome/blob/master/LICENSE
-
-> [Kagome](https://github.com/ikawaha/kagome) is licensed under the Apache License v2.0 and uses the MeCab-IPADIC, UniDic dictionary/statistical model. See [NOTICE.txt](https://github.com/ikawaha/kagome/blob/master/NOTICE.txt) for license details.
 
 Icons made by [Freepik](http://www.freepik.com/) from [www.flaticon.com](https://www.flaticon.com/).
