@@ -1,7 +1,6 @@
 [submodule "src/go/src/github.com/ikawaha/kagome"]
 	path = src/go/src/github.com/ikawaha/kagome
 	url = https://github.com/ikawaha/kagome
-
-[submodule "src/go/src/github.com/ikawaha/kagome-dict-ipa"]
-	path = src/go/src/github.com/ikawaha/kagome-dict-ipa
-	url = https://github.com/ikawaha/kagome-dict-ipa
+[submodule "src/go/src/github.com/ikawaha/kagome-dict"]
+	path = src/go/src/github.com/ikawaha/kagome-dict
+	url = https://github.com/ikawaha/kagome-dict.git

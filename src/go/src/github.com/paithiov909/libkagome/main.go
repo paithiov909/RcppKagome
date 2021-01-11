@@ -5,8 +5,8 @@ import "C"
 import (
 	"encoding/json"
 	"fmt"
-	ipa "github.com/ikawaha/kagome-dict-ipa"
-	"github.com/ikawaha/kagome/tokenizer"
+	ipa "github.com/ikawaha/kagome-dict/ipa"
+	"github.com/ikawaha/kagome/v2/tokenizer"
 	"strconv"
 )
 
