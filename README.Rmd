@@ -17,17 +17,14 @@ knitr::opts_chunk$set(
 # RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![GitHub last commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master)](https://travis-ci.org/paithiov909/RcppKagome)
-[![GitHub license](https://img.shields.io/github/license/paithiov909/RcppKagome)](https://github.com/paithiov909/RcppKagome/blob/master/LICENSE)
 <!-- badges: end -->
-
-> 'Rcpp' Interface to Kagome
 
 ## About
 
-Interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
+RcppKagome is an R interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
 
@@ -60,8 +57,6 @@ head(res)
 Please note that the RcppKagome project is released with a [Contributor Code of Conduct](https://paithiov909.github.io/RcppKagome/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 ## License
-
-Copyright (c) 2020 Kato Akiru
 
 Released under the MIT license https://github.com/paithiov909/RcppKagome/blob/master/LICENSE
 
