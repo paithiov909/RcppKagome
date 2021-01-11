@@ -38,4 +38,3 @@ Suggests:
     sessioninfo,
     testthat,
     ggplot2,
-    covr

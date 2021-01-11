@@ -13,11 +13,11 @@ git:
 
 env:
   global:
-    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-    - R_CHECK_ARGS="---no-build-vignettes --no-manual --timings"  ## do not build vignettes or manual
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual --without-keep.source"
+    - R_CHECK_ARGS="---no-build-vignettes --no-manual --timings --without-keep.source"  ## do not build vignettes or manual
     - _R_CHECK_TIMINGS_="0"  ## get the timing information for the examples for all of your functions
 
-r_build_args: --no-build-vignettes --no-manual
-r_check_args: --no-build-vignettes --no-manual --timings
+r_build_args: --no-build-vignettes --no-manual --without-keep.source
+r_check_args: --no-build-vignettes --no-manual --timings --without-keep.source
 
 cache: packages

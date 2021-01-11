@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
