@@ -15,7 +15,7 @@
 NULL
 
 tokenize <- function(text) {
-    .Call('_RcppKagome_tokenize', PACKAGE = 'RcppKagome', text)
+    .Call(`_RcppKagome_tokenize`, text)
 }
 
 # Register entry points for exported C++ functions

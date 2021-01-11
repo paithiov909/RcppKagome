@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.114</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.300</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -70,7 +70,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/paithiov909/RcppKagome">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -92,13 +92,10 @@
 </h1></div>
 <!-- badges: start -->
 
-<blockquote>
-<p>‘Rcpp’ Interface to Kagome</p>
-</blockquote>
 <div id="about" class="section level2">
 <h2 class="hasAnchor">
 <a href="#about" class="anchor"></a>About</h2>
-<p>Interface to <a href="https://github.com/ikawaha/kagome">ikawaha/Kagome</a>; Self-contained Japanese morphological analyzer written in pure Go.</p>
+<p>RcppKagome is an R interface to <a href="https://github.com/ikawaha/kagome">ikawaha/Kagome</a>; Self-contained Japanese morphological analyzer written in pure Go.</p>
 </div>
 <div id="system-requirements" class="section level2">
 <h2 class="hasAnchor">
@@ -118,114 +115,121 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
+<div id="call-kagome" class="section level3">
+<h3 class="hasAnchor">
+<a href="#call-kagome" class="anchor"></a>Call Kagome</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>res &lt;-<span class="st"> </span>RcppKagome<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RcppKagome/man/kagome.html">kagome</a></span>(<span class="st">"にわにはにわにわとりがいる"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(res)</span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; [[1]]$`1`</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; [[1]]$`1`$Id</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; [[1]]$`0`</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; [[1]]$`0`$Id</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; [1] 53040</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; [[1]]$`1`$Start</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; [[1]]$`0`$Start</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; [1] 0</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; [[1]]$`1`$End</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; [[1]]$`0`$End</span></span>
 <span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; [1] 1</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; </span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; [[1]]$`1`$Surface</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; [[1]]$`0`$Surface</span></span>
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; [1] "に"</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; </span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; [[1]]$`1`$Feature</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; [[1]]$`0`$Feature</span></span>
 <span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; [1] "助詞"   "格助詞" "一般"   "*"      "*"      "*"      "に"     "ニ"    </span></span>
 <span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; [9] "ニ"    </span></span>
 <span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; </span></span>
 <span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; </span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; [[1]]$`2`</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; [[1]]$`2`$Id</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; [[1]]$`1`</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; [[1]]$`1`$Id</span></span>
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; [1] 80172</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; </span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; [[1]]$`2`$Start</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; [[1]]$`1`$Start</span></span>
 <span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; [1] 1</span></span>
 <span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; </span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; [[1]]$`2`$End</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; [[1]]$`1`$End</span></span>
 <span id="cb2-30"><a href="#cb2-30"></a><span class="co">#&gt; [1] 3</span></span>
 <span id="cb2-31"><a href="#cb2-31"></a><span class="co">#&gt; </span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; [[1]]$`2`$Surface</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; [[1]]$`1`$Surface</span></span>
 <span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; [1] "わに"</span></span>
 <span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; </span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt; [[1]]$`2`$Feature</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt; [[1]]$`1`$Feature</span></span>
 <span id="cb2-36"><a href="#cb2-36"></a><span class="co">#&gt; [1] "名詞" "一般" "*"    "*"    "*"    "*"    "わに" "ワニ" "ワニ"</span></span>
 <span id="cb2-37"><a href="#cb2-37"></a><span class="co">#&gt; </span></span>
 <span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt; </span></span>
-<span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; [[1]]$`3`</span></span>
-<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#&gt; [[1]]$`3`$Id</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; [[1]]$`2`</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#&gt; [[1]]$`2`$Id</span></span>
 <span id="cb2-41"><a href="#cb2-41"></a><span class="co">#&gt; [1] 58916</span></span>
 <span id="cb2-42"><a href="#cb2-42"></a><span class="co">#&gt; </span></span>
-<span id="cb2-43"><a href="#cb2-43"></a><span class="co">#&gt; [[1]]$`3`$Start</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="co">#&gt; [[1]]$`2`$Start</span></span>
 <span id="cb2-44"><a href="#cb2-44"></a><span class="co">#&gt; [1] 3</span></span>
 <span id="cb2-45"><a href="#cb2-45"></a><span class="co">#&gt; </span></span>
-<span id="cb2-46"><a href="#cb2-46"></a><span class="co">#&gt; [[1]]$`3`$End</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="co">#&gt; [[1]]$`2`$End</span></span>
 <span id="cb2-47"><a href="#cb2-47"></a><span class="co">#&gt; [1] 6</span></span>
 <span id="cb2-48"><a href="#cb2-48"></a><span class="co">#&gt; </span></span>
-<span id="cb2-49"><a href="#cb2-49"></a><span class="co">#&gt; [[1]]$`3`$Surface</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="co">#&gt; [[1]]$`2`$Surface</span></span>
 <span id="cb2-50"><a href="#cb2-50"></a><span class="co">#&gt; [1] "はにわ"</span></span>
 <span id="cb2-51"><a href="#cb2-51"></a><span class="co">#&gt; </span></span>
-<span id="cb2-52"><a href="#cb2-52"></a><span class="co">#&gt; [[1]]$`3`$Feature</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="co">#&gt; [[1]]$`2`$Feature</span></span>
 <span id="cb2-53"><a href="#cb2-53"></a><span class="co">#&gt; [1] "名詞"   "一般"   "*"      "*"      "*"      "*"      "はにわ" "ハニワ"</span></span>
 <span id="cb2-54"><a href="#cb2-54"></a><span class="co">#&gt; [9] "ハニワ"</span></span>
 <span id="cb2-55"><a href="#cb2-55"></a><span class="co">#&gt; </span></span>
 <span id="cb2-56"><a href="#cb2-56"></a><span class="co">#&gt; </span></span>
-<span id="cb2-57"><a href="#cb2-57"></a><span class="co">#&gt; [[1]]$`4`</span></span>
-<span id="cb2-58"><a href="#cb2-58"></a><span class="co">#&gt; [[1]]$`4`$Id</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="co">#&gt; [[1]]$`3`</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="co">#&gt; [[1]]$`3`$Id</span></span>
 <span id="cb2-59"><a href="#cb2-59"></a><span class="co">#&gt; [1] 53999</span></span>
 <span id="cb2-60"><a href="#cb2-60"></a><span class="co">#&gt; </span></span>
-<span id="cb2-61"><a href="#cb2-61"></a><span class="co">#&gt; [[1]]$`4`$Start</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a><span class="co">#&gt; [[1]]$`3`$Start</span></span>
 <span id="cb2-62"><a href="#cb2-62"></a><span class="co">#&gt; [1] 6</span></span>
 <span id="cb2-63"><a href="#cb2-63"></a><span class="co">#&gt; </span></span>
-<span id="cb2-64"><a href="#cb2-64"></a><span class="co">#&gt; [[1]]$`4`$End</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="co">#&gt; [[1]]$`3`$End</span></span>
 <span id="cb2-65"><a href="#cb2-65"></a><span class="co">#&gt; [1] 10</span></span>
 <span id="cb2-66"><a href="#cb2-66"></a><span class="co">#&gt; </span></span>
-<span id="cb2-67"><a href="#cb2-67"></a><span class="co">#&gt; [[1]]$`4`$Surface</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="co">#&gt; [[1]]$`3`$Surface</span></span>
 <span id="cb2-68"><a href="#cb2-68"></a><span class="co">#&gt; [1] "にわとり"</span></span>
 <span id="cb2-69"><a href="#cb2-69"></a><span class="co">#&gt; </span></span>
-<span id="cb2-70"><a href="#cb2-70"></a><span class="co">#&gt; [[1]]$`4`$Feature</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="co">#&gt; [[1]]$`3`$Feature</span></span>
 <span id="cb2-71"><a href="#cb2-71"></a><span class="co">#&gt; [1] "名詞"     "一般"     "*"        "*"        "*"        "*"        "にわとり"</span></span>
 <span id="cb2-72"><a href="#cb2-72"></a><span class="co">#&gt; [8] "ニワトリ" "ニワトリ"</span></span>
 <span id="cb2-73"><a href="#cb2-73"></a><span class="co">#&gt; </span></span>
 <span id="cb2-74"><a href="#cb2-74"></a><span class="co">#&gt; </span></span>
-<span id="cb2-75"><a href="#cb2-75"></a><span class="co">#&gt; [[1]]$`5`</span></span>
-<span id="cb2-76"><a href="#cb2-76"></a><span class="co">#&gt; [[1]]$`5`$Id</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="co">#&gt; [[1]]$`4`</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="co">#&gt; [[1]]$`4`$Id</span></span>
 <span id="cb2-77"><a href="#cb2-77"></a><span class="co">#&gt; [1] 19676</span></span>
 <span id="cb2-78"><a href="#cb2-78"></a><span class="co">#&gt; </span></span>
-<span id="cb2-79"><a href="#cb2-79"></a><span class="co">#&gt; [[1]]$`5`$Start</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a><span class="co">#&gt; [[1]]$`4`$Start</span></span>
 <span id="cb2-80"><a href="#cb2-80"></a><span class="co">#&gt; [1] 10</span></span>
 <span id="cb2-81"><a href="#cb2-81"></a><span class="co">#&gt; </span></span>
-<span id="cb2-82"><a href="#cb2-82"></a><span class="co">#&gt; [[1]]$`5`$End</span></span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="co">#&gt; [[1]]$`4`$End</span></span>
 <span id="cb2-83"><a href="#cb2-83"></a><span class="co">#&gt; [1] 11</span></span>
 <span id="cb2-84"><a href="#cb2-84"></a><span class="co">#&gt; </span></span>
-<span id="cb2-85"><a href="#cb2-85"></a><span class="co">#&gt; [[1]]$`5`$Surface</span></span>
+<span id="cb2-85"><a href="#cb2-85"></a><span class="co">#&gt; [[1]]$`4`$Surface</span></span>
 <span id="cb2-86"><a href="#cb2-86"></a><span class="co">#&gt; [1] "が"</span></span>
 <span id="cb2-87"><a href="#cb2-87"></a><span class="co">#&gt; </span></span>
-<span id="cb2-88"><a href="#cb2-88"></a><span class="co">#&gt; [[1]]$`5`$Feature</span></span>
+<span id="cb2-88"><a href="#cb2-88"></a><span class="co">#&gt; [[1]]$`4`$Feature</span></span>
 <span id="cb2-89"><a href="#cb2-89"></a><span class="co">#&gt; [1] "助詞"   "格助詞" "一般"   "*"      "*"      "*"      "が"     "ガ"    </span></span>
 <span id="cb2-90"><a href="#cb2-90"></a><span class="co">#&gt; [9] "ガ"    </span></span>
 <span id="cb2-91"><a href="#cb2-91"></a><span class="co">#&gt; </span></span>
 <span id="cb2-92"><a href="#cb2-92"></a><span class="co">#&gt; </span></span>
-<span id="cb2-93"><a href="#cb2-93"></a><span class="co">#&gt; [[1]]$`6`</span></span>
-<span id="cb2-94"><a href="#cb2-94"></a><span class="co">#&gt; [[1]]$`6`$Id</span></span>
+<span id="cb2-93"><a href="#cb2-93"></a><span class="co">#&gt; [[1]]$`5`</span></span>
+<span id="cb2-94"><a href="#cb2-94"></a><span class="co">#&gt; [[1]]$`5`$Id</span></span>
 <span id="cb2-95"><a href="#cb2-95"></a><span class="co">#&gt; [1] 6652</span></span>
 <span id="cb2-96"><a href="#cb2-96"></a><span class="co">#&gt; </span></span>
-<span id="cb2-97"><a href="#cb2-97"></a><span class="co">#&gt; [[1]]$`6`$Start</span></span>
+<span id="cb2-97"><a href="#cb2-97"></a><span class="co">#&gt; [[1]]$`5`$Start</span></span>
 <span id="cb2-98"><a href="#cb2-98"></a><span class="co">#&gt; [1] 11</span></span>
 <span id="cb2-99"><a href="#cb2-99"></a><span class="co">#&gt; </span></span>
-<span id="cb2-100"><a href="#cb2-100"></a><span class="co">#&gt; [[1]]$`6`$End</span></span>
+<span id="cb2-100"><a href="#cb2-100"></a><span class="co">#&gt; [[1]]$`5`$End</span></span>
 <span id="cb2-101"><a href="#cb2-101"></a><span class="co">#&gt; [1] 13</span></span>
 <span id="cb2-102"><a href="#cb2-102"></a><span class="co">#&gt; </span></span>
-<span id="cb2-103"><a href="#cb2-103"></a><span class="co">#&gt; [[1]]$`6`$Surface</span></span>
+<span id="cb2-103"><a href="#cb2-103"></a><span class="co">#&gt; [[1]]$`5`$Surface</span></span>
 <span id="cb2-104"><a href="#cb2-104"></a><span class="co">#&gt; [1] "いる"</span></span>
 <span id="cb2-105"><a href="#cb2-105"></a><span class="co">#&gt; </span></span>
-<span id="cb2-106"><a href="#cb2-106"></a><span class="co">#&gt; [[1]]$`6`$Feature</span></span>
+<span id="cb2-106"><a href="#cb2-106"></a><span class="co">#&gt; [[1]]$`5`$Feature</span></span>
 <span id="cb2-107"><a href="#cb2-107"></a><span class="co">#&gt; [1] "動詞"   "自立"   "*"      "*"      "一段"   "基本形" "いる"   "イル"  </span></span>
 <span id="cb2-108"><a href="#cb2-108"></a><span class="co">#&gt; [9] "イル"</span></span></code></pre></div>
+</div>
+<div id="prettify-output" class="section level3">
+<h3 class="hasAnchor">
+<a href="#prettify-output" class="anchor"></a>Prettify Output</h3>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>res &lt;-<span class="st"> </span>RcppKagome<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RcppKagome/man/kagome.html">kagome</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"庭に埴輪に輪と李がいる"</span>, <span class="st">"庭には二羽鶏がいる"</span>))</span>
 <span id="cb3-2"><a href="#cb3-2"></a>res &lt;-<span class="st"> </span>RcppKagome<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RcppKagome/man/prettify.html">prettify</a></span>(res)</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(res)</span>
@@ -244,6 +248,7 @@
 <span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 5     ワ</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 6     ト</span></span></code></pre></div>
 </div>
+</div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
@@ -252,11 +257,7 @@
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p>Copyright (c) 2020 Kato Akiru</p>
 <p>Released under the MIT license <a href="https://github.com/paithiov909/RcppKagome/blob/master/LICENSE" class="uri">https://github.com/paithiov909/RcppKagome/blob/master/LICENSE</a></p>
-<blockquote>
-<p><a href="https://github.com/ikawaha/kagome">Kagome</a> is licensed under the Apache License v2.0 and uses the MeCab-IPADIC, UniDic dictionary/statistical model. See <a href="https://github.com/ikawaha/kagome/blob/master/NOTICE.txt">NOTICE.txt</a> for license details.</p>
-</blockquote>
 <p>Icons made by <a href="http://www.freepik.com/">Freepik</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>.</p>
 </div>
 </div>
@@ -297,10 +298,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="#"><img src="https://img.shields.io/github/last-commit/paithiov909/RcppKagome" alt="GitHub last commit"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://travis-ci.org/paithiov909/RcppKagome"><img src="https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://github.com/paithiov909/RcppKagome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/paithiov909/RcppKagome" alt="GitHub license"></a></li>
+<li><a href="https://codecov.io/gh/paithiov909/RcppKagome?branch=master"><img src="https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>

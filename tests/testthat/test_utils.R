@@ -20,19 +20,6 @@ sentence <- enc2utf8(
   )
 )
 
-describe("Check output of kagome", {
-  it("Output is list?", {
-    res <- kagome(sentence)
-    expect_type(res, "list")
-  })
-  it("Valid output?", {
-    res <- kagome(sentence)
-    res <- unlist(res)["14.Surface"]
-    names(res) <- NULL
-    expect_equal(res, enc2utf8("\u4eba\u9593"))
-  })
-})
-
 describe("Check output of prettify", {
   it("Valid output?", {
     res <- kagome(sentence)
