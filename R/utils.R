@@ -4,13 +4,13 @@
 #' @return data.frame
 #'
 #' @import dplyr
-#' @importFrom purrr imap_dfr
-#' @importFrom purrr map_dfr
+#' @importFrom furrr future_imap_dfr
+#' @importFrom furrr future_map_dfr
 #'
 #' @export
 prettify <- function(list) {
-  purrr::imap_dfr(list, function(v, i) {
-    purrr::map_dfr(v, function(elem) {
+  res <- furrr::future_imap_dfr(list, function(v, i) {
+    furrr::future_map_dfr(v, function(elem) {
       df <- data.frame(
         "Sid" = i,
         "Surface" = elem$Surface,
@@ -41,4 +41,13 @@ prettify <- function(list) {
       return(df)
     })
   })
+  return(dplyr::transmute(
+    res,
+    dplyr::across(where(is.character), ~
+    dplyr::if_else(
+      . == "*",
+      NA_character_,
+      .
+    ))
+  ))
 }

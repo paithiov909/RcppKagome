@@ -154,22 +154,55 @@ print(res)
 ``` r
 res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
 res <- RcppKagome::prettify(res)
-head(res)
-#>   Sid Surface POS1     POS2 POS3 POS4 X5StageUse1 X5StageUse2 Original  Yomi1
-#> 1   1      庭 名詞     一般    *    *           *           *       庭   ニワ
-#> 2   1      に 助詞   格助詞 一般    *           *           *       に     ニ
-#> 3   1    埴輪 名詞     一般    *    *           *           *     埴輪 ハニワ
-#> 4   1      に 助詞   格助詞 一般    *           *           *       に     ニ
-#> 5   1      輪 名詞     一般    *    *           *           *       輪     ワ
-#> 6   1      と 助詞 並立助詞    *    *           *           *       と     ト
-#>    Yomi2
-#> 1   ニワ
-#> 2     ニ
-#> 3 ハニワ
-#> 4     ニ
-#> 5     ワ
-#> 6     ト
+print(res)
+#>    Surface POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original    Yomi1
+#> 1       庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭     ニワ
+#> 2       に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に       ニ
+#> 3     埴輪 名詞     一般   <NA> <NA>        <NA>        <NA>     埴輪   ハニワ
+#> 4       に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に       ニ
+#> 5       輪 名詞     一般   <NA> <NA>        <NA>        <NA>       輪       ワ
+#> 6       と 助詞 並立助詞   <NA> <NA>        <NA>        <NA>       と       ト
+#> 7       李 名詞 固有名詞   人名   姓        <NA>        <NA>       李       リ
+#> 8       が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が       ガ
+#> 9     いる 動詞     自立   <NA> <NA>        一段      基本形     いる     イル
+#> 10      庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭     ニワ
+#> 11      に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に       ニ
+#> 12      は 助詞   係助詞   <NA> <NA>        <NA>        <NA>       は       ハ
+#> 13      二 名詞       数   <NA> <NA>        <NA>        <NA>       二       ニ
+#> 14      羽 名詞     接尾 助数詞 <NA>        <NA>        <NA>       羽       ワ
+#> 15      鶏 名詞     一般   <NA> <NA>        <NA>        <NA>       鶏 ニワトリ
+#> 16      が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が       ガ
+#> 17    いる 動詞     自立   <NA> <NA>        一段      基本形     いる     イル
+#>       Yomi2
+#> 1      ニワ
+#> 2        ニ
+#> 3    ハニワ
+#> 4        ニ
+#> 5        ワ
+#> 6        ト
+#> 7        リ
+#> 8        ガ
+#> 9      イル
+#> 10     ニワ
+#> 11       ニ
+#> 12       ワ
+#> 13       ニ
+#> 14       ワ
+#> 15 ニワトリ
+#> 16       ガ
+#> 17     イル
 ```
+
+Prettified output has these columns.
+
+  - Sid: 文番号（sentence index）
+  - Surface: 表層形
+  - POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
+  - X5StageUse1: 活用型（ex. 五段, 下二段…）
+  - X5StageUse2: 活用形（ex. 連用形, 終止形…）
+  - Original: 原形（lemmatised form）
+  - Yomi1: 読み（readings）
+  - Yomi2: 発音（pronunciation）
 
 ## Code of Conduct
 

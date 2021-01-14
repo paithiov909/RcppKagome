@@ -54,8 +54,19 @@ print(res)
 ```{r usage_2}
 res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
 res <- RcppKagome::prettify(res)
-head(res)
+print(res)
 ```
+
+Prettified output has these columns.
+
+- Sid: 文番号（sentence index）
+- Surface: 表層形
+- POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
+- X5StageUse1: 活用型（ex. 五段, 下二段…）
+- X5StageUse2: 活用形（ex. 連用形, 終止形…）
+- Original: 原形（lemmatised form）
+- Yomi1: 読み（readings）
+- Yomi2: 発音（pronunciation）
 
 ## Code of Conduct
 
