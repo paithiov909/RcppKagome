@@ -41,13 +41,15 @@ prettify <- function(list) {
       return(df)
     })
   })
-  return(dplyr::transmute(
+  return(dplyr::mutate(
     res,
-    dplyr::across(where(is.character), ~
-    dplyr::if_else(
-      . == "*",
-      NA_character_,
-      .
-    ))
+    dplyr::across(
+      where(is.character),
+      ~ dplyr::if_else(
+        . == "*",
+        NA_character_,
+        .
+      )
+    )
   ))
 }

@@ -233,42 +233,42 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>res &lt;-<span class="st"> </span>RcppKagome<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RcppKagome/man/kagome.html">kagome</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"庭に埴輪に輪と李がいる"</span>, <span class="st">"庭には二羽鶏がいる"</span>))</span>
 <span id="cb3-2"><a href="#cb3-2"></a>res &lt;-<span class="st"> </span>RcppKagome<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/RcppKagome/man/prettify.html">prettify</a></span>(res)</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(res)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;    Surface POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original    Yomi1</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 1       庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭     ニワ</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 2       に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に       ニ</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 3     埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪   ハニワ</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 4       に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に       ニ</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 5       輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪       ワ</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 6       と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と       ト</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 7       李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李       リ</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 8       が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が       ガ</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 9     いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる     イル</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 10      庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭     ニワ</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 11      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に       ニ</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 12      は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は       ハ</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 13      二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二       ニ</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 14      羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽       ワ</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 15      鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏 ニワトリ</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 16      が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が       ガ</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 17    いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる     イル</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;       Yomi2</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 1      ニワ</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; 2        ニ</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; 3    ハニワ</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; 4        ニ</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 5        ワ</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 6        ト</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 7        リ</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 8        ガ</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; 9      イル</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; 10     ニワ</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; 11       ニ</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; 12       ワ</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; 13       ニ</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; 14       ワ</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; 15 ニワトリ</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; 16       ガ</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; 17     イル</span></span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;    Sid Surface POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 1    1      庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 2    1      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 3    1    埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 4    1      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 5    1      輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 6    1      と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 7    1      李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 8    1      が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 9    1    いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 10   2      庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 11   2      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 12   2      は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 13   2      二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 14   2      羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 15   2      鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 16   2      が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 17   2    いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;       Yomi1    Yomi2</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 1      ニワ     ニワ</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; 2        ニ       ニ</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; 3    ハニワ   ハニワ</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; 4        ニ       ニ</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 5        ワ       ワ</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 6        ト       ト</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 7        リ       リ</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; 8        ガ       ガ</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; 9      イル     イル</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; 10     ニワ     ニワ</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt; 11       ニ       ニ</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt; 12       ハ       ワ</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt; 13       ニ       ニ</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt; 14       ワ       ワ</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt; 15 ニワトリ ニワトリ</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; 16       ガ       ガ</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; 17     イル     イル</span></span></code></pre></div>
 <p>Prettified output has these columns.</p>
 <ul>
 <li>Sid: 文番号（sentence index）</li>
