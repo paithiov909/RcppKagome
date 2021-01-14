@@ -10,7 +10,7 @@ commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
-status](https://travis-ci.org/paithiov909/RcppKagome.svg?branch=master)](https://travis-ci.org/paithiov909/RcppKagome)
+status](https://travis-ci.com/paithiov909/RcppKagome.svg?branch=master)](https://travis-ci.com/paithiov909/RcppKagome)
 [![Codecov test
 coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=master)
 <!-- badges: end -->
