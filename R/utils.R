@@ -45,11 +45,7 @@ prettify <- function(list) {
     res,
     dplyr::across(
       where(is.character),
-      ~ dplyr::if_else(
-        . == "*",
-        NA_character_,
-        .
-      )
+      ~ dplyr::na_if(., "*")
     )
   ))
 }

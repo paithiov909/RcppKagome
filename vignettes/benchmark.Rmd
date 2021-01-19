@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 )
 stopifnot(
   require(RMeCab),
-  require(RcppMeCab),
   require(RcppKagome)
 )
 ```
@@ -29,7 +28,6 @@ str_utf8 <- stringi::stri_enc_toutf8(str)
 
 tm <- microbenchmark::microbenchmark(
   RMeCab = RMeCab::RMeCabC(str),
-  RcppMeCab = RcppMeCab::pos(str_utf8), ## MeCabの辞書はUTF-8でコンパイルしています
   RcppKagome = RcppKagome::kagome(str),
   times = 500L
 )

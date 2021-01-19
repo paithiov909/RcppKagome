@@ -1,10 +1,3 @@
-#' On Load
-#' @noRd
-#' @param libname libname
-#' @param pkgname pkgname
-#' @keywords internal
-NULL
-
 #' On Unload
 #' @noRd
 #' @param libpath libpath

@@ -8,8 +8,7 @@ PKG_LIBS += -L../inst/libs$(R_ARCH) -lm -lkagome
 
 .PHONY: all
 
-all: $(SHLIB)
-$(SHLIB): build copy
+all: build copy $(SHLIB)
 
 build:
 	rm -f ../inst/include/libkagome.h

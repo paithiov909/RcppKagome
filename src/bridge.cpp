@@ -6,7 +6,6 @@
 #include "../inst/include/libkagome.h"
 
 using namespace Rcpp;
-using namespace std;
 
 //' Trigger kagome tokenizer
 //'
@@ -24,7 +23,7 @@ using namespace std;
 // [[Rcpp::export]]
 Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text)
 {
-   std::function< Rcpp::String(Rcpp::String) > func_obj = [](Rcpp::String x) {
+   std::function< Rcpp::String(Rcpp::String) > func = [](Rcpp::String x) {
       const char* s = x.get_cstring();
       const std::size_t n = std::strlen(s);
       const std::ptrdiff_t len = n;
@@ -40,6 +39,6 @@ Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text)
       return result;
    };
 
-   const Rcpp::CharacterVector result = sapply(text, func_obj);
+   const Rcpp::CharacterVector result = sapply(text, func);
    return result;
 }

@@ -10,8 +10,7 @@ PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 
 .PHONY: all
 
-all: $(SHLIB)
-$(SHLIB): build copy
+all: build copy $(SHLIB)
 
 build:
 	$(GOFMT) github.com/paithiov909/libkagome

@@ -72,8 +72,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-
-extern char* tokenize(GoString p0);
+extern char* tokenize(GoString text);
 
 #ifdef __cplusplus
 }
