@@ -63,7 +63,7 @@ Prettified output has these columns.
 - Surface: 表層形
 - POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 - X5StageUse1: 活用型（ex. 五段, 下二段…）
-- X5StageUse2: 活用形（ex. 連用形, 終止形…）
+- X5StageUse2: 活用形（ex. 連用形, 基本形…）
 - Original: 原形（lemmatised form）
 - Yomi1: 読み（readings）
 - Yomi2: 発音（pronunciation）
