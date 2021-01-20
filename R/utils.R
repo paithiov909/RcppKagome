@@ -49,3 +49,19 @@ prettify <- function(list) {
     )
   ))
 }
+
+#' Pack prettified output
+#'
+#' @param df Output of \code{RcppKagome::prettify}
+#' @return data.frame.
+#'
+#' @import dplyr
+#' @importFrom furrr future_map_dfr
+#' @export
+pack <- function(df) {
+  res <- df %>%
+    dplyr::group_by(Sid) %>%
+    dplyr::group_map(~ paste(.x$Surface, collapse = " ")) %>%
+    furrr::future_imap_dfr(~ data.frame(Sid = .y, Text = .x))
+  return(res)
+}
