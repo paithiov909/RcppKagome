@@ -23,8 +23,6 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=master)
 <!-- badges: end -->
 
-## About
-
 RcppKagome is an R interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
@@ -46,7 +44,7 @@ remotes::install_github("paithiov909/RcppKagome")
 
 ```{r usage_1}
 res <- RcppKagome::kagome("にわにはにわにわとりがいる")
-print(res)
+str(res)
 ```
 
 ### Prettify Output
@@ -77,3 +75,4 @@ Please note that the RcppKagome project is released with a [Contributor Code of 
 Released under the MIT license https://github.com/paithiov909/RcppKagome/blob/master/LICENSE
 
 Icons made by [Freepik](http://www.freepik.com/) from [www.flaticon.com](https://www.flaticon.com/).
+

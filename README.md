@@ -15,18 +15,16 @@ status](https://travis-ci.com/paithiov909/RcppKagome.svg?branch=master)](https:/
 coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=master)
 <!-- badges: end -->
 
-## About
-
 RcppKagome is an R interface to
 [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained
 Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
 
-  - GNU make
-  - GNU GCC
-  - Go
-  - C++11
+-   GNU make
+-   GNU GCC
+-   Go
+-   C++11
 
 ## Installation
 
@@ -40,113 +38,45 @@ remotes::install_github("paithiov909/RcppKagome")
 
 ``` r
 res <- RcppKagome::kagome("にわにはにわにわとりがいる")
-print(res)
-#> [[1]]
-#> [[1]]$`0`
-#> [[1]]$`0`$Id
-#> [1] 53040
-#> 
-#> [[1]]$`0`$Start
-#> [1] 0
-#> 
-#> [[1]]$`0`$End
-#> [1] 1
-#> 
-#> [[1]]$`0`$Surface
-#> [1] "に"
-#> 
-#> [[1]]$`0`$Feature
-#> [1] "助詞"   "格助詞" "一般"   "*"      "*"      "*"      "に"     "ニ"    
-#> [9] "ニ"    
-#> 
-#> 
-#> [[1]]$`1`
-#> [[1]]$`1`$Id
-#> [1] 80172
-#> 
-#> [[1]]$`1`$Start
-#> [1] 1
-#> 
-#> [[1]]$`1`$End
-#> [1] 3
-#> 
-#> [[1]]$`1`$Surface
-#> [1] "わに"
-#> 
-#> [[1]]$`1`$Feature
-#> [1] "名詞" "一般" "*"    "*"    "*"    "*"    "わに" "ワニ" "ワニ"
-#> 
-#> 
-#> [[1]]$`2`
-#> [[1]]$`2`$Id
-#> [1] 58916
-#> 
-#> [[1]]$`2`$Start
-#> [1] 3
-#> 
-#> [[1]]$`2`$End
-#> [1] 6
-#> 
-#> [[1]]$`2`$Surface
-#> [1] "はにわ"
-#> 
-#> [[1]]$`2`$Feature
-#> [1] "名詞"   "一般"   "*"      "*"      "*"      "*"      "はにわ" "ハニワ"
-#> [9] "ハニワ"
-#> 
-#> 
-#> [[1]]$`3`
-#> [[1]]$`3`$Id
-#> [1] 53999
-#> 
-#> [[1]]$`3`$Start
-#> [1] 6
-#> 
-#> [[1]]$`3`$End
-#> [1] 10
-#> 
-#> [[1]]$`3`$Surface
-#> [1] "にわとり"
-#> 
-#> [[1]]$`3`$Feature
-#> [1] "名詞"     "一般"     "*"        "*"        "*"        "*"        "にわとり"
-#> [8] "ニワトリ" "ニワトリ"
-#> 
-#> 
-#> [[1]]$`4`
-#> [[1]]$`4`$Id
-#> [1] 19676
-#> 
-#> [[1]]$`4`$Start
-#> [1] 10
-#> 
-#> [[1]]$`4`$End
-#> [1] 11
-#> 
-#> [[1]]$`4`$Surface
-#> [1] "が"
-#> 
-#> [[1]]$`4`$Feature
-#> [1] "助詞"   "格助詞" "一般"   "*"      "*"      "*"      "が"     "ガ"    
-#> [9] "ガ"    
-#> 
-#> 
-#> [[1]]$`5`
-#> [[1]]$`5`$Id
-#> [1] 6652
-#> 
-#> [[1]]$`5`$Start
-#> [1] 11
-#> 
-#> [[1]]$`5`$End
-#> [1] 13
-#> 
-#> [[1]]$`5`$Surface
-#> [1] "いる"
-#> 
-#> [[1]]$`5`$Feature
-#> [1] "動詞"   "自立"   "*"      "*"      "一段"   "基本形" "いる"   "イル"  
-#> [9] "イル"
+str(res)
+#> List of 1
+#>  $ :List of 6
+#>   ..$ 0:List of 5
+#>   .. ..$ Id     : int 53040
+#>   .. ..$ Start  : int 0
+#>   .. ..$ End    : int 1
+#>   .. ..$ Surface: chr "に"
+#>   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...
+#>   ..$ 1:List of 5
+#>   .. ..$ Id     : int 80172
+#>   .. ..$ Start  : int 1
+#>   .. ..$ End    : int 3
+#>   .. ..$ Surface: chr "わに"
+#>   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...
+#>   ..$ 2:List of 5
+#>   .. ..$ Id     : int 58916
+#>   .. ..$ Start  : int 3
+#>   .. ..$ End    : int 6
+#>   .. ..$ Surface: chr "はにわ"
+#>   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...
+#>   ..$ 3:List of 5
+#>   .. ..$ Id     : int 53999
+#>   .. ..$ Start  : int 6
+#>   .. ..$ End    : int 10
+#>   .. ..$ Surface: chr "にわとり"
+#>   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...
+#>   ..$ 4:List of 5
+#>   .. ..$ Id     : int 19676
+#>   .. ..$ Start  : int 10
+#>   .. ..$ End    : int 11
+#>   .. ..$ Surface: chr "が"
+#>   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...
+#>   ..$ 5:List of 5
+#>   .. ..$ Id     : int 6652
+#>   .. ..$ Start  : int 11
+#>   .. ..$ End    : int 13
+#>   .. ..$ Surface: chr "いる"
+#>   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...
 ```
 
 ### Prettify Output
@@ -195,14 +125,14 @@ print(res)
 
 Prettified output has these columns.
 
-  - Sid: 文番号（sentence index）
-  - Surface: 表層形
-  - POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
-  - X5StageUse1: 活用型（ex. 五段, 下二段…）
-  - X5StageUse2: 活用形（ex. 連用形, 終止形…）
-  - Original: 原形（lemmatised form）
-  - Yomi1: 読み（readings）
-  - Yomi2: 発音（pronunciation）
+-   Sid: 文番号（sentence index）
+-   Surface: 表層形
+-   POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
+-   X5StageUse1: 活用型（ex. 五段, 下二段…）
+-   X5StageUse2: 活用形（ex. 連用形, 基本形…）
+-   Original: 原形（lemmatised form）
+-   Yomi1: 読み（readings）
+-   Yomi2: 発音（pronunciation）
 
 ## Code of Conduct
 

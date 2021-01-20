@@ -1,0 +1,120 @@
+---
+title: "About RcppKagome package"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+header-includes:
+  - \usepackage[utf8]{inputenc}
+vignette: >
+  %\VignetteIndexEntry{About RcppKagome package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = "styler",
+  collapse = TRUE,
+  comment = "#>"
+)
+stopifnot(
+  require(RMeCab),
+  require(RcppKagome)
+)
+RMeCab::RMeCabC("テスト")
+```
+
+[![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
+
+## これは何？
+
+Rで形態素解析するためのパッケージです。[Pure Goで辞書同梱な形態素解析器](https://qiita.com/ikawaha/items/ff27ac03e22b7f36811b)として知られる[ikawaha/kagome](https://github.com/ikawaha/kagome)をラップしています。
+
+## 使い方
+
+### インストール
+
+ソースからビルドします。makeとGCCとGoが必要です。
+
+``` r
+remotes::install_github("paithiov909/RcppKagome")
+```
+
+### 形態素解析
+
+character vectorを渡せます。戻り値はリストです。
+
+```{r call_kagome}
+res <- RcppKagome::kagome("にわにはにわにわとりがいる")
+str(res)
+```
+
+結果をデータフレームに整形できます。
+
+```{r prettify_output}
+res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
+res <- RcppKagome::prettify(res)
+print(res)
+```
+
+整形されたデータフレームは次のカラムからなります。
+
+- Sid: 文番号（sentence index）
+- Surface: 表層形
+- POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
+- X5StageUse1: 活用型（ex. 五段, 下二段…）
+- X5StageUse2: 活用形（ex. 連用形, 終止形…）
+- Original: 原形（lemmatised form）
+- Yomi1: 読み（readings）
+- Yomi2: 発音（pronunciation）
+
+このうちSurface列だけを半角スペースでcollapseして返す（分かち書きにする）ことができます。
+
+```{r pack_output}
+RcppKagome::pack(res)
+```
+
+以下の記事のなかで実際に使用しています。この記事では分かち書きにした文書を[quanteda](https://quanteda.io/)のコーパスとして持っています。
+
+- [R（quanteda）によるテキスト解析 - Qiita](https://qiita.com/paithiov909/items/a47a097836e8a9ec12ef)
+
+## ベンチマーク
+
+RMeCabと比較してとくに遅いということはないはずです。
+
+```{r benchmark_1}
+str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
+tm <- microbenchmark::microbenchmark(
+  RMeCab = RMeCab::RMeCabC(str),
+  RcppKagome = RcppKagome::kagome(str),
+  times = 500L
+)
+summary(tm)
+```
+
+```{r becnhmark_2}
+ggplot2::autoplot(tm)
+```
+
+## RとGoの連携について
+
+日本語情報としては以下の記事があります。
+
+- [RからGoの関数をつかう→はやい - ★データ解析備忘録★]()https://y-mattu.hatenablog.com/entry/2019/05/20/232340
+
+この記事はもともとRomain Francois氏（RcppとかrJavaとかの開発にかかわっているスゴい人らしい）が書いたブログ記事を参考にしているものです。
+
+Goには`cgo`というコマンドが用意されていて、Goで書かれたコードをC言語から利用するためのライブラリにすることができます。この機能を利用して生成したC言語向けのライブラリをRパッケージから呼び出すことで、いちおうはGoの資産をRから利用することができます。
+
+本来、Cなどで書かれた関数をRパッケージで直接呼ぶためには`.Call`を使って呼べる状態にするために関数の`registration`という操作が必要になります。この手間を省略するために、RcppKagomeではcgoで生成したライブラリをC++から利用するラッパーを書いて、それをRcppでエクスポートしています。
+
+また、より便利に扱うためにはGoとのあいだに型マッピングを定義するのが望ましいのでしょうが、RcppKagomeではその点については深入りせず、文字列だけを受け渡しするようにしています。参考までに、Goとのあいだに型マッピングが定義されているほかの例を挙げておきます。
+
+- [rgonomic/rgo: R/Go integration](https://github.com/rgonomic/rgo)
+- [EMurray16/Rgo: Connecting R and Go](https://github.com/EMurray16/Rgo)
+
+## セッション情報
+
+```{r session_info}
+sessioninfo::session_info()
+```
+
