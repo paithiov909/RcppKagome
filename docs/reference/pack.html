@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trigger kagome tokenizer — tokenize • RcppKagome</title>
+<title>Pack prettified output — pack • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
 
 
 
-<meta property="og:title" content="Trigger kagome tokenizer — tokenize" />
-<meta property="og:description" content="For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as character scalar." />
+<meta property="og:title" content="Pack prettified output — pack" />
+<meta property="og:description" content="Pack prettified output" />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -126,29 +125,29 @@ returns an UTF8-encoded json as character scalar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trigger kagome tokenizer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
-    <div class="hidden name"><code>tokenize.Rd</code></div>
+    <h1>Pack prettified output</h1>
+    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>pack.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as character scalar.</p>
+    <p>Pack prettified output</p>
     </div>
 
+    <pre class="usage"><span class='fu'>pack</span>(<span class='no'>df</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>character vector</p></td>
+      <th>df</th>
+      <td><p>Output of <code><a href='prettify.html'>RcppKagome::prettify</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>res character scalar (JSON string)</p>
+    <p>data.frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
