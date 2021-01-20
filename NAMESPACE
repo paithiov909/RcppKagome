@@ -2,6 +2,7 @@
 
 export("%>%")
 export(kagome)
+export(pack)
 export(prettify)
 export(tokenize)
 import(dplyr)

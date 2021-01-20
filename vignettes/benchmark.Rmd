@@ -24,7 +24,6 @@ stopifnot(
 
 ```{r benchmark_1}
 str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
-str_utf8 <- stringi::stri_enc_toutf8(str)
 
 tm <- microbenchmark::microbenchmark(
   RMeCab = RMeCab::RMeCabC(str),

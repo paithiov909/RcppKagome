@@ -1,7 +1,7 @@
 Package: RcppKagome
 Type: Package
 Title: 'Rcpp' Interface to Kagome
-Version: 0.0.0.400
+Version: 0.0.0.500
 Authors@R: c(
     person("Kato", "Akiru", email = "paithiov909@gmail.com", role = c("aut", "cre")))
 Maintainer: Kato Akiru <paithiov909@gmail.com>
