@@ -3,7 +3,7 @@
 #' Call kagome tokenizer.
 #'
 #' @param text character vector
-#' @param ... all other args are passed to \code{jsonlite::toJSON}
+#' @param ... all other args are passed to \code{jsonlite::fromJSON}
 #' @return list
 #'
 #' @importFrom stringi stri_conv

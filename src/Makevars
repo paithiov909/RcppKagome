@@ -11,11 +11,11 @@ PKG_LIBS += -L../inst/libs$(R_ARCH) -lm -lkagome
 all: build copy $(SHLIB)
 
 build:
-	rm -f ../inst/include/libkagome.h
+	@rm -f ../inst/include/libkagome.h
 	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
 
 copy:
-	cd $(CURDIR)
-	cp libkagome.h ../inst/include
+	@cd $(CURDIR)
+	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
-	cp libkagome.a ../inst/libs$(R_ARCH)
+	@cp libkagome.a ../inst/libs$(R_ARCH)

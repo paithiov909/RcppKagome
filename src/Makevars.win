@@ -3,7 +3,7 @@ GOPATH = $(CURDIR)/go
 GOFMT = go fmt
 GOBUILD = go build
 CXX_STD = CXX11
-CXX11 = "g++"
+CXX11 = g++
 PKG_LIBS += -L../inst/libs$(R_ARCH) -lm -lkagome
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
@@ -17,7 +17,7 @@ build:
 	GOOS="windows" GOPATH="$(GOPATH)" CXX="$(CXX11)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
 
 copy:
-	cd $(CURDIR)
-	cp libkagome.h ../inst/include
+	@cd $(CURDIR)
+	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
-	cp libkagome.a ../inst/libs$(R_ARCH)
+	@cp libkagome.a ../inst/libs$(R_ARCH)
