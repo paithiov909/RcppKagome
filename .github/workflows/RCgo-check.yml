@@ -35,7 +35,7 @@ jobs:
           git submodule init
           git submodule update --recommend-shallow --recursive
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--no-vignettes"), error_on = "error")
+        run: rcmdcheck::rcmdcheck(args = c("--no-vignettes", "--no-manual"), error_on = "error")
         shell: Rscript {0}
       - name: Codecov
         run: covr::codecov()
