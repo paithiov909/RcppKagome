@@ -13,7 +13,7 @@ PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 all: build copy $(SHLIB)
 
 build:
-	$(GOFMT) github.com/paithiov909/libkagome
+	GOPATH="$(GOPATH)" $(GOFMT) github.com/paithiov909/libkagome
 	GOOS="windows" GOPATH="$(GOPATH)" CXX="$(CXX11)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
 
 copy:
