@@ -20,7 +20,7 @@ stopifnot(
   require(RMeCab),
   require(RcppKagome)
 )
-RMeCab::RMeCabC("テスト")
+RMeCab::RMeCabC("test")
 ```
 
 [![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
