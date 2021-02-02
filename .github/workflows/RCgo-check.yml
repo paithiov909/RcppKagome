@@ -27,7 +27,8 @@ jobs:
           r-version: ${{ matrix.r-version }}
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "covr"))
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_github("r-lib/covr")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Update submodules
