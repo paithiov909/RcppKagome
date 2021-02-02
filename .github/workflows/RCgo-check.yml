@@ -27,7 +27,7 @@ jobs:
           r-version: ${{ matrix.r-version }}
       - name: Install libcurl-dev
         if: ${{ matrix.platform == 'ubuntu-latest' }}
-        run: sudo apt-get install libcurl-dev
+        run: sudo apt-get install libcurl4-openssl-dev
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
