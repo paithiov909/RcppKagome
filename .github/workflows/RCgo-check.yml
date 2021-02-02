@@ -12,7 +12,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macOS-latest]
+        platform: [ubuntu-latest, windows-latest]
         r-version: ['4.0.0']
     runs-on: ${{ matrix.platform }}
     steps:
@@ -25,9 +25,13 @@ jobs:
         uses: r-lib/actions/setup-r@v1
         with:
           r-version: ${{ matrix.r-version }}
+      - name: Install libcurl-dev
+        if: ${{ matrix.platform == 'ubuntu-latest' }}
+        run: sudo apt-get install libcurl4-openssl-dev
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "covr"))
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_github("r-lib/covr")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Update submodules
@@ -35,7 +39,7 @@ jobs:
           git submodule init
           git submodule update --recommend-shallow --recursive
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--no-build-vignettes"), error_on = "error")
+        run: rcmdcheck::rcmdcheck(args = c("--no-multiarch", "--no-vignettes", "--no-manual"), build_args = c("--no-build-vignettes", "--no-manual"), error_on = "error")
         shell: Rscript {0}
       - name: Codecov
         run: covr::codecov()
