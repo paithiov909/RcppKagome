@@ -1,6 +1,6 @@
 #' Prettify kagome output
 #'
-#' @param list output of \code{RcppKagome::kagome}
+#' @param list Output of \code{RcppKagome::kagome}
 #' @return data.frame
 #'
 #' @import dplyr

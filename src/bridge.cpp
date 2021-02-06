@@ -1,4 +1,3 @@
-// [[Rcpp::plugins(cpp11)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
 #include <cstdlib>
@@ -10,10 +9,10 @@ using namespace Rcpp;
 //' Trigger kagome tokenizer
 //'
 //' For internal use. The argument should be UTF8 encoded. This function just
-//' returns an UTF8-encoded json as character scalar.
+//' returns an UTF8-encoded json as a character scalar.
 //'
-//' @param text character vector
-//' @return res character scalar (JSON string)
+//' @param text Character vector
+//' @return res Character scalar (JSON string)
 //'
 //' @name tokenize
 //' @keywords internal

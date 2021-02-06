@@ -4,13 +4,13 @@
 \alias{tokenize}
 \title{Trigger kagome tokenizer}
 \arguments{
-\item{text}{character vector}
+\item{text}{Character vector}
 }
 \value{
-res character scalar (JSON string)
+res Character scalar (JSON string)
 }
 \description{
 For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as character scalar.
+returns an UTF8-encoded json as a character scalar.
 }
 \keyword{internal}

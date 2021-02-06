@@ -21,3 +21,4 @@ copy:
 	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
 	@cp libkagome.a ../inst/libs$(R_ARCH)
+	@rm libkagome.a
