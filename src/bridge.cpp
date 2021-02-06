@@ -1,4 +1,3 @@
-// [[Rcpp::plugins(cpp11)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
 #include <cstdlib>
