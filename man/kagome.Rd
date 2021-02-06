@@ -7,9 +7,9 @@
 kagome(text, ...)
 }
 \arguments{
-\item{text}{character vector}
+\item{text}{Character vector}
 
-\item{...}{all other args are passed to \code{jsonlite::fromJSON}}
+\item{...}{All other arguments are passed to \code{jsonlite::fromJSON}}
 }
 \value{
 list
