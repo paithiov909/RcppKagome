@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.500</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.600</span>
       </span>
     </div>
 
@@ -170,24 +170,24 @@
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"庭に埴輪に輪と李がいる"</span>, <span class="st">"庭には二羽鶏がいる"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;    Sid Surface POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original</span>
-<span class="co">#&gt; 1    1      庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 2    1      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 3    1    埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪</span>
-<span class="co">#&gt; 4    1      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 5    1      輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪</span>
-<span class="co">#&gt; 6    1      と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と</span>
-<span class="co">#&gt; 7    1      李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李</span>
-<span class="co">#&gt; 8    1      が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 9    1    いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
-<span class="co">#&gt; 10   2      庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 11   2      に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 12   2      は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は</span>
-<span class="co">#&gt; 13   2      二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二</span>
-<span class="co">#&gt; 14   2      羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽</span>
-<span class="co">#&gt; 15   2      鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏</span>
-<span class="co">#&gt; 16   2      が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 17   2    いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
+<span class="co">#&gt;    sentence_id token POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original</span>
+<span class="co">#&gt; 1            1    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
+<span class="co">#&gt; 2            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
+<span class="co">#&gt; 3            1  埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪</span>
+<span class="co">#&gt; 4            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
+<span class="co">#&gt; 5            1    輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪</span>
+<span class="co">#&gt; 6            1    と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と</span>
+<span class="co">#&gt; 7            1    李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李</span>
+<span class="co">#&gt; 8            1    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
+<span class="co">#&gt; 9            1  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
+<span class="co">#&gt; 10           2    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
+<span class="co">#&gt; 11           2    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
+<span class="co">#&gt; 12           2    は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は</span>
+<span class="co">#&gt; 13           2    二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二</span>
+<span class="co">#&gt; 14           2    羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽</span>
+<span class="co">#&gt; 15           2    鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏</span>
+<span class="co">#&gt; 16           2    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
+<span class="co">#&gt; 17           2  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
 <span class="co">#&gt;       Yomi1    Yomi2</span>
 <span class="co">#&gt; 1      ニワ     ニワ</span>
 <span class="co">#&gt; 2        ニ       ニ</span>
@@ -208,8 +208,8 @@
 <span class="co">#&gt; 17     イル     イル</span></code></pre></div>
 <p>Prettified output has these columns.</p>
 <ul>
-<li>Sid: 文番号（sentence index）</li>
-<li>Surface: 表層形</li>
+<li>sentence_id: 文番号（sentence index）</li>
+<li>token: 表層形 (surface form)</li>
 <li>POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3</li>
 <li>X5StageUse1: 活用型（ex. 五段, 下二段…）</li>
 <li>X5StageUse2: 活用形（ex. 連用形, 基本形…）</li>
@@ -227,7 +227,7 @@
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p>Released under the MIT license <a href="https://github.com/paithiov909/RcppKagome/blob/master/LICENSE" class="uri">https://github.com/paithiov909/RcppKagome/blob/master/LICENSE</a></p>
+<p>MIT license.</p>
 <p>Icons made by <a href="http://www.freepik.com/">Freepik</a> from <a href="https://www.flaticon.com/">www.flaticon.com</a>.</p>
 </div>
 </div>
@@ -261,7 +261,7 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Kato Akiru <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Akiru Kato <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
@@ -279,7 +279,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kato Akiru.</p>
+  <p>Developed by Akiru Kato.</p>
 </div>
 
 <div class="pkgdown">

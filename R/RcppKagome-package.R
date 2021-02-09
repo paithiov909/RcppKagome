@@ -2,6 +2,7 @@
 #' @docType package
 ## usethis namespace: start
 #' @importFrom Rcpp sourceCpp
+#' @importFrom RcppParallel RcppParallelLibs
 #' @useDynLib RcppKagome, .registration=TRUE
 ## usethis namespace: end
 #' @keywords internal

@@ -13,14 +13,17 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   tidy = "styler",
-  collapse = TRUE,
+  collapse = FALSE,
   comment = "#>"
 )
 stopifnot(
   require(RMeCab),
+  require(RcppMeCab),
   require(RcppKagome)
 )
 RMeCab::RMeCabC("test")
+RcppMeCab::pos("test")
+RcppKagome::kagome("test")
 ```
 
 [![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
@@ -58,8 +61,8 @@ print(res)
 
 整形されたデータフレームは次のカラムからなります。
 
-- Sid: 文番号（sentence index）
-- Surface: 表層形
+- sentence_id: 文番号（sentence index）
+- token: 表層形（surface form）
 - POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 - X5StageUse1: 活用型（ex. 五段, 下二段…）
 - X5StageUse2: 活用形（ex. 連用形, 終止形…）
@@ -85,6 +88,7 @@ RMeCabと比較してとくに遅いということはないはずです。
 str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
 tm <- microbenchmark::microbenchmark(
   RMeCab = RMeCab::RMeCabC(str),
+  RcppMeCab = RcppMeCab::pos(str),
   RcppKagome = RcppKagome::kagome(str),
   times = 500L
 )

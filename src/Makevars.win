@@ -4,7 +4,7 @@ GOFMT = go fmt
 GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
-PKG_LIBS += -L../inst/libs$(R_ARCH) -lm -lkagome
+PKG_LIBS += -L../inst/libs$(R_ARCH) -lkagome
 PKG_CPPFLAGS += -I'$(CURDIR)'
 PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 
@@ -13,7 +13,6 @@ PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
 all: build copy $(SHLIB)
 
 build:
-	GOPATH="$(GOPATH)" $(GOFMT) github.com/paithiov909/libkagome
 	GOOS="windows" GOPATH="$(GOPATH)" CXX="$(CXX11)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
 
 copy:

@@ -3,8 +3,5 @@
 ^\.github$
 ^docs$
 ^pkgdown$
-^_pkgdown\.yml$
-^\.travis\.yml$
 ^codecov\.yml$
 ^README\.Rmd$
-^CODE_OF_CONDUCT\.md$
