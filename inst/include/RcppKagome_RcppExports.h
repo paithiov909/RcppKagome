@@ -24,17 +24,17 @@ namespace RcppKagome {
         }
     }
 
-    inline Rcpp::CharacterVector tokenize(Rcpp::CharacterVector text) {
-        typedef SEXP(*Ptr_tokenize)(SEXP);
-        static Ptr_tokenize p_tokenize = NULL;
-        if (p_tokenize == NULL) {
-            validateSignature("Rcpp::CharacterVector(*tokenize)(Rcpp::CharacterVector)");
-            p_tokenize = (Ptr_tokenize)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize");
+    inline Rcpp::CharacterVector tokenize_morphemes(Rcpp::CharacterVector text) {
+        typedef SEXP(*Ptr_tokenize_morphemes)(SEXP);
+        static Ptr_tokenize_morphemes p_tokenize_morphemes = NULL;
+        if (p_tokenize_morphemes == NULL) {
+            validateSignature("Rcpp::CharacterVector(*tokenize_morphemes)(Rcpp::CharacterVector)");
+            p_tokenize_morphemes = (Ptr_tokenize_morphemes)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize_morphemes");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_tokenize(Shield<SEXP>(Rcpp::wrap(text)));
+            rcpp_result_gen = p_tokenize_morphemes(Shield<SEXP>(Rcpp::wrap(text)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

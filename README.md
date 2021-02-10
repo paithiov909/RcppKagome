@@ -84,24 +84,24 @@ str(res)
 res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
 res <- RcppKagome::prettify(res)
 print(res)
-#>    Sid Surface POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original
-#> 1    1      庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭
-#> 2    1      に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
-#> 3    1    埴輪 名詞     一般   <NA> <NA>        <NA>        <NA>     埴輪
-#> 4    1      に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
-#> 5    1      輪 名詞     一般   <NA> <NA>        <NA>        <NA>       輪
-#> 6    1      と 助詞 並立助詞   <NA> <NA>        <NA>        <NA>       と
-#> 7    1      李 名詞 固有名詞   人名   姓        <NA>        <NA>       李
-#> 8    1      が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が
-#> 9    1    いる 動詞     自立   <NA> <NA>        一段      基本形     いる
-#> 10   2      庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭
-#> 11   2      に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
-#> 12   2      は 助詞   係助詞   <NA> <NA>        <NA>        <NA>       は
-#> 13   2      二 名詞       数   <NA> <NA>        <NA>        <NA>       二
-#> 14   2      羽 名詞     接尾 助数詞 <NA>        <NA>        <NA>       羽
-#> 15   2      鶏 名詞     一般   <NA> <NA>        <NA>        <NA>       鶏
-#> 16   2      が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が
-#> 17   2    いる 動詞     自立   <NA> <NA>        一段      基本形     いる
+#>    sentence_id token POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original
+#> 1            1    庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭
+#> 2            1    に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
+#> 3            1  埴輪 名詞     一般   <NA> <NA>        <NA>        <NA>     埴輪
+#> 4            1    に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
+#> 5            1    輪 名詞     一般   <NA> <NA>        <NA>        <NA>       輪
+#> 6            1    と 助詞 並立助詞   <NA> <NA>        <NA>        <NA>       と
+#> 7            1    李 名詞 固有名詞   人名   姓        <NA>        <NA>       李
+#> 8            1    が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が
+#> 9            1  いる 動詞     自立   <NA> <NA>        一段      基本形     いる
+#> 10           2    庭 名詞     一般   <NA> <NA>        <NA>        <NA>       庭
+#> 11           2    に 助詞   格助詞   一般 <NA>        <NA>        <NA>       に
+#> 12           2    は 助詞   係助詞   <NA> <NA>        <NA>        <NA>       は
+#> 13           2    二 名詞       数   <NA> <NA>        <NA>        <NA>       二
+#> 14           2    羽 名詞     接尾 助数詞 <NA>        <NA>        <NA>       羽
+#> 15           2    鶏 名詞     一般   <NA> <NA>        <NA>        <NA>       鶏
+#> 16           2    が 助詞   格助詞   一般 <NA>        <NA>        <NA>       が
+#> 17           2  いる 動詞     自立   <NA> <NA>        一段      基本形     いる
 #>       Yomi1    Yomi2
 #> 1      ニワ     ニワ
 #> 2        ニ       ニ
@@ -124,8 +124,8 @@ print(res)
 
 Prettified output has these columns.
 
--   Sid: 文番号（sentence index）
--   Surface: 表層形
+-   sentence\_id: 文番号（sentence index）
+-   token: 表層形 (surface form)
 -   POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 -   X5StageUse1: 活用型（ex. 五段, 下二段…）
 -   X5StageUse2: 活用形（ex. 連用形, 基本形…）
@@ -142,8 +142,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ## License
 
-Released under the MIT license
-<https://github.com/paithiov909/RcppKagome/blob/master/LICENSE>
+MIT license.
 
 Icons made by [Freepik](http://www.freepik.com/) from
 [www.flaticon.com](https://www.flaticon.com/).

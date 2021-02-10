@@ -12,8 +12,8 @@ prettify <- function(list) {
   res <- furrr::future_imap_dfr(list, function(v, i) {
     furrr::future_map_dfr(v, function(elem) {
       df <- data.frame(
-        "Sid" = i,
-        "Surface" = elem$Surface,
+        "sentence_id" = i,
+        "token" = elem$Surface,
         data.frame(t(elem$Feature))
       )
       if (ncol(df) < 11L) {
@@ -26,8 +26,8 @@ prettify <- function(list) {
         )
       }
       colnames(df) <- c(
-        "Sid",
-        "Surface",
+        "sentence_id",
+        "token",
         "POS1",
         "POS2",
         "POS3",
@@ -60,8 +60,8 @@ prettify <- function(list) {
 #' @export
 pack <- function(df) {
   res <- df %>%
-    dplyr::group_by(Sid) %>%
-    dplyr::group_map(~ paste(.x$Surface, collapse = " ")) %>%
-    furrr::future_imap_dfr(~ data.frame(Sid = .y, Text = .x))
+    dplyr::group_by(sentence_id) %>%
+    dplyr::group_map(~ paste(.x$token, collapse = " ")) %>%
+    furrr::future_imap_dfr(~ data.frame(doc_id = .y, Text = .x))
   return(res)
 }

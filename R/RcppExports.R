@@ -9,13 +9,13 @@
 #' @param text Character vector
 #' @return res Character scalar (JSON string)
 #'
-#' @name tokenize
+#' @name tokenize_morphemes
 #' @keywords internal
 #' @export
 NULL
 
-tokenize <- function(text) {
-    .Call(`_RcppKagome_tokenize`, text)
+tokenize_morphemes <- function(text) {
+    .Call(`_RcppKagome_tokenize_morphemes`, text)
 }
 
 # Register entry points for exported C++ functions
