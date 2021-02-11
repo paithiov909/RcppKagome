@@ -1,12 +1,11 @@
-CURDIR = $(shell Rscript -e "cat(getwd())")
+CURDIR = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "cat(getwd())")
 GOPATH = $(CURDIR)/go
-GOFMT = go fmt
 GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
 PKG_LIBS += -L../inst/libs$(R_ARCH) -lkagome
 PKG_CPPFLAGS += -I'$(CURDIR)'
-PKG_CXXFLAGS += -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT
+PKG_CXXFLAGS += -DDLL_IMPORT
 
 .PHONY: all
 

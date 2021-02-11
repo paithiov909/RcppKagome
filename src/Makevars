@@ -1,4 +1,4 @@
-CURDIR = $(shell Rscript -e "cat(getwd())")
+CURDIR = $(shell "$(R_HOME)/bin/Rscript" -e "cat(getwd())")
 GOPATH = $(CURDIR)/go
 GOBUILD = go build
 CXX_STD = CXX11
