@@ -27,3 +27,12 @@ describe("Check output of prettify", {
     expect_equal(res[14, 2], enc2utf8("\u4eba\u9593"))
   })
 })
+
+describe("Check output of pack", {
+  it("Valid output?", {
+    res <- kagome(sentence)
+    res <- prettify(res)
+    res <- pack(res)
+    expect_type(res$text, "character")
+  })
+})

@@ -1,7 +1,7 @@
 Package: RcppKagome
 Type: Package
 Title: 'Rcpp' Interface to Kagome
-Version: 0.0.0.600
+Version: 0.0.0.700
 Authors@R: c(
     person("Akiru", "Kato", email = "paithiov909@gmail.com", role = c("aut", "cre")))
 Maintainer: Kato Akiru <paithiov909@gmail.com>
@@ -23,7 +23,8 @@ Imports:
     dplyr,
     jsonlite,
     furrr,
-    stringi
+    stringi,
+    stringr
 LinkingTo:
     Rcpp,
     RcppThread,

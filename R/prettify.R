@@ -49,19 +49,3 @@ prettify <- function(list) {
     )
   ))
 }
-
-#' Pack prettified output
-#'
-#' @param df Output of \code{RcppKagome::prettify}
-#' @return data.frame.
-#'
-#' @import dplyr
-#' @importFrom furrr future_map_dfr
-#' @export
-pack <- function(df) {
-  res <- df %>%
-    dplyr::group_by(sentence_id) %>%
-    dplyr::group_map(~ paste(.x$token, collapse = " ")) %>%
-    furrr::future_imap_dfr(~ data.frame(doc_id = .y, Text = .x))
-  return(res)
-}

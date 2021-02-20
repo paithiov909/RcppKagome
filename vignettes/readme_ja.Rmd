@@ -85,11 +85,13 @@ RcppKagome::pack(res)
 RMeCabと比較してとくに遅いということはないはずです。
 
 ```{r benchmark_1}
-str <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
+str_shifttjis <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
+str_utf8 <- enc2utf8(str_shifttjis)
 tm <- microbenchmark::microbenchmark(
-  RMeCab = RMeCab::RMeCabC(str),
-  RcppMeCab = RcppMeCab::pos(str),
-  RcppKagome = RcppKagome::kagome(str),
+  RMeCabC = RMeCab::RMeCabC(str_shifttjis, mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc"),
+  pos = RcppMeCab::pos(str_utf8),
+  posParallel = RcppMeCab::posParallel(str_utf8),
+  kagome = RcppKagome::kagome(str_utf8),
   times = 500L
 )
 summary(tm)
