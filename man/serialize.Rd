@@ -7,6 +7,8 @@
 serialize(sentences, mode = "normal", dict = "ipa")
 }
 \arguments{
+\item{sentences}{Character to be analyzed.}
+
 \item{mode}{One of `normal`, `search` or `extended`.}
 
 \item{dict}{One of `ipa` (the IPA-dic) or `uni` (the Uni-dic).}

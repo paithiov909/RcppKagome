@@ -12,6 +12,16 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+stopifnot(
+  require(RMeCab),
+  require(RcppMeCab),
+  require(RcppKagome),
+  RcppKagome::ping() == 200L
+)
+## Initial loads of dynamic libraries ---
+RMeCab::RMeCabC("test load", mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc")
+RcppMeCab::pos("test load")
+RcppKagome::kagome("test load")
 ```
 
 # RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/logo.png' align="right" height="139" /></a>
@@ -91,6 +101,66 @@ sentences %>%
   RcppKagome::queue() %>%
   RcppKagome::kick() %>%
   RcppKagome::pack_df("surface")
+```
+
+## Comparison with Alternatives
+
+### Targets of Comparison
+
+- [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
+  - RcppKagome::kagome
+- [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
+  - RMeCab::RMeCabC
+- [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+  - RcppMeCab::pos
+  - RcppMeCab::posParallel
+
+### Data
+
+```{r bench-prep}
+csv <- file.path("tools/miyazawa_kenji_head.csv") %>%
+  readr::read_csv() %>%
+  dplyr::slice_head(prop = .4) %>%
+  dplyr::mutate(
+    sentences_shift_jis = iconv(sentences, from = "UTF-8", to = "CP932")
+  )
+dplyr::glimpse(csv)
+```
+
+### Tokenize Character Scalar
+
+```{r bench-summary_1}
+tm <- microbenchmark::microbenchmark(
+  RMeCabC = RMeCab::RMeCabC(csv$sentences_shift_jis[3], mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc"),
+  pos = RcppMeCab::pos(csv$sentences[3]),
+  posParallel = RcppMeCab::posParallel(csv$sentences[3]),
+  kagome = RcppKagome::kagome(csv$sentences[3]),
+  times = 500L
+)
+summary(tm)
+```
+
+```{r becnh-plot-1}
+ggplot2::autoplot(tm)
+```
+
+### Tokenize Character Vector
+
+`RMeCabC` is wrapped with `purrr::map` here because that function is not vectorized.
+
+```{r bench-summary_2}
+tm <- microbenchmark::microbenchmark(
+  RMeCabC = purrr::map(csv$sentences_shift_jis, ~ RMeCab::RMeCabC(., mecabrc = "/MeCab/ipadic-shiftjis/mecabrc")),
+  pos = RcppMeCab::pos(csv$sentences),
+  posParallel = RcppMeCab::posParallel(csv$sentences),
+  kagome = RcppKagome::kagome(csv$sentences),
+  times = 10L
+)
+summary(tm)
+```
+
+```{r becnh-plot-2}
+ggplot2::autoplot(tm)
 ```
 
 ## Code of Conduct

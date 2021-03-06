@@ -68,7 +68,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/demo_ja.html">R（quanteda）によるテキスト解析</a>
+      <a href="articles/demo_ja.html">Practice: Text analysis using quanteda</a>
     </li>
     <li>
       <a href="articles/readme_ja.html">About RcppKagome package</a>
@@ -296,11 +296,6 @@
 <p>RcppKagome provides three simple helper, that are <code>serialize</code>, <code>queue</code>, and <code>kick</code>, so that user can access their own Kagome Web API. Once set <code>KAGOME_URL</code> as environment vars and following steps below, you can easily use Kagome server via Web API.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paithiov909/RcppKagome">RcppKagome</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'RcppKagome'</span>
-<span class="co">#&gt; The following object is masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     serialize</span>
 
 <span class="va">sentences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
   <span class="st">"激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ"</span>,
@@ -318,6 +313,108 @@
 <span class="co">#&gt;                                                                                        text</span>
 <span class="co">#&gt; 1                    激しい 激しい 熱 や 喘ぎ の あいだ から 、 お前 は 私 に 頼ん だ の だ</span>
 <span class="co">#&gt; 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を</span></code></pre></div>
+</div>
+</div>
+<div id="comparison-with-alternatives" class="section level2">
+<h2 class="hasAnchor">
+<a href="#comparison-with-alternatives" class="anchor"></a>Comparison with Alternatives</h2>
+<div id="targets-of-comparison" class="section level3">
+<h3 class="hasAnchor">
+<a href="#targets-of-comparison" class="anchor"></a>Targets of Comparison</h3>
+<ul>
+<li>
+<a href="https://github.com/paithiov909/RcppKagome">paithiov909/RcppKagome</a>
+<ul>
+<li>RcppKagome::kagome</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/IshidaMotohiro/RMeCab">IshidaMotohiro/RMeCab</a>
+<ul>
+<li>RMeCab::RMeCabC</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/junhewk/RcppMeCab">junhewk/RcppMeCab</a>
+<ul>
+<li>RcppMeCab::pos</li>
+<li>RcppMeCab::posParallel</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"tools/miyazawa_kenji_head.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    sentences_shift_jis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/iconv.html">iconv</a></span><span class="op">(</span><span class="va">sentences</span>, from <span class="op">=</span> <span class="st">"UTF-8"</span>, to <span class="op">=</span> <span class="st">"CP932"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -- Column specification --------------------------------------------------------</span>
+<span class="co">#&gt; cols(</span>
+<span class="co">#&gt;   rowid = col_double(),</span>
+<span class="co">#&gt;   sentences = col_character()</span>
+<span class="co">#&gt; )</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">csv</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 349</span>
+<span class="co">#&gt; Columns: 3</span>
+<span class="co">#&gt; $ rowid               &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,~</span>
+<span class="co">#&gt; $ sentences           &lt;chr&gt; "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~</span>
+<span class="co">#&gt; $ sentences_shift_jis &lt;chr&gt; "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~</span></code></pre></div>
+</div>
+<div id="tokenize-character-scalar" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tokenize-character-scalar" class="anchor"></a>Tokenize Character Scalar</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  RMeCabC <span class="op">=</span> <span class="fu">RMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCabC</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences_shift_jis</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, mecabrc <span class="op">=</span> <span class="st">"C:/MeCab/ipadic-shiftjis/mecabrc"</span><span class="op">)</span>,
+  pos <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">pos</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
+  posParallel <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">posParallel</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
+  kagome <span class="op">=</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
+  times <span class="op">=</span> <span class="fl">500L</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<span class="co">#&gt;          expr    min      lq     mean  median      uq     max neval</span>
+<span class="co">#&gt; 1     RMeCabC 2.1890 2.54765 3.165649 2.78945 3.28150 12.0767   500</span>
+<span class="co">#&gt; 2         pos 2.4616 2.91235 3.786297 3.22255 3.92750 61.0090   500</span>
+<span class="co">#&gt; 3 posParallel 2.4110 2.89575 3.598448 3.18665 3.87480 17.5336   500</span>
+<span class="co">#&gt; 4      kagome 3.6552 4.15285 5.429362 4.53995 5.68115 20.0648   500</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
+<p><img src="reference/figures/README-becnh-plot-1-1.png" width="100%"></p>
+</div>
+<div id="tokenize-character-vector" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tokenize-character-vector" class="anchor"></a>Tokenize Character Vector</h3>
+<p><code>RMeCabC</code> is wrapped with <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code> here because that function is not vectorized.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  RMeCabC <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences_shift_jis</span>, <span class="op">~</span> <span class="fu">RMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCabC</a></span><span class="op">(</span><span class="va">.</span>, mecabrc <span class="op">=</span> <span class="st">"/MeCab/ipadic-shiftjis/mecabrc"</span><span class="op">)</span><span class="op">)</span>,
+  pos <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">pos</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">)</span>,
+  posParallel <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">posParallel</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">)</span>,
+  kagome <span class="op">=</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">csv</span><span class="op">$</span><span class="va">sentences</span><span class="op">)</span>,
+  times <span class="op">=</span> <span class="fl">10L</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<span class="co">#&gt;          expr       min        lq       mean     median        uq       max</span>
+<span class="co">#&gt; 1     RMeCabC  860.9443  882.5697  929.02912  929.77815  934.7587 1066.6487</span>
+<span class="co">#&gt; 2         pos  105.2888  118.0663  155.95026  139.65940  157.0348  352.6873</span>
+<span class="co">#&gt; 3 posParallel   65.8562   77.8910   91.66571   93.86745   99.6987  122.1134</span>
+<span class="co">#&gt; 4      kagome 1596.2336 1790.6898 1845.62462 1839.26110 1904.4647 2109.9588</span>
+<span class="co">#&gt;   neval</span>
+<span class="co">#&gt; 1    10</span>
+<span class="co">#&gt; 2    10</span>
+<span class="co">#&gt; 3    10</span>
+<span class="co">#&gt; 4    10</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
+<p><img src="reference/figures/README-becnh-plot-2-1.png" width="100%"></p>
 </div>
 </div>
 <div id="code-of-conduct" class="section level2">

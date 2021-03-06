@@ -1,8 +1,13 @@
 ---
-title: "R（quanteda）によるテキスト解析"
-author: "paithiov909"
-date: '2020-07-11'
-lastmod: "`r Sys.Date()`"
+title: "Practice: Text analysis using quanteda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+header-includes:
+  - \usepackage[utf8]{inputenc}
+vignette: >
+  %\VignetteIndexEntry{Practice: Text analysis using quanteda}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

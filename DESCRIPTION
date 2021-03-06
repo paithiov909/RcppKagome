@@ -36,8 +36,5 @@ Remotes:
     paithiov909/kagomer
 Suggests: 
     knitr,
-    microbenchmark,
     rmarkdown,
-    sessioninfo,
-    testthat,
-    ggplot2
+    testthat

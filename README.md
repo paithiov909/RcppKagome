@@ -211,11 +211,6 @@ easily use Kagome server via Web API.
 
 ``` r
 library(RcppKagome)
-#> 
-#> Attaching package: 'RcppKagome'
-#> The following object is masked from 'package:base':
-#> 
-#>     serialize
 
 sentences <- c(
   "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
@@ -234,6 +229,99 @@ sentences %>%
 #> 1                    激しい 激しい 熱 や 喘ぎ の あいだ から 、 お前 は 私 に 頼ん だ の だ
 #> 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を
 ```
+
+## Comparison with Alternatives
+
+### Targets of Comparison
+
+-   [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
+    -   RcppKagome::kagome
+-   [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
+    -   RMeCab::RMeCabC
+-   [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+    -   RcppMeCab::pos
+    -   RcppMeCab::posParallel
+
+### Data
+
+``` r
+csv <- file.path("tools/miyazawa_kenji_head.csv") %>%
+  readr::read_csv() %>%
+  dplyr::slice_head(prop = .4) %>%
+  dplyr::mutate(
+    sentences_shift_jis = iconv(sentences, from = "UTF-8", to = "CP932")
+  )
+#> 
+#> -- Column specification --------------------------------------------------------
+#> cols(
+#>   rowid = col_double(),
+#>   sentences = col_character()
+#> )
+dplyr::glimpse(csv)
+#> Rows: 349
+#> Columns: 3
+#> $ rowid               <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,~
+#> $ sentences           <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~
+#> $ sentences_shift_jis <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~
+```
+
+### Tokenize Character Scalar
+
+``` r
+tm <- microbenchmark::microbenchmark(
+  RMeCabC = RMeCab::RMeCabC(csv$sentences_shift_jis[3], mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc"),
+  pos = RcppMeCab::pos(csv$sentences[3]),
+  posParallel = RcppMeCab::posParallel(csv$sentences[3]),
+  kagome = RcppKagome::kagome(csv$sentences[3]),
+  times = 500L
+)
+summary(tm)
+#>          expr    min      lq     mean  median      uq     max neval
+#> 1     RMeCabC 2.1890 2.54765 3.165649 2.78945 3.28150 12.0767   500
+#> 2         pos 2.4616 2.91235 3.786297 3.22255 3.92750 61.0090   500
+#> 3 posParallel 2.4110 2.89575 3.598448 3.18665 3.87480 17.5336   500
+#> 4      kagome 3.6552 4.15285 5.429362 4.53995 5.68115 20.0648   500
+```
+
+``` r
+ggplot2::autoplot(tm)
+#> Coordinate system already present. Adding new coordinate system, which will replace the existing one.
+```
+
+<img src="man/figures/README-becnh-plot-1-1.png" width="100%" />
+
+### Tokenize Character Vector
+
+`RMeCabC` is wrapped with `purrr::map` here because that function is not
+vectorized.
+
+``` r
+tm <- microbenchmark::microbenchmark(
+  RMeCabC = purrr::map(csv$sentences_shift_jis, ~ RMeCab::RMeCabC(., mecabrc = "/MeCab/ipadic-shiftjis/mecabrc")),
+  pos = RcppMeCab::pos(csv$sentences),
+  posParallel = RcppMeCab::posParallel(csv$sentences),
+  kagome = RcppKagome::kagome(csv$sentences),
+  times = 10L
+)
+summary(tm)
+#>          expr       min        lq       mean     median        uq       max
+#> 1     RMeCabC  860.9443  882.5697  929.02912  929.77815  934.7587 1066.6487
+#> 2         pos  105.2888  118.0663  155.95026  139.65940  157.0348  352.6873
+#> 3 posParallel   65.8562   77.8910   91.66571   93.86745   99.6987  122.1134
+#> 4      kagome 1596.2336 1790.6898 1845.62462 1839.26110 1904.4647 2109.9588
+#>   neval
+#> 1    10
+#> 2    10
+#> 3    10
+#> 4    10
+```
+
+``` r
+ggplot2::autoplot(tm)
+#> Coordinate system already present. Adding new coordinate system, which will replace the existing one.
+```
+
+<img src="man/figures/README-becnh-plot-2-1.png" width="100%" />
 
 ## Code of Conduct
 

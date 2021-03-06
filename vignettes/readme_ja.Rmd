@@ -16,14 +16,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-stopifnot(
-  require(RMeCab),
-  require(RcppMeCab),
-  require(RcppKagome)
-)
-RMeCab::RMeCabC("test", mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc")
-RcppMeCab::pos("test")
-RcppKagome::kagome("test")
+require(RMeCab)
+require(RcppMeCab)
 ```
 
 [![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
@@ -51,14 +45,16 @@ remotes::install_github("paithiov909/RcppKagome")
 character vectorを渡せます。戻り値はリストです。
 
 ```{r call_kagome}
-res <- RcppKagome::kagome("にわにはにわにわとりがいる")
+res <- RcppKagome::kagome("雨にも負けず　風にも負けず")
 str(res)
 ```
 
 結果をデータフレームに整形できます。
 
 ```{r prettify_output}
-res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
+res <- RcppKagome::kagome(
+    c("陽が照って鳥が啼き　あちこちの楢の林も、けむるとき",
+    "ぎちぎちと鳴る　汚い掌を、おれはこれからもつことになる"))
 res <- RcppKagome::prettify(res)
 print(res)
 ```
@@ -76,34 +72,51 @@ print(res)
 
 このうちtoken列だけを半角スペースでcollapseして返す（分かち書きにする）ことができます。
 
-```{r pack_output}
-RcppKagome::pack(res)
+```{r pack_output_1}
+RcppKagome::pack_df(res)
 ```
 
-以下の記事のなかで実際に使用しています。この記事では分かち書きにした文書を[quanteda](https://quanteda.io/)のコーパスとして持っています。
+なお、`prettify`を経由しなくても同じかたちのデータフレームを得ることができます。
 
-- [R（quanteda）によるテキスト解析 - Qiita](https://qiita.com/paithiov909/items/a47a097836e8a9ec12ef)
-
-## ベンチマーク
-
-RMeCabと比較してとくに遅いということはないはずです。
-
-```{r benchmark_1}
-str_shifttjis <- "キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"
-str_utf8 <- enc2utf8(str_shifttjis)
-tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCab::RMeCabC(str_shifttjis, mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc"),
-  pos = RcppMeCab::pos(str_utf8),
-  posParallel = RcppMeCab::posParallel(str_utf8),
-  kagome = RcppKagome::kagome(str_utf8),
-  times = 500L
-)
-summary(tm)
+```{r pack_output_2}
+RcppKagome::kagome("雨にも負けず　風にも負けず") %>%
+  RcppKagome::pack_list()
 ```
 
-```{r becnhmark_2}
-ggplot2::autoplot(tm)
-```
+## 速度比較
+
+RMeCab、RcppMeCabと速度比較しています。
+
+- [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
+  - RcppKagome::kagome
+- [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
+  - RMeCab::RMeCabC
+- [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+  - RcppMeCab::pos
+  - RcppMeCab::posParallel
+
+### 単文を渡す場合
+
+単文の解析速度としてはRMeCabなどと比較してとくに遅いということはないはずです。
+
+![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/README-bench-plot-1-1.png)
+
+### 複数の文を渡す場合
+
+ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。
+なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`purrr::map`でラップして比較しています。
+
+このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。
+`RcppMeCab::pos`はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。
+一方で、`RcppMeCab::posParallel`はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。
+いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。
+形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがネックになって、解析に時間がかかります
+（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、
+`RcppMeCab::pos`より`RcppMeCab::posParallel`のほうがかえってパフォーマンスが悪化することがあります）。
+
+RMeCabやRcppKagomeではベクトルの要素ごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。
+
+![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/README-bench-plot-2-1.png)
 
 ## RとGoの連携について
 
