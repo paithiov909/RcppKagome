@@ -5,3 +5,20 @@ url: https://paithiov909.github.io/RcppKagome
 template:
   params:
     ganalytics: UA-73417314-25
+
+reference:
+  - title: "Tokenizer"
+    contents:
+      - kagome
+  - title: "Web API"
+    contents:
+      - ping
+      - serialize
+      - queue
+      - kick
+  - title: "Utilities"
+    contents:
+      - prettify
+      - pack_list
+      - pack_df
+

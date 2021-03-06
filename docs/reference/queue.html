@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Triggers kagome tokenizer — tokenize_morphemes • RcppKagome</title>
+<title>Creates asynchronous requests — queue • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Triggers kagome tokenizer — tokenize_morphemes" />
-<meta property="og:description" content="For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as a character scalar." />
+<meta property="og:title" content="Creates asynchronous requests — queue" />
+<meta property="og:description" content="Creates asynchronous requests" />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 
 
@@ -142,29 +141,33 @@ returns an UTF8-encoded json as a character scalar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Triggers kagome tokenizer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
-    <div class="hidden name"><code>tokenize_morphemes.Rd</code></div>
+    <h1>Creates asynchronous requests</h1>
+    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/kagomer-rexeports.R'><code>R/kagomer-rexeports.R</code></a></small>
+    <div class="hidden name"><code>queue.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as a character scalar.</p>
+    <p>Creates asynchronous requests</p>
     </div>
 
+    <pre class="usage"><span class='fu'>queue</span><span class='op'>(</span><span class='va'>params</span>, url <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"KAGOME_URL"</span><span class='op'>)</span>, <span class='st'>"tokenize"</span>, sep <span class='op'>=</span> <span class='st'>"/"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>Character vector.</p></td>
+      <th>params</th>
+      <td><p>List of json string.</p></td>
+    </tr>
+    <tr>
+      <th>url</th>
+      <td><p>An URL of Kagome server API.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>res Character scalar (JSON string).</p>
+    <p>returns a list of json strings and asynchronous function.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

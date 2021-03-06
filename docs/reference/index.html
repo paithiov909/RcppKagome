@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.700</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.900</span>
       </span>
     </div>
 
@@ -111,6 +111,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/demo_ja.html">R（quanteda）によるテキスト解析</a>
+    </li>
     <li>
       <a href="../articles/readme_ja.html">About RcppKagome package</a>
     </li>
@@ -151,7 +154,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-tokenizer" class="hasAnchor"><a href="#section-tokenizer" class="anchor"></a>Tokenizer</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -165,19 +168,76 @@
         <td>
           <p><code><a href="kagome.html">kagome()</a></code> </p>
         </td>
-        <td><p>Japanese morphological analyzer</p></td>
+        <td><p>Japanese morphological analyzer
+Calls kagome tokenizer.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-web-api" class="hasAnchor"><a href="#section-web-api" class="anchor"></a>Web API</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ping.html">ping()</a></code> </p>
+        </td>
+        <td><p>Sends a HEAD request to Kagome server</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pack.html">pack()</a></code> </p>
+          <p><code><a href="serialize.html">serialize()</a></code> </p>
         </td>
-        <td><p>Packs prettified output</p></td>
+        <td><p>Creates json data</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="queue.html">queue()</a></code> </p>
+        </td>
+        <td><p>Creates asynchronous requests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kick.html">kick()</a></code> </p>
+        </td>
+        <td><p>Kicks requests</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="prettify.html">prettify()</a></code> </p>
         </td>
         <td><p>Prettifies kagome output</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pack_list.html">pack_list()</a></code> </p>
+        </td>
+        <td><p>Packs ouput of kagome</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pack_df.html">pack_df()</a></code> </p>
+        </td>
+        <td><p>Packs prettified output</p></td>
       </tr>
     </tbody>
     </table>

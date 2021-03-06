@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Triggers kagome tokenizer — tokenize_morphemes • RcppKagome</title>
+<title>Packs prettified output — pack_df • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Triggers kagome tokenizer — tokenize_morphemes" />
-<meta property="og:description" content="For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as a character scalar." />
+<meta property="og:title" content="Packs prettified output — pack_df" />
+<meta property="og:description" content="Packs prettified output" />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 
 
@@ -142,29 +141,37 @@ returns an UTF8-encoded json as a character scalar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Triggers kagome tokenizer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
-    <div class="hidden name"><code>tokenize_morphemes.Rd</code></div>
+    <h1>Packs prettified output</h1>
+    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/pack.R'><code>R/pack.R</code></a></small>
+    <div class="hidden name"><code>pack_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as a character scalar.</p>
+    <p>Packs prettified output</p>
     </div>
 
+    <pre class="usage"><span class='fu'>pack_df</span><span class='op'>(</span><span class='va'>df</span>, pull <span class='op'>=</span> <span class='st'>"token"</span>, .collapse <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>Character vector.</p></td>
+      <th>df</th>
+      <td><p>Output of <code><a href='prettify.html'>RcppKagome::prettify</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>pull</th>
+      <td><p>Column name to be packed into data.frame. Default value is <code>token</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.collapse</th>
+      <td><p>This argument will be passed to <code><a href='https://stringr.tidyverse.org/reference/str_c.html'>stringr::str_c()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>res Character scalar (JSON string).</p>
+    <p>data.frame.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

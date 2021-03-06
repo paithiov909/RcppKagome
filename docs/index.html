@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.700</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.900</span>
       </span>
     </div>
 
@@ -68,6 +68,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/demo_ja.html">R（quanteda）によるテキスト解析</a>
+    </li>
+    <li>
       <a href="articles/readme_ja.html">About RcppKagome package</a>
     </li>
   </ul>
@@ -113,7 +116,11 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"async"</span>, <span class="st">"kagomer"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"gaborcsardi/async"</span><span class="op">)</span>
+  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/kagomer"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -122,91 +129,156 @@
 <h3 class="hasAnchor">
 <a href="#call-kagome" class="anchor"></a>Call Kagome</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"にわにはにわにわとりがいる"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"雨にも負けず　風にも負けず"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ :List of 6</span>
-<span class="co">#&gt;   ..$ 0:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;  $ :List of 11</span>
+<span class="co">#&gt;   ..$ 0 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 376225</span>
 <span class="co">#&gt;   .. ..$ Start  : int 0</span>
 <span class="co">#&gt;   .. ..$ End    : int 1</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "雨"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 1 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;   .. ..$ Start  : int 1</span>
+<span class="co">#&gt;   .. ..$ End    : int 2</span>
 <span class="co">#&gt;   .. ..$ Surface: chr "に"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...</span>
-<span class="co">#&gt;   ..$ 1:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 80172</span>
-<span class="co">#&gt;   .. ..$ Start  : int 1</span>
+<span class="co">#&gt;   ..$ 2 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 73244</span>
+<span class="co">#&gt;   .. ..$ Start  : int 2</span>
 <span class="co">#&gt;   .. ..$ End    : int 3</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "わに"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 2:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 58916</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "も"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "係助詞" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 3 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 352000</span>
 <span class="co">#&gt;   .. ..$ Start  : int 3</span>
+<span class="co">#&gt;   .. ..$ End    : int 5</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "負け"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 4 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 36553</span>
+<span class="co">#&gt;   .. ..$ Start  : int 5</span>
 <span class="co">#&gt;   .. ..$ End    : int 6</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "はにわ"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 3:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 53999</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "ず"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助動詞" "*" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 5 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 95</span>
 <span class="co">#&gt;   .. ..$ Start  : int 6</span>
-<span class="co">#&gt;   .. ..$ End    : int 10</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "にわとり"</span>
+<span class="co">#&gt;   .. ..$ End    : int 7</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "　"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "記号" "空白" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 6 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 380203</span>
+<span class="co">#&gt;   .. ..$ Start  : int 7</span>
+<span class="co">#&gt;   .. ..$ End    : int 8</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "風"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 4:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 19676</span>
-<span class="co">#&gt;   .. ..$ Start  : int 10</span>
-<span class="co">#&gt;   .. ..$ End    : int 11</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "が"</span>
+<span class="co">#&gt;   ..$ 7 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;   .. ..$ Start  : int 8</span>
+<span class="co">#&gt;   .. ..$ End    : int 9</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "に"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...</span>
-<span class="co">#&gt;   ..$ 5:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 6652</span>
-<span class="co">#&gt;   .. ..$ Start  : int 11</span>
+<span class="co">#&gt;   ..$ 8 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 73244</span>
+<span class="co">#&gt;   .. ..$ Start  : int 9</span>
+<span class="co">#&gt;   .. ..$ End    : int 10</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "も"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "係助詞" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 9 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 352000</span>
+<span class="co">#&gt;   .. ..$ Start  : int 10</span>
+<span class="co">#&gt;   .. ..$ End    : int 12</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "負け"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 10:List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 36553</span>
+<span class="co">#&gt;   .. ..$ Start  : int 12</span>
 <span class="co">#&gt;   .. ..$ End    : int 13</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "いる"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span></code></pre></div>
+<span class="co">#&gt;   .. ..$ Surface: chr "ず"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助動詞" "*" "*" "*" ...</span></code></pre></div>
 </div>
 <div id="prettify-output" class="section level3">
 <h3 class="hasAnchor">
 <a href="#prettify-output" class="anchor"></a>Prettify Output</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"庭に埴輪に輪と李がいる"</span>, <span class="st">"庭には二羽鶏がいる"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="st">"陽が照って鳥が啼き　あちこちの楢の林も、けむるとき"</span>,
+    <span class="st">"ぎちぎちと鳴る　汚い掌を、おれはこれからもつことになる"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;    sentence_id token POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original</span>
-<span class="co">#&gt; 1            1    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 2            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 3            1  埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪</span>
-<span class="co">#&gt; 4            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 5            1    輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪</span>
-<span class="co">#&gt; 6            1    と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と</span>
-<span class="co">#&gt; 7            1    李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李</span>
-<span class="co">#&gt; 8            1    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 9            1  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
-<span class="co">#&gt; 10           2    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 11           2    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 12           2    は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は</span>
-<span class="co">#&gt; 13           2    二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二</span>
-<span class="co">#&gt; 14           2    羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽</span>
-<span class="co">#&gt; 15           2    鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏</span>
-<span class="co">#&gt; 16           2    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 17           2  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
-<span class="co">#&gt;       Yomi1    Yomi2</span>
-<span class="co">#&gt; 1      ニワ     ニワ</span>
-<span class="co">#&gt; 2        ニ       ニ</span>
-<span class="co">#&gt; 3    ハニワ   ハニワ</span>
-<span class="co">#&gt; 4        ニ       ニ</span>
-<span class="co">#&gt; 5        ワ       ワ</span>
-<span class="co">#&gt; 6        ト       ト</span>
-<span class="co">#&gt; 7        リ       リ</span>
-<span class="co">#&gt; 8        ガ       ガ</span>
-<span class="co">#&gt; 9      イル     イル</span>
-<span class="co">#&gt; 10     ニワ     ニワ</span>
-<span class="co">#&gt; 11       ニ       ニ</span>
-<span class="co">#&gt; 12       ハ       ワ</span>
-<span class="co">#&gt; 13       ニ       ニ</span>
-<span class="co">#&gt; 14       ワ       ワ</span>
-<span class="co">#&gt; 15 ニワトリ ニワトリ</span>
-<span class="co">#&gt; 16       ガ       ガ</span>
-<span class="co">#&gt; 17     イル     イル</span></code></pre></div>
-<p>Prettified output has these columns.</p>
+<span class="co">#&gt;    sentence_id    token   POS1       POS2     POS3 POS4      X5StageUse1</span>
+<span class="co">#&gt; 1            1       陽   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 2            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 3            1     照っ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 4            1       て   助詞   接続助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 5            1       鳥   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 6            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 7            1     啼き   動詞       自立     &lt;NA&gt; &lt;NA&gt; 五段・カ行イ音便</span>
+<span class="co">#&gt; 8            1       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 9            1 あちこち   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 10           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 11           1       楢   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 12           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 13           1       林   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 14           1       も   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 15           1       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 16           1   けむる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 17           1     とき   名詞     非自立 副詞可能 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 18           2 ぎちぎち   副詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 19           2       と   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 20           2     鳴る   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 21           2       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 22           2     汚い 形容詞       自立     &lt;NA&gt; &lt;NA&gt; 形容詞・アウオ段</span>
+<span class="co">#&gt; 23           2       掌   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 24           2       を   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 25           2       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 26           2     おれ   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 27           2       は   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 28           2 これから   副詞 助詞類接続     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 29           2     もつ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・タ行</span>
+<span class="co">#&gt; 30           2     こと   名詞     非自立     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 31           2       に   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 32           2     なる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt;    X5StageUse2 Original      Yomi1      Yomi2</span>
+<span class="co">#&gt; 1         &lt;NA&gt;       陽         ヒ         ヒ</span>
+<span class="co">#&gt; 2         &lt;NA&gt;       が         ガ         ガ</span>
+<span class="co">#&gt; 3   連用タ接続     照る       テッ       テッ</span>
+<span class="co">#&gt; 4         &lt;NA&gt;       て         テ         テ</span>
+<span class="co">#&gt; 5         &lt;NA&gt;       鳥       トリ       トリ</span>
+<span class="co">#&gt; 6         &lt;NA&gt;       が         ガ         ガ</span>
+<span class="co">#&gt; 7       連用形     啼く       ナキ       ナキ</span>
+<span class="co">#&gt; 8         &lt;NA&gt;       　         　         　</span>
+<span class="co">#&gt; 9         &lt;NA&gt; あちこち   アチコチ   アチコチ</span>
+<span class="co">#&gt; 10        &lt;NA&gt;       の         ノ         ノ</span>
+<span class="co">#&gt; 11        &lt;NA&gt;       楢       ナラ       ナラ</span>
+<span class="co">#&gt; 12        &lt;NA&gt;       の         ノ         ノ</span>
+<span class="co">#&gt; 13        &lt;NA&gt;       林     ハヤシ     ハヤシ</span>
+<span class="co">#&gt; 14        &lt;NA&gt;       も         モ         モ</span>
+<span class="co">#&gt; 15        &lt;NA&gt;       、         、         、</span>
+<span class="co">#&gt; 16      基本形   けむる     ケムル     ケムル</span>
+<span class="co">#&gt; 17        &lt;NA&gt;     とき       トキ       トキ</span>
+<span class="co">#&gt; 18        &lt;NA&gt; ぎちぎち   ギチギチ   ギチギチ</span>
+<span class="co">#&gt; 19        &lt;NA&gt;       と         ト         ト</span>
+<span class="co">#&gt; 20      基本形     鳴る       ナル       ナル</span>
+<span class="co">#&gt; 21        &lt;NA&gt;       　         　         　</span>
+<span class="co">#&gt; 22      基本形     汚い   キタナイ   キタナイ</span>
+<span class="co">#&gt; 23        &lt;NA&gt;       掌 タナゴコロ タナゴコロ</span>
+<span class="co">#&gt; 24        &lt;NA&gt;       を         ヲ         ヲ</span>
+<span class="co">#&gt; 25        &lt;NA&gt;       、         、         、</span>
+<span class="co">#&gt; 26        &lt;NA&gt;     おれ       オレ       オレ</span>
+<span class="co">#&gt; 27        &lt;NA&gt;       は         ハ         ワ</span>
+<span class="co">#&gt; 28        &lt;NA&gt; これから   コレカラ   コレカラ</span>
+<span class="co">#&gt; 29      基本形     もつ       モツ       モツ</span>
+<span class="co">#&gt; 30        &lt;NA&gt;     こと       コト       コト</span>
+<span class="co">#&gt; 31        &lt;NA&gt;       に         ニ         ニ</span>
+<span class="co">#&gt; 32      基本形     なる       ナル       ナル</span></code></pre></div>
+<p>Prettified outputs have these columns.</p>
 <ul>
 <li>sentence_id: 文番号（sentence index）</li>
 <li>token: 表層形 (surface form)</li>
@@ -218,14 +290,35 @@
 <li>Yomi2: 発音（pronunciation）</li>
 </ul>
 </div>
+<div id="kick-web-api-of-kagome" class="section level3">
+<h3 class="hasAnchor">
+<a href="#kick-web-api-of-kagome" class="anchor"></a>Kick Web API of Kagome</h3>
+<p>RcppKagome provides three simple helper, that are <code>serialize</code>, <code>queue</code>, and <code>kick</code>, so that user can access their own Kagome Web API. Once set <code>KAGOME_URL</code> as environment vars and following steps below, you can easily use Kagome server via Web API.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paithiov909/RcppKagome">RcppKagome</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'RcppKagome'</span>
+<span class="co">#&gt; The following object is masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     serialize</span>
+
+<span class="va">sentences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="st">"激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ"</span>,
+  <span class="st">"銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"</span>
+<span class="op">)</span>
+
+<span class="va">sentences</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/serialize.html">serialize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/queue.html">queue</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kick.html">kick</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/pack_df.html">pack_df</a></span><span class="op">(</span><span class="st">"surface"</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id</span>
+<span class="co">#&gt; 1      1</span>
+<span class="co">#&gt; 2      2</span>
+<span class="co">#&gt;                                                                                        text</span>
+<span class="co">#&gt; 1                    激しい 激しい 熱 や 喘ぎ の あいだ から 、 お前 は 私 に 頼ん だ の だ</span>
+<span class="co">#&gt; 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を</span></code></pre></div>
 </div>
-<div id="japanese-references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#japanese-references" class="anchor"></a>Japanese References</h2>
-<ul>
-<li><a href="https://qiita.com/paithiov909/items/707cbe04dc48d5060053">RcppKagome - Rcpp経由でGoのライブラリを呼んで形態素解析するRパッケージ - Qiita</a></li>
-<li><a href="https://qiita.com/paithiov909/items/a47a097836e8a9ec12ef">R（quanteda）によるテキスト解析 - Qiita</a></li>
-</ul>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
