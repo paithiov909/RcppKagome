@@ -20,15 +20,11 @@ sentence <- enc2utf8(
   )
 )
 
-describe("Check output of kagome", {
-  it("Output is list?", {
-    res <- kagome(sentence)
-    expect_type(res, "list")
-  })
-  it("Valid output?", {
-    res <- kagome(sentence)
-    res <- unlist(res)["14.Surface"]
-    names(res) <- NULL
-    expect_equal(res, enc2utf8("\u304c"))
-  })
+test_that("kagome works", {
+  res <- kagome(sentence)
+  expect_type(kagome(sentence), "list")
+  res <- unlist(res)["14.Surface"]
+  names(res) <- NULL
+  expect_equal(res, enc2utf8("\u304c"))
 })
+

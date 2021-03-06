@@ -5,3 +5,4 @@
 .onUnload <- function(libpath) {
   library.dynam.unload("RcppKagome", libpath)
 }
+

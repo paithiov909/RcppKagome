@@ -2,16 +2,16 @@
 % Please edit documentation in R/prettify.R
 \name{prettify}
 \alias{prettify}
-\title{Prettify kagome output}
+\title{Prettifies kagome output}
 \usage{
 prettify(list)
 }
 \arguments{
-\item{list}{Output of \code{RcppKagome::kagome}}
+\item{list}{Output of \code{RcppKagome::kagome}.}
 }
 \value{
-data.frame
+data.frame.
 }
 \description{
-Prettify kagome output
+Prettifies kagome output
 }

@@ -43,19 +43,21 @@ remotes::install_github("paithiov909/RcppKagome")
 ### Call Kagome
 
 ```{r usage_1}
-res <- RcppKagome::kagome("にわにはにわにわとりがいる")
+res <- RcppKagome::kagome("雨にも負けず　風にも負けず")
 str(res)
 ```
 
 ### Prettify Output
 
 ```{r usage_2}
-res <- RcppKagome::kagome(c("庭に埴輪に輪と李がいる", "庭には二羽鶏がいる"))
+res <- RcppKagome::kagome(
+  c("陽が照って鳥が啼き　あちこちの楢の林も、けむるとき",
+    "ぎちぎちと鳴る　汚い掌を、おれはこれからもつことになる"))
 res <- RcppKagome::prettify(res)
 print(res)
 ```
 
-Prettified output has these columns.
+Prettified outputs have these columns.
 
 - sentence_id: 文番号（sentence index）
 - token: 表層形 (surface form)
@@ -65,6 +67,27 @@ Prettified output has these columns.
 - Original: 原形（lemmatised form）
 - Yomi1: 読み（readings）
 - Yomi2: 発音（pronunciation）
+
+### Kick Web API of Kagome
+
+RcppKagome provides three simple helper, that are `serialize`, `queue`, and `kick`,
+so that user can access their own Kagome Web API.
+Once set `KAGOME_URL` as enviroment vars and following steps below, you can easily use Kagome server via Web API.
+
+```{r usage_3}
+library(RcppKagome)
+
+sentences <- c(
+  "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
+  "銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"
+)
+
+sentences %>%
+  RcppKagome::serialize() %>%
+  RcppKagome::queue() %>%
+  RcppKagome::kick() %>%
+  RcppKagome::pack_df("surface")
+```
 
 ## Code of Conduct
 

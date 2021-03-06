@@ -9,13 +9,13 @@
 
 using namespace Rcpp;
 
-//' Trigger kagome tokenizer
+//' Triggers kagome tokenizer
 //'
 //' For internal use. The argument should be UTF8 encoded. This function just
 //' returns an UTF8-encoded json as a character scalar.
 //'
-//' @param text Character vector
-//' @return res Character scalar (JSON string)
+//' @param text Character vector.
+//' @return res Character scalar (JSON string).
 //'
 //' @name tokenize_morphemes
 //' @keywords internal

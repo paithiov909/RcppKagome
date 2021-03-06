@@ -1,17 +1,14 @@
 #' Japanese morphological analyzer
-#'
-#' Call kagome tokenizer.
-#'
-#' @param text Character vector
-#' @param ... All other arguments are passed to \code{jsonlite::fromJSON}
-#' @return list
-#'
-#' @importFrom stringi stri_conv
-#' @importFrom jsonlite fromJSON
-#'
+##
+#' Calls kagome tokenizer.
+##
+#' @param text Character vector.
+#' @param ... All other arguments are passed to \code{jsonlite::fromJSON}.
+#' @return list.
+##
 #' @export
 kagome <- function(text, ...) {
-  json <- tokenize_morphemes(stringi::stri_conv(text, to = "UTF-8"))
+  json <- tokenize_morphemes(stringi::stri_enc_toutf8(text))
   res <- lapply(json, function(elem) {
     Encoding(elem) <- "UTF-8"
     return(jsonlite::fromJSON(elem, ...))
@@ -21,3 +18,4 @@ kagome <- function(text, ...) {
   })
   return(res)
 }
+

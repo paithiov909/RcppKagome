@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{tokenize_morphemes}
 \alias{tokenize_morphemes}
-\title{Trigger kagome tokenizer}
+\title{Triggers kagome tokenizer}
 \arguments{
-\item{text}{Character vector}
+\item{text}{Character vector.}
 }
 \value{
-res Character scalar (JSON string)
+res Character scalar (JSON string).
 }
 \description{
 For internal use. The argument should be UTF8 encoded. This function just

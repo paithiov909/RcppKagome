@@ -20,19 +20,22 @@ sentence <- enc2utf8(
   )
 )
 
-describe("Check output of prettify", {
-  it("Valid output?", {
-    res <- kagome(sentence)
-    res <- prettify(res)
-    expect_equal(res[14, 2], enc2utf8("\u4eba\u9593"))
-  })
+test_that("prettify works", {
+  res <- kagome(sentence)
+  res <- prettify(res)
+  expect_equal(res[14, 2], enc2utf8("\u4eba\u9593"))
 })
 
-describe("Check output of pack", {
-  it("Valid output?", {
-    res <- kagome(sentence)
-    res <- prettify(res)
-    res <- pack(res)
-    expect_type(res$text, "character")
-  })
+test_that("pack_list works", {
+  res <- kagome(sentence)
+  res <- pack_list(res)
+  expect_type(res$text, "character")
 })
+
+test_that("pack_df works", {
+  res <- kagome(sentence)
+  res <- prettify(res)
+  res <- pack_df(res)
+  expect_type(res$text, "character")
+})
+

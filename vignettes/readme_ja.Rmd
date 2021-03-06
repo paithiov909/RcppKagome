@@ -21,7 +21,7 @@ stopifnot(
   require(RcppMeCab),
   require(RcppKagome)
 )
-RMeCab::RMeCabC("test")
+RMeCab::RMeCabC("test", mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc")
 RcppMeCab::pos("test")
 RcppKagome::kagome("test")
 ```

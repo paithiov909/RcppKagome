@@ -2,18 +2,20 @@
 % Please edit documentation in R/kagome.R
 \name{kagome}
 \alias{kagome}
-\title{Japanese morphological analyzer}
+\title{Japanese morphological analyzer
+Calls kagome tokenizer.}
 \usage{
 kagome(text, ...)
 }
 \arguments{
-\item{text}{Character vector}
+\item{text}{Character vector.}
 
-\item{...}{All other arguments are passed to \code{jsonlite::fromJSON}}
+\item{...}{All other arguments are passed to \code{jsonlite::fromJSON}.}
 }
 \value{
-list
+list.
 }
 \description{
-Call kagome tokenizer.
+Japanese morphological analyzer
+Calls kagome tokenizer.
 }
