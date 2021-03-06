@@ -22,6 +22,7 @@ Imports:
     Rcpp,
     dplyr,
     jsonlite,
+    kagomer,
     furrr,
     purrr,
     stringi,
@@ -31,6 +32,7 @@ LinkingTo:
     RcppThread,
     cpp11
 Remotes:
+    gaborcsardi/async
     paithiov909/kagomer
 Suggests: 
     knitr,

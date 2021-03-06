@@ -39,6 +39,10 @@ Rで形態素解析するためのパッケージです。[Pure Goで辞書同�
 ソースからビルドします。makeとGCCとGoが必要です。
 
 ``` r
+if (!requireNamespace("async", "kagomer")) {
+  remotes::install_github("gaborcsardi/async")
+  remotes::install_github("paithiov909/kagomer")
+}
 remotes::install_github("paithiov909/RcppKagome")
 ```
 

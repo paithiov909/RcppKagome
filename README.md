@@ -28,7 +28,7 @@ Japanese morphological analyzer written in pure Go.
 ## Installation
 
 ``` r
-if (requireNamespace("async", "kagomer")) {
+if (!requireNamespace("async", "kagomer")) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
 }
@@ -206,7 +206,7 @@ Prettified outputs have these columns.
 
 RcppKagome provides three simple helper, that are `serialize`, `queue`,
 and `kick`, so that user can access their own Kagome Web API. Once set
-`KAGOME_URL` as enviroment vars and following steps below, you can
+`KAGOME_URL` as environment vars and following steps below, you can
 easily use Kagome server via Web API.
 
 ``` r
