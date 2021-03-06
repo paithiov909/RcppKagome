@@ -32,7 +32,7 @@ LinkingTo:
     RcppThread,
     cpp11
 Remotes:
-    gaborcsardi/async
+    gaborcsardi/async,
     paithiov909/kagomer
 Suggests: 
     knitr,
