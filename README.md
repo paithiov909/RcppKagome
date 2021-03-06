@@ -28,6 +28,10 @@ Japanese morphological analyzer written in pure Go.
 ## Installation
 
 ``` r
+if (requireNamespace("async", "kagomer")) {
+  remotes::install_github("gaborcsardi/async")
+  remotes::install_github("paithiov909/kagomer")
+}
 remotes::install_github("paithiov909/RcppKagome")
 ```
 
