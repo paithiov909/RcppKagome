@@ -204,7 +204,7 @@ Prettified outputs have these columns.
 
 ### Kick Web API of Kagome
 
-RcppKagome provides three simple helper, that are `serialize`, `queue`,
+RcppKagome provides three simple helpers, that are `serialize`, `queue`,
 and `kick`, so that user can access their own Kagome Web API. Once set
 `KAGOME_URL` as environment vars and following steps below, you can
 easily use Kagome server via Web API.
