@@ -288,7 +288,7 @@ ggplot2::autoplot(tm)
 #> Coordinate system already present. Adding new coordinate system, which will replace the existing one.
 ```
 
-<img src="man/figures/README-becnh-plot-1-1.png" width="100%" />
+<img src="man/figures/README-bench-plot-1-1.png" width="100%" />
 
 ### Tokenize Character Vector
 
@@ -321,7 +321,7 @@ ggplot2::autoplot(tm)
 #> Coordinate system already present. Adding new coordinate system, which will replace the existing one.
 ```
 
-<img src="man/figures/README-becnh-plot-2-1.png" width="100%" />
+<img src="man/figures/README-bench-plot-2-1.png" width="100%" />
 
 ## Code of Conduct
 

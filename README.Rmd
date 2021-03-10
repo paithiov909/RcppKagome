@@ -139,7 +139,7 @@ tm <- microbenchmark::microbenchmark(
 summary(tm)
 ```
 
-```{r becnh-plot-1}
+```{r bench-plot-1}
 ggplot2::autoplot(tm)
 ```
 
@@ -158,7 +158,7 @@ tm <- microbenchmark::microbenchmark(
 summary(tm)
 ```
 
-```{r becnh-plot-2}
+```{r bench-plot-2}
 ggplot2::autoplot(tm)
 ```
 
