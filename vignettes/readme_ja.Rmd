@@ -16,8 +16,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-require(RMeCab)
-require(RcppMeCab)
+stopifnot(
+  RcppKagome::ping() == 200L
+)
 ```
 
 [![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
@@ -83,6 +84,26 @@ RcppKagome::kagome("雨にも負けず　風にも負けず") %>%
   RcppKagome::pack_list()
 ```
 
+### Web APIの利用
+
+サーバーコマンドを非同期で叩くことができます。kagomeのサーバーモードの利用の仕方については公式の案内にしたがってください。
+デフォルトでは環境変数`KAGOME_URL`に設定したURLにアクセスします。`Sys.setenv(KAGOME_URL = "http://localhost:6060")`などとして環境変数を設定するか、アクセスしたいURLを`RcppKagome::queue(url = "http://localhost:6060")`のように明示的に指定してください。
+
+```{r kick_web_api}
+library(RcppKagome)
+
+sentences <- c(
+  "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
+  "銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"
+)
+
+sentences %>%
+  RcppKagome::serialize() %>%
+  RcppKagome::queue() %>%
+  RcppKagome::kick() %>%
+  RcppKagome::pack_df("surface")
+```
+
 ## 速度比較
 
 RMeCab、RcppMeCabと速度比較しています。
@@ -99,24 +120,17 @@ RMeCab、RcppMeCabと速度比較しています。
 
 単文の解析速度としてはRMeCabなどと比較してとくに遅いということはないはずです。
 
-![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/README-bench-plot-1-1.png)
+![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png)
 
 ### 複数の文を渡す場合
 
-ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。
-なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`purrr::map`でラップして比較しています。
+ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`purrr::map`でラップして比較しています。
 
-このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。
-`RcppMeCab::pos`はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。
-一方で、`RcppMeCab::posParallel`はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。
-いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。
-形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがネックになって、解析に時間がかかります
-（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、
-`RcppMeCab::pos`より`RcppMeCab::posParallel`のほうがかえってパフォーマンスが悪化することがあります）。
+このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。`RcppMeCab::pos`はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、`RcppMeCab::posParallel`はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、`RcppMeCab::pos`より`RcppMeCab::posParallel`のほうがかえってパフォーマンスが悪化することがあります）。
 
 RMeCabやRcppKagomeではベクトルの要素ごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。
 
-![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/README-bench-plot-2-1.png)
+![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png)
 
 ## RとGoの連携について
 

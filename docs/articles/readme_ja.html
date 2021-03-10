@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.700</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.900</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>About RcppKagome package</h1>
             
-            <h4 class="date">2021-03-02</h4>
+            <h4 class="date">2021-03-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/readme_ja.Rmd"><code>vignettes/readme_ja.Rmd</code></a></small>
       <div class="hidden name"><code>readme_ja.Rmd</code></div>
@@ -117,94 +117,163 @@
 <a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" class="anchor"></a>インストール</h3>
 <p>ソースからビルドします。makeとGCCとGoが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"async"</span>, <span class="st">"kagomer"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"gaborcsardi/async"</span><span class="op">)</span>
+  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/kagomer"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="形態素解析" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90" class="anchor"></a>形態素解析</h3>
 <p>character vectorを渡せます。戻り値はリストです。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"にわにはにわにわとりがいる"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"雨にも負けず　風にも負けず"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ :List of 6</span>
-<span class="co">#&gt;   ..$ 0:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;  $ :List of 11</span>
+<span class="co">#&gt;   ..$ 0 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 376225</span>
 <span class="co">#&gt;   .. ..$ Start  : int 0</span>
 <span class="co">#&gt;   .. ..$ End    : int 1</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "雨"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 1 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;   .. ..$ Start  : int 1</span>
+<span class="co">#&gt;   .. ..$ End    : int 2</span>
 <span class="co">#&gt;   .. ..$ Surface: chr "に"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...</span>
-<span class="co">#&gt;   ..$ 1:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 80172</span>
-<span class="co">#&gt;   .. ..$ Start  : int 1</span>
+<span class="co">#&gt;   ..$ 2 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 73244</span>
+<span class="co">#&gt;   .. ..$ Start  : int 2</span>
 <span class="co">#&gt;   .. ..$ End    : int 3</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "わに"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 2:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 58916</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "も"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "係助詞" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 3 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 352000</span>
 <span class="co">#&gt;   .. ..$ Start  : int 3</span>
+<span class="co">#&gt;   .. ..$ End    : int 5</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "負け"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 4 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 36553</span>
+<span class="co">#&gt;   .. ..$ Start  : int 5</span>
 <span class="co">#&gt;   .. ..$ End    : int 6</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "はにわ"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 3:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 53999</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "ず"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助動詞" "*" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 5 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 95</span>
 <span class="co">#&gt;   .. ..$ Start  : int 6</span>
-<span class="co">#&gt;   .. ..$ End    : int 10</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "にわとり"</span>
+<span class="co">#&gt;   .. ..$ End    : int 7</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "　"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "記号" "空白" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 6 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 380203</span>
+<span class="co">#&gt;   .. ..$ Start  : int 7</span>
+<span class="co">#&gt;   .. ..$ End    : int 8</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "風"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "名詞" "一般" "*" "*" ...</span>
-<span class="co">#&gt;   ..$ 4:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 19676</span>
-<span class="co">#&gt;   .. ..$ Start  : int 10</span>
-<span class="co">#&gt;   .. ..$ End    : int 11</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "が"</span>
+<span class="co">#&gt;   ..$ 7 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 53040</span>
+<span class="co">#&gt;   .. ..$ Start  : int 8</span>
+<span class="co">#&gt;   .. ..$ End    : int 9</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "に"</span>
 <span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "格助詞" "一般" "*" ...</span>
-<span class="co">#&gt;   ..$ 5:List of 5</span>
-<span class="co">#&gt;   .. ..$ Id     : int 6652</span>
-<span class="co">#&gt;   .. ..$ Start  : int 11</span>
+<span class="co">#&gt;   ..$ 8 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 73244</span>
+<span class="co">#&gt;   .. ..$ Start  : int 9</span>
+<span class="co">#&gt;   .. ..$ End    : int 10</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "も"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助詞" "係助詞" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 9 :List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 352000</span>
+<span class="co">#&gt;   .. ..$ Start  : int 10</span>
+<span class="co">#&gt;   .. ..$ End    : int 12</span>
+<span class="co">#&gt;   .. ..$ Surface: chr "負け"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span>
+<span class="co">#&gt;   ..$ 10:List of 5</span>
+<span class="co">#&gt;   .. ..$ Id     : int 36553</span>
+<span class="co">#&gt;   .. ..$ Start  : int 12</span>
 <span class="co">#&gt;   .. ..$ End    : int 13</span>
-<span class="co">#&gt;   .. ..$ Surface: chr "いる"</span>
-<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "動詞" "自立" "*" "*" ...</span></code></pre></div>
+<span class="co">#&gt;   .. ..$ Surface: chr "ず"</span>
+<span class="co">#&gt;   .. ..$ Feature: chr [1:9] "助動詞" "*" "*" "*" ...</span></code></pre></div>
 <p>結果をデータフレームに整形できます。</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"庭に埴輪に輪と李がいる"</span>, <span class="st">"庭には二羽鶏がいる"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="st">"陽が照って鳥が啼き　あちこちの楢の林も、けむるとき"</span>,
+    <span class="st">"ぎちぎちと鳴る　汚い掌を、おれはこれからもつことになる"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;    sentence_id token POS1     POS2   POS3 POS4 X5StageUse1 X5StageUse2 Original</span>
-<span class="co">#&gt; 1            1    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 2            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 3            1  埴輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;     埴輪</span>
-<span class="co">#&gt; 4            1    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 5            1    輪 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       輪</span>
-<span class="co">#&gt; 6            1    と 助詞 並立助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       と</span>
-<span class="co">#&gt; 7            1    李 名詞 固有名詞   人名   姓        &lt;NA&gt;        &lt;NA&gt;       李</span>
-<span class="co">#&gt; 8            1    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 9            1  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
-<span class="co">#&gt; 10           2    庭 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       庭</span>
-<span class="co">#&gt; 11           2    に 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       に</span>
-<span class="co">#&gt; 12           2    は 助詞   係助詞   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       は</span>
-<span class="co">#&gt; 13           2    二 名詞       数   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       二</span>
-<span class="co">#&gt; 14           2    羽 名詞     接尾 助数詞 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       羽</span>
-<span class="co">#&gt; 15           2    鶏 名詞     一般   &lt;NA&gt; &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       鶏</span>
-<span class="co">#&gt; 16           2    が 助詞   格助詞   一般 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       が</span>
-<span class="co">#&gt; 17           2  いる 動詞     自立   &lt;NA&gt; &lt;NA&gt;        一段      基本形     いる</span>
-<span class="co">#&gt;       Yomi1    Yomi2</span>
-<span class="co">#&gt; 1      ニワ     ニワ</span>
-<span class="co">#&gt; 2        ニ       ニ</span>
-<span class="co">#&gt; 3    ハニワ   ハニワ</span>
-<span class="co">#&gt; 4        ニ       ニ</span>
-<span class="co">#&gt; 5        ワ       ワ</span>
-<span class="co">#&gt; 6        ト       ト</span>
-<span class="co">#&gt; 7        リ       リ</span>
-<span class="co">#&gt; 8        ガ       ガ</span>
-<span class="co">#&gt; 9      イル     イル</span>
-<span class="co">#&gt; 10     ニワ     ニワ</span>
-<span class="co">#&gt; 11       ニ       ニ</span>
-<span class="co">#&gt; 12       ハ       ワ</span>
-<span class="co">#&gt; 13       ニ       ニ</span>
-<span class="co">#&gt; 14       ワ       ワ</span>
-<span class="co">#&gt; 15 ニワトリ ニワトリ</span>
-<span class="co">#&gt; 16       ガ       ガ</span>
-<span class="co">#&gt; 17     イル     イル</span></code></pre></div>
+<span class="co">#&gt;    sentence_id    token   POS1       POS2     POS3 POS4      X5StageUse1</span>
+<span class="co">#&gt; 1            1       陽   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 2            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 3            1     照っ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 4            1       て   助詞   接続助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 5            1       鳥   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 6            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 7            1     啼き   動詞       自立     &lt;NA&gt; &lt;NA&gt; 五段・カ行イ音便</span>
+<span class="co">#&gt; 8            1       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 9            1 あちこち   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 10           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 11           1       楢   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 12           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 13           1       林   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 14           1       も   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 15           1       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 16           1   けむる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 17           1     とき   名詞     非自立 副詞可能 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 18           2 ぎちぎち   副詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 19           2       と   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 20           2     鳴る   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt; 21           2       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 22           2     汚い 形容詞       自立     &lt;NA&gt; &lt;NA&gt; 形容詞・アウオ段</span>
+<span class="co">#&gt; 23           2       掌   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 24           2       を   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 25           2       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 26           2     おれ   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 27           2       は   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 28           2 これから   副詞 助詞類接続     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 29           2     もつ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・タ行</span>
+<span class="co">#&gt; 30           2     こと   名詞     非自立     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 31           2       に   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
+<span class="co">#&gt; 32           2     なる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
+<span class="co">#&gt;    X5StageUse2 Original      Yomi1      Yomi2</span>
+<span class="co">#&gt; 1         &lt;NA&gt;       陽         ヒ         ヒ</span>
+<span class="co">#&gt; 2         &lt;NA&gt;       が         ガ         ガ</span>
+<span class="co">#&gt; 3   連用タ接続     照る       テッ       テッ</span>
+<span class="co">#&gt; 4         &lt;NA&gt;       て         テ         テ</span>
+<span class="co">#&gt; 5         &lt;NA&gt;       鳥       トリ       トリ</span>
+<span class="co">#&gt; 6         &lt;NA&gt;       が         ガ         ガ</span>
+<span class="co">#&gt; 7       連用形     啼く       ナキ       ナキ</span>
+<span class="co">#&gt; 8         &lt;NA&gt;       　         　         　</span>
+<span class="co">#&gt; 9         &lt;NA&gt; あちこち   アチコチ   アチコチ</span>
+<span class="co">#&gt; 10        &lt;NA&gt;       の         ノ         ノ</span>
+<span class="co">#&gt; 11        &lt;NA&gt;       楢       ナラ       ナラ</span>
+<span class="co">#&gt; 12        &lt;NA&gt;       の         ノ         ノ</span>
+<span class="co">#&gt; 13        &lt;NA&gt;       林     ハヤシ     ハヤシ</span>
+<span class="co">#&gt; 14        &lt;NA&gt;       も         モ         モ</span>
+<span class="co">#&gt; 15        &lt;NA&gt;       、         、         、</span>
+<span class="co">#&gt; 16      基本形   けむる     ケムル     ケムル</span>
+<span class="co">#&gt; 17        &lt;NA&gt;     とき       トキ       トキ</span>
+<span class="co">#&gt; 18        &lt;NA&gt; ぎちぎち   ギチギチ   ギチギチ</span>
+<span class="co">#&gt; 19        &lt;NA&gt;       と         ト         ト</span>
+<span class="co">#&gt; 20      基本形     鳴る       ナル       ナル</span>
+<span class="co">#&gt; 21        &lt;NA&gt;       　         　         　</span>
+<span class="co">#&gt; 22      基本形     汚い   キタナイ   キタナイ</span>
+<span class="co">#&gt; 23        &lt;NA&gt;       掌 タナゴコロ タナゴコロ</span>
+<span class="co">#&gt; 24        &lt;NA&gt;       を         ヲ         ヲ</span>
+<span class="co">#&gt; 25        &lt;NA&gt;       、         、         、</span>
+<span class="co">#&gt; 26        &lt;NA&gt;     おれ       オレ       オレ</span>
+<span class="co">#&gt; 27        &lt;NA&gt;       は         ハ         ワ</span>
+<span class="co">#&gt; 28        &lt;NA&gt; これから   コレカラ   コレカラ</span>
+<span class="co">#&gt; 29      基本形     もつ       モツ       モツ</span>
+<span class="co">#&gt; 30        &lt;NA&gt;     こと       コト       コト</span>
+<span class="co">#&gt; 31        &lt;NA&gt;       に         ニ         ニ</span>
+<span class="co">#&gt; 32      基本形     なる       ナル       ナル</span></code></pre></div>
 <p>整形されたデータフレームは次のカラムからなります。</p>
 <ul>
 <li>sentence_id: 文番号（sentence index）</li>
@@ -218,40 +287,90 @@
 </ul>
 <p>このうちtoken列だけを半角スペースでcollapseして返す（分かち書きにする）ことができます。</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;   doc_id                           text</span>
-<span class="co">#&gt; 1      1 庭 に 埴輪 に 輪 と 李 が いる</span>
-<span class="co">#&gt; 2      2      庭 に は 二 羽 鶏 が いる</span></code></pre></div>
-<p>以下の記事のなかで実際に使用しています。この記事では分かち書きにした文書を<a href="https://quanteda.io/">quanteda</a>のコーパスとして持っています。</p>
-<ul>
-<li><a href="https://qiita.com/paithiov909/items/a47a097836e8a9ec12ef">R（quanteda）によるテキスト解析 - Qiita</a></li>
-</ul>
-</div>
-</div>
-<div id="ベンチマーク" class="section level2">
-<h2 class="hasAnchor">
-<a href="#%E3%83%99%E3%83%B3%E3%83%81%E3%83%9E%E3%83%BC%E3%82%AF" class="anchor"></a>ベンチマーク</h2>
-<p>RMeCabと比較してとくに遅いということはないはずです。</p>
+<code class="sourceCode R"><span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_df.html">pack_df</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id                                                                 text</span>
+<span class="co">#&gt; 1      1   陽 が 照っ て 鳥 が 啼き 　 あちこち の 楢 の 林 も 、 けむる とき</span>
+<span class="co">#&gt; 2      2 ぎちぎち と 鳴る 　 汚い 掌 を 、 おれ は これから もつ こと に なる</span></code></pre></div>
+<p>なお、<code>prettify</code>を経由しなくても同じかたちのデータフレームを得ることができます。</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">str_shifttjis</span> <span class="op">&lt;-</span> <span class="st">"キャピキャピ音が高くなってきたら、ほんとに出してくれの合図です！　しっかりここではコミュニケーションとってください"</span>
-<span class="va">str_utf8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">enc2utf8</a></span><span class="op">(</span><span class="va">str_shifttjis</span><span class="op">)</span>
-<span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
-  RMeCabC <span class="op">=</span> <span class="fu">RMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCabC</a></span><span class="op">(</span><span class="va">str_shifttjis</span>, mecabrc <span class="op">=</span> <span class="st">"C:/MeCab/ipadic-shiftjis/mecabrc"</span><span class="op">)</span>,
-  pos <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">pos</a></span><span class="op">(</span><span class="va">str_utf8</span><span class="op">)</span>,
-  posParallel <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">posParallel</a></span><span class="op">(</span><span class="va">str_utf8</span><span class="op">)</span>,
-  kagome <span class="op">=</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">str_utf8</span><span class="op">)</span>,
-  times <span class="op">=</span> <span class="fl">500L</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
-<span class="co">#&gt;          expr    min      lq     mean  median      uq     max neval</span>
-<span class="co">#&gt; 1     RMeCabC 1.8963 2.20165 2.430843 2.33625 2.48680  5.3787   500</span>
-<span class="co">#&gt; 2         pos 2.1671 2.44305 2.699236 2.59405 2.77575  5.0303   500</span>
-<span class="co">#&gt; 3 posParallel 2.1247 2.42365 2.712891 2.57415 2.77675  6.1647   500</span>
-<span class="co">#&gt; 4      kagome 2.0743 2.41995 2.821079 2.57565 2.81285 20.8765   500</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"雨にも負けず　風にも負けず"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id                                 text</span>
+<span class="co">#&gt; 1      1 雨 に も 負け ず 　 風 に も 負け ず</span></code></pre></div>
+</div>
+<div id="web-apiの利用" class="section level3">
+<h3 class="hasAnchor">
+<a href="#web-api%E3%81%AE%E5%88%A9%E7%94%A8" class="anchor"></a>Web APIの利用</h3>
+<p>サーバーコマンドを非同期で叩くことができます。kagomeのサーバーモードの利用の仕方については公式の案内にしたがってください。 デフォルトでは環境変数<code>KAGOME_URL</code>に設定したURLにアクセスします。<code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv(KAGOME_URL = "http://localhost:6060")</a></code>などとして環境変数を設定するか、アクセスしたいURLを<code><a href="../reference/queue.html">RcppKagome::queue(url = "http://localhost:6060")</a></code>のように明示的に指定してください。</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
-<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
-<p><img src="readme_ja_files/figure-html/becnhmark_2-1.png" width="700"></p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paithiov909/RcppKagome">RcppKagome</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  次のパッケージを付け加えます: 'RcppKagome'</span>
+<span class="co">#&gt;  以下のオブジェクトは 'package:base' からマスクされています: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      serialize</span>
+
+<span class="va">sentences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="st">"激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ"</span>,
+  <span class="st">"銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"</span>
+<span class="op">)</span>
+
+<span class="va">sentences</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/serialize.html">serialize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/queue.html">queue</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kick.html">kick</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_df.html">pack_df</a></span><span class="op">(</span><span class="st">"surface"</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id</span>
+<span class="co">#&gt; 1      1</span>
+<span class="co">#&gt; 2      2</span>
+<span class="co">#&gt;                                                                                        text</span>
+<span class="co">#&gt; 1                    激しい 激しい 熱 や 喘ぎ の あいだ から 、 お前 は 私 に 頼ん だ の だ</span>
+<span class="co">#&gt; 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を</span></code></pre></div>
+</div>
+</div>
+<div id="速度比較" class="section level2">
+<h2 class="hasAnchor">
+<a href="#%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BC%83" class="anchor"></a>速度比較</h2>
+<p>RMeCab、RcppMeCabと速度比較しています。</p>
+<ul>
+<li>
+<a href="https://github.com/paithiov909/RcppKagome">paithiov909/RcppKagome</a>
+<ul>
+<li>RcppKagome::kagome</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/IshidaMotohiro/RMeCab">IshidaMotohiro/RMeCab</a>
+<ul>
+<li>RMeCab::RMeCabC</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/junhewk/RcppMeCab">junhewk/RcppMeCab</a>
+<ul>
+<li>RcppMeCab::pos</li>
+<li>RcppMeCab::posParallel</li>
+</ul>
+</li>
+</ul>
+<div id="単文を渡す場合" class="section level3">
+<h3 class="hasAnchor">
+<a href="#%E5%8D%98%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>単文を渡す場合</h3>
+<p>単文の解析速度としてはRMeCabなどと比較してとくに遅いということはないはずです。</p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png" alt=""><p class="caption">bench-plot-1</p>
+</div>
+</div>
+<div id="複数の文を渡す場合" class="section level3">
+<h3 class="hasAnchor">
+<a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>複数の文を渡す場合</h3>
+<p>ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、<code><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCab::RMeCabC</a></code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code>でラップして比較しています。</p>
+<p>このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>より<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>のほうがかえってパフォーマンスが悪化することがあります）。</p>
+<p>RMeCabやRcppKagomeではベクトルの要素ごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。</p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png" alt=""><p class="caption">bench-plot-2</p>
+</div>
+</div>
 </div>
 <div id="rとgoの連携について" class="section level2">
 <h2 class="hasAnchor">
@@ -284,155 +403,80 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-03-02                  </span>
+<span class="co">#&gt;  date     2021-03-10                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
-<span class="co">#&gt;  package        * version   date       lib</span>
-<span class="co">#&gt;  assertthat       0.2.1     2019-03-21 [2]</span>
-<span class="co">#&gt;  backports        1.2.1     2020-12-09 [2]</span>
-<span class="co">#&gt;  bslib            0.2.4     2021-01-25 [2]</span>
-<span class="co">#&gt;  cachem           1.0.4     2021-02-13 [2]</span>
-<span class="co">#&gt;  cli              2.3.1     2021-02-23 [2]</span>
-<span class="co">#&gt;  codetools        0.2-18    2020-11-04 [2]</span>
-<span class="co">#&gt;  colorspace       2.0-0     2020-11-11 [2]</span>
-<span class="co">#&gt;  crayon           1.4.1     2021-02-08 [2]</span>
-<span class="co">#&gt;  DBI              1.1.1     2021-01-15 [2]</span>
-<span class="co">#&gt;  desc             1.2.0     2018-05-01 [2]</span>
-<span class="co">#&gt;  digest           0.6.27    2020-10-24 [2]</span>
-<span class="co">#&gt;  dplyr            1.0.4     2021-02-02 [2]</span>
-<span class="co">#&gt;  ellipsis         0.3.1     2020-05-15 [2]</span>
-<span class="co">#&gt;  evaluate         0.14      2019-05-28 [2]</span>
-<span class="co">#&gt;  fansi            0.4.2     2021-01-15 [2]</span>
-<span class="co">#&gt;  farver           2.1.0     2021-02-28 [2]</span>
-<span class="co">#&gt;  fastmap          1.1.0     2021-01-25 [2]</span>
-<span class="co">#&gt;  fs               1.5.0     2020-07-31 [2]</span>
-<span class="co">#&gt;  furrr            0.2.2     2021-01-29 [2]</span>
-<span class="co">#&gt;  future           1.21.0    2020-12-10 [2]</span>
-<span class="co">#&gt;  generics         0.1.0     2020-10-31 [2]</span>
-<span class="co">#&gt;  ggplot2          3.3.3     2020-12-30 [2]</span>
-<span class="co">#&gt;  globals          0.14.0    2020-11-22 [2]</span>
-<span class="co">#&gt;  glue             1.4.2     2020-08-27 [2]</span>
-<span class="co">#&gt;  gtable           0.3.0     2019-03-25 [2]</span>
-<span class="co">#&gt;  highr            0.8       2019-03-20 [2]</span>
-<span class="co">#&gt;  htmltools        0.5.1.1   2021-01-22 [2]</span>
-<span class="co">#&gt;  jquerylib        0.1.3     2020-12-17 [2]</span>
-<span class="co">#&gt;  jsonlite         1.7.2     2020-12-09 [2]</span>
-<span class="co">#&gt;  knitr            1.31      2021-01-27 [2]</span>
-<span class="co">#&gt;  lifecycle        1.0.0     2021-02-15 [2]</span>
-<span class="co">#&gt;  listenv          0.8.0     2019-12-05 [2]</span>
-<span class="co">#&gt;  magrittr         2.0.1     2020-11-17 [2]</span>
-<span class="co">#&gt;  memoise          2.0.0     2021-01-26 [2]</span>
-<span class="co">#&gt;  microbenchmark   1.4-7     2019-09-24 [2]</span>
-<span class="co">#&gt;  munsell          0.5.0     2018-06-12 [2]</span>
-<span class="co">#&gt;  parallelly       1.23.0    2021-01-04 [2]</span>
-<span class="co">#&gt;  pillar           1.5.0     2021-02-22 [2]</span>
-<span class="co">#&gt;  pkgconfig        2.0.3     2019-09-22 [2]</span>
-<span class="co">#&gt;  pkgdown          1.6.1     2020-09-12 [2]</span>
-<span class="co">#&gt;  purrr          * 0.3.4     2020-04-17 [2]</span>
-<span class="co">#&gt;  R.cache          0.14.0    2019-12-06 [2]</span>
-<span class="co">#&gt;  R.methodsS3      1.8.1     2020-08-26 [2]</span>
-<span class="co">#&gt;  R.oo             1.24.0    2020-08-26 [2]</span>
-<span class="co">#&gt;  R.utils          2.10.1    2020-08-26 [2]</span>
-<span class="co">#&gt;  R6               2.5.0     2020-10-28 [2]</span>
-<span class="co">#&gt;  ragg             1.1.1     2021-02-25 [2]</span>
-<span class="co">#&gt;  Rcpp             1.0.6     2021-01-15 [2]</span>
-<span class="co">#&gt;  RcppKagome     * 0.0.0.700 2021-02-20 [2]</span>
-<span class="co">#&gt;  RcppMeCab      * 0.0.1.3-3 2021-02-20 [2]</span>
-<span class="co">#&gt;  RcppParallel     5.0.3     2021-02-24 [2]</span>
-<span class="co">#&gt;  rlang            0.4.10    2020-12-30 [2]</span>
-<span class="co">#&gt;  rmarkdown        2.7       2021-02-19 [2]</span>
-<span class="co">#&gt;  RMeCab         * 1.05      2020-04-28 [2]</span>
-<span class="co">#&gt;  rprojroot        2.0.2     2020-11-15 [2]</span>
-<span class="co">#&gt;  sass             0.3.1     2021-01-24 [2]</span>
-<span class="co">#&gt;  scales           1.1.1     2020-05-11 [2]</span>
-<span class="co">#&gt;  sessioninfo      1.1.1     2018-11-05 [2]</span>
-<span class="co">#&gt;  stringi          1.5.3     2020-09-09 [2]</span>
-<span class="co">#&gt;  stringr          1.4.0     2019-02-10 [2]</span>
-<span class="co">#&gt;  styler           1.3.2     2020-02-23 [2]</span>
-<span class="co">#&gt;  systemfonts      1.0.1     2021-02-09 [2]</span>
-<span class="co">#&gt;  textshaping      0.3.1     2021-02-22 [2]</span>
-<span class="co">#&gt;  tibble           3.1.0     2021-02-25 [2]</span>
-<span class="co">#&gt;  tidyr            1.1.2     2020-08-27 [2]</span>
-<span class="co">#&gt;  tidyselect       1.1.0     2020-05-11 [2]</span>
-<span class="co">#&gt;  utf8             1.1.4     2018-05-24 [2]</span>
-<span class="co">#&gt;  vctrs            0.3.6     2020-12-17 [2]</span>
-<span class="co">#&gt;  withr            2.4.1     2021-01-26 [2]</span>
-<span class="co">#&gt;  xfun             0.21      2021-02-10 [2]</span>
-<span class="co">#&gt;  yaml             2.2.1     2020-02-01 [2]</span>
-<span class="co">#&gt;  source                                </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  local                                 </span>
-<span class="co">#&gt;  Github (paithiov909/RcppMeCab@3e12f09)</span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  local                                 </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                        </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                        </span>
+<span class="co">#&gt;  package     * version    date       lib source                              </span>
+<span class="co">#&gt;  assertthat    0.2.1      2019-03-21 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  async         0.0.0.9004 2021-03-03 [2] Github (gaborcsardi/async@e6af7be)  </span>
+<span class="co">#&gt;  backports     1.2.1      2020-12-09 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  bslib         0.2.4      2021-01-25 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  cachem        1.0.4      2021-02-13 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  callr         3.5.1      2020-10-13 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  cli           2.3.1      2021-02-23 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  codetools     0.2-18     2020-11-04 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  crayon        1.4.1      2021-02-08 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  curl          4.3        2019-12-02 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  DBI           1.1.1      2021-01-15 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  desc          1.2.0      2018-05-01 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  digest        0.6.27     2020-10-24 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  dplyr         1.0.4      2021-02-02 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  ellipsis      0.3.1      2020-05-15 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  evaluate      0.14       2019-05-28 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  fansi         0.4.2      2021-01-15 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  fastmap       1.1.0      2021-01-25 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  fs            1.5.0      2020-07-31 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  furrr         0.2.2      2021-01-29 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  future        1.21.0     2020-12-10 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  generics      0.1.0      2020-10-31 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  globals       0.14.0     2020-11-22 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  glue          1.4.2      2020-08-27 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  hms           1.0.0      2021-01-13 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  htmltools     0.5.1.1    2021-01-22 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  jquerylib     0.1.3      2020-12-17 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  jsonlite      1.7.2      2020-12-09 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  kagomer       0.0.1.900  2021-03-06 [2] Github (paithiov909/kagomer@c402470)</span>
+<span class="co">#&gt;  knitr         1.31       2021-01-27 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  lifecycle     1.0.0      2021-02-15 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  listenv       0.8.0      2019-12-05 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  magrittr      2.0.1      2020-11-17 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  memoise       2.0.0      2021-01-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  parallelly    1.23.0     2021-01-04 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  pillar        1.5.0      2021-02-22 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  pkgconfig     2.0.3      2019-09-22 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  pkgdown       1.6.1      2020-09-12 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  processx      3.4.5      2020-11-30 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  ps            1.6.0      2021-02-28 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  purrr       * 0.3.4      2020-04-17 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  R.cache       0.14.0     2019-12-06 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  R.methodsS3   1.8.1      2020-08-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  R.oo          1.24.0     2020-08-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  R.utils       2.10.1     2020-08-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  R6            2.5.0      2020-10-28 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  ragg          1.1.1      2021-02-25 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  Rcpp          1.0.6      2021-01-15 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  RcppKagome  * 0.0.1.900  2021-03-06 [2] local                               </span>
+<span class="co">#&gt;  readr         1.4.0      2020-10-05 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  rlang         0.4.10     2020-12-30 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  rmarkdown     2.7        2021-02-19 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  rprojroot     2.0.2      2020-11-15 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  sass          0.3.1      2021-01-24 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  sessioninfo   1.1.1      2018-11-05 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  stringi       1.5.3      2020-09-09 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  stringr       1.4.0      2019-02-10 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  styler        1.3.2      2020-02-23 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  systemfonts   1.0.1      2021-02-09 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  textshaping   0.3.1      2021-02-22 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  tibble        3.1.0      2021-02-25 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  tidyselect    1.1.0      2020-05-11 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  utf8          1.1.4      2018-05-24 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  uuid          0.1-4      2020-02-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  vctrs         0.3.6      2020-12-17 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  withr         2.4.1      2021-01-26 [2] CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  xfun          0.21       2021-02-10 [2] CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  yaml          2.2.1      2020-02-01 [2] CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpq4X646/temp_libpath2b943ffc494d</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/RtmpgrKLf5/temp_libpath57c51411c57</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
 <span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span></code></pre></div>
 </div>

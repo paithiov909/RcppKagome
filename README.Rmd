@@ -24,13 +24,13 @@ RcppMeCab::pos("test load")
 RcppKagome::kagome("test load")
 ```
 
-# RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='https://raw.githack.com/paithiov909/RcppKagome/master/man/figures/logo.png' align="right" height="139" /></a>
+# RcppKagome <a href='https://paithiov909.github.io/RcppKagome'><img src='https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 [![GitHub last commit](https://img.shields.io/github/last-commit/paithiov909/RcppKagome)](#)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/paithiov909/RcppKagome/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/RcppKagome/actions)
-[![Codecov test coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/master/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/main/graph/badge.svg)](https://codecov.io/gh/paithiov909/RcppKagome?branch=main)
 <!-- badges: end -->
 
 RcppKagome is an R interface to [ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained Japanese morphological analyzer written in pure Go.
@@ -84,8 +84,7 @@ Prettified outputs have these columns.
 
 ### Kick Web API of Kagome
 
-RcppKagome provides three simple helpers, that are `serialize`, `queue`, and `kick`,
-so that user can access their own Kagome Web API.
+RcppKagome provides three simple helpers, that are `serialize`, `queue`, and `kick`, so that user can access their own Kagome Web API.
 Once set `KAGOME_URL` as environment vars and following steps below, you can easily use Kagome server via Web API.
 
 ```{r usage_3}
