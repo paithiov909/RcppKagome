@@ -2,8 +2,7 @@
 % Please edit documentation in R/kagome.R
 \name{kagome}
 \alias{kagome}
-\title{Japanese morphological analyzer
-Calls kagome tokenizer.}
+\title{Japanese morphological analyzer}
 \usage{
 kagome(text, ...)
 }
@@ -16,6 +15,5 @@ kagome(text, ...)
 list.
 }
 \description{
-Japanese morphological analyzer
 Calls kagome tokenizer.
 }

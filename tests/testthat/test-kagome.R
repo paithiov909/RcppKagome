@@ -27,4 +27,3 @@ test_that("kagome works", {
   names(res) <- NULL
   expect_equal(res, enc2utf8("\u304c"))
 })
-

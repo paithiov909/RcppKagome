@@ -1,11 +1,11 @@
 ---
-title: "Practice: Text analysis using quanteda"
+title: "Text analysis using quanteda and RcppKagome"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 header-includes:
   - \usepackage[utf8]{inputenc}
 vignette: >
-  %\VignetteIndexEntry{Practice: Text analysis using quanteda}
+  %\VignetteIndexEntry{Text analysis using quanteda and RcppKagome}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,96 +16,57 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-require(tidyverse)
-googledrive::drive_auth(cache = ".secrets")
+#### prepare directories for cache ---
+if (!dir.exists("cache")) dir.create("cache")
+if (!dir.exists("cache/ldavis")) dir.create("cache/ldavis")
+#### load packages ---
+library(tidyverse)
 ```
 
-## Googleドキュメントの読み込み
+## この記事について
 
-これまで自分が書いてきた文章について、テキスト解析をしてみます。ここで分析している文章はnoteで読むことができます。
+[{quanteda}](https://github.com/quanteda/quanteda)と[{RcppKagome}](https://github.com/paithiov909/RcppKagome)を用いたテキストマイニングの例です（[{googledrive}](https://github.com/tidyverse/googledrive)を利用して自作の文章を分析していた過去記事については[Qiitaのログ](https://qiita.com/paithiov909/items/a47a097836e8a9ec12ef/revisions)（revision < 10）から参照してください）。
 
-> [さちこ｜note](https://note.com/shinabitanori)
+なお、以下のパッケージについては、ここではGitHubからインストールできるものを使っています。
 
-これまでに書いた文章はいくつかの場所にバックアップを取っていて、Googleドキュメントにもバックアップがあります。今回はそれらをgoogledriveで取得し、readtextで読み込みます。
+- [uribo/zipangu](https://github.com/uribo/zipangu)
+- [paithiov909/ldccr](https://github.com/paithiov909/ldccr)
+- [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
 
-`googledrive::drive_download`はディレクトリごとダウンロードしたりはできないようなので、特定のディレクトリにあるファイルのリスト（dribble）を`dplyr::rowwise`で行ごとに渡して`dplyr::do`のなかでダウンロードしています。
+## データの準備
 
+テキストデータとして[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)を使います。以下の9カテゴリです。
 
-```{r drive_download}
-aquarium <- googledrive::drive_ls("Archives/aquarium/") %>%
-  dplyr::rowwise() %>%
-  dplyr::do(
-    googledrive::drive_download(
-      googledrive::as_id(.$id),
-      path = file.path(tempdir(), .$name),
-      overwrite = TRUE,
-      verbose = FALSE
-    )
-  )
-shinabitanori <- googledrive::drive_ls("Archives/shinabitanori/") %>%
-  dplyr::rowwise() %>%
-  dplyr::do(
-    googledrive::drive_download(
-      googledrive::as_id(.$id),
-      path = file.path(tempdir(), .$name),
-      overwrite = TRUE,
-      verbose = FALSE
-    )
-  )
-```
+- トピックニュース
+- Sports Watch
+- ITライフハック
+- 家電チャンネル
+- MOVIE ENTER
+- 独女通信
+- エスマックス
+- livedoor HOMME
+- Peachy
 
-ダウンロードしたdocxファイルのリストをデータフレームとして持っておきます。文章は公開されている場所などに応じて２つのディレクトリに分けて保存されています。ここでは、この保存されているディレクトリを文書の変数として持つようにします。
+[{ldccr}](https://github.com/paithiov909/ldccr)でデータフレームにします。
 
 ```{r tidy_data_1}
-df <- list("aquarium", "shinabitanori") %>%
-  purrr::map_dfr(~
-  dplyr::mutate(rlang::eval_tidy(sym(.)), doc = .)) %>%
-  dplyr::select(doc, name, local_path) %>%
-  tibble::rowid_to_column()
-
-head(df, 8L)
+data <- ldccr::parse_ldcc(exdir = "cache")
 ```
 
-## 形態素解析
-
-[この自作パッケージ](https://github.com/paithiov909/RcppKagome)を使っています。結果をquantedaのコーパスオブジェクトとして格納して、いろいろ試していきます。
+このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。
 
 ```{r tidy_data_2}
-normalize <- function(str) {
-  str %>%
-    stringr::str_replace_all("\u2019", "\'") %>%
-    stringr::str_replace_all("\u201d", "\"") %>%
-    stringr::str_replace_all("[\u02d7\u058a\u2010\u2011\u2012\u2013\u2043\u207b\u208b\u2212]", "-") %>%
-    stringr::str_replace_all("[\ufe63\uff0d\uff70\u2014\u2015\u2500\u2501\u30fc]", enc2utf8("\u30fc")) %>%
-    stringr::str_replace_all("[~\u223c\u223e\u301c\u3030\uff5e]", "~") %>%
-    stringr::str_remove_all("[[:punct:]]+") %>%
-    stringr::str_remove_all("[[:blank:]]+") %>%
-    stringr::str_remove_all("[[:cntrl:]]+") %>%
-    return()
-}
-
-corp <- df %>%
-  dplyr::rowwise() %>%
-  dplyr::do(
-    readtext::readtext(
-      .$local_path,
-      docvarsfrom = "filenames",
-      docvarnames = c("name")
-  )) %>%
-  dplyr::bind_rows() %>%
-  dplyr::left_join(
-    dplyr::select(df, rowid, doc, name),
-    by = "name"
-  ) %>%
-  dplyr::mutate(text = normalize(text))
+corp <- data %>%
+  dplyr::sample_frac(size = .1)
 
 corp <- corp %>%
-  dplyr::pull("text") %>%
+  dplyr::pull("body") %>%
+  stringr::str_remove_all("[[:punct:]]+") %>%
+  zipangu::str_jnormalize() %>%
   RcppKagome::kagome() %>%
-  RcppKagome::prettify() %>%
-  RcppKagome::pack() %>%
+  RcppKagome::pack_list() %>%
   dplyr::bind_cols(corp) %>%
-  quanteda::corpus(text_field = "Text")
+  quanteda::corpus()
 ```
 
 ## ワードクラウド
@@ -121,9 +82,9 @@ stopwords <- rtweet::stopwordslangs %>%
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "doc") %>%
-  quanteda::dfm_trim(min_termfreq = 3L) %>%
-  quanteda::textplot_wordcloud(comparison = TRUE, color = viridis::cividis(3))
+  quanteda::dfm(groups = "category") %>%
+  quanteda::dfm_trim(min_termfreq = 10L) %>%
+  quanteda.textplots::textplot_wordcloud(color = viridis::cividis(8L))
 ```
 
 ## 出現頻度の集計
@@ -134,8 +95,8 @@ corp %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
   quanteda::dfm() %>%
   quanteda::dfm_weight("prop") %>%
-  quanteda::textstat_frequency(groups = "doc") %>%
-  dplyr::top_n(-16L, rank) %>%
+  quanteda::textstat_frequency(groups = "category") %>%
+  dplyr::top_n(-30L, rank) %>%
   ggpubr::ggdotchart(
     x = "feature",
     y = "frequency",
@@ -148,29 +109,32 @@ corp %>%
 
 ## Keyness
 
-aquariumグループの文書とその他の対照を見ています。
+ITライフハック（`it-life-hack`）グループの文書とその他の対照を見ています。
 
 ```{r keyness}
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "doc") %>%
-  quanteda::textstat_keyness(target = "aquarium") %>%
-  quanteda::textplot_keyness()
+  quanteda::dfm(groups = "category") %>%
+  quanteda.textstats::textstat_keyness(target = "it-life-hack") %>%
+  quanteda.textplots::textplot_keyness()
 ```
 
 ## 対応分析
 
+全部をプロットすると潰れて見えないので一部だけを抽出しています。
+
 ```{r ca}
-corp %>%
+corp_sample <- quanteda::corpus_sample(corp, size = 32L)
+corp_sample %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
   quanteda::dfm() %>%
   quanteda::dfm_weight(scheme = "prop") %>%
   quanteda.textmodels::textmodel_ca() %>%
-  quanteda.textmodels::textplot_scale1d(
+  quanteda.textplots::textplot_scale1d(
     margin = "documents",
-    groups = quanteda::docvars(corp, "doc")
+    groups = quanteda::docvars(corp_sample, "category")
   )
 ```
 
@@ -180,37 +144,37 @@ corp %>%
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "doc") %>%
-  quanteda::dfm_trim(min_termfreq = 20L) %>%
+  quanteda::dfm(groups = "category") %>%
+  quanteda::dfm_trim(min_termfreq = 100L) %>%
   quanteda::fcm() %>%
-  quanteda::textplot_network(min_freq = .8)
+  quanteda.textplots::textplot_network(min_freq = .96)
 ```
 
 ## クラスタリング
 
-マンハッタン距離、ward法（ward.D2）です。
+マンハッタン距離、ward法（ward.D2）です。ここでも一部だけを抽出しています。
 
 ```{r clust}
-d <- corp %>%
+d <- corp_sample %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
   quanteda::dfm() %>%
   quanteda::dfm_weight(scheme = "prop") %>%
-  quanteda::textstat_dist(method = "manhattan") %>%
+  quanteda.textstats::textstat_dist(method = "manhattan") %>%
   as.dist() %>%
   hclust(method = "ward.D2") %>%
   ggdendro::dendro_data(type = "rectangle") %>%
   purrr::list_modify(
     labels = dplyr::bind_cols(
       .$labels,
-      names = quanteda::docvars(corp, "name"),
-      doc = quanteda::docvars(corp, "doc")
+      names = names(corp_sample),
+      category = quanteda::docvars(corp_sample, "category")
     )
   )
 
 ggplot2::ggplot(ggdendro::segment(d)) +
   ggplot2::geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
-  ggplot2::geom_text(ggdendro::label(d), mapping = aes(x, y, label = names, colour = doc, hjust = 0), size = 3) +
+  ggplot2::geom_text(ggdendro::label(d), mapping = aes(x, y, label = names, colour = category, hjust = 0), size = 3) +
   ggplot2::coord_flip() +
   ggplot2::scale_y_reverse(expand = c(.2, 0)) +
   ggdendro::theme_dendro()
@@ -228,12 +192,12 @@ dtm <- corp %>%
 features <- corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "name") %>%
+  quanteda::dfm() %>%
   quanteda::ntoken()
 
 m <- dtm %>%
   as("dgCMatrix") %>%
-  textmineR::FitLdaModel(k = 3, iterations = 200, burnin = 175)
+  textmineR::FitLdaModel(k = 9, iterations = 200, burnin = 175)
 
 m$phi %>%
   textmineR::GetTopTerms(15L) %>%
@@ -247,18 +211,32 @@ LDAvis::createJSON(
   phi = m$phi,
   theta = m$theta,
   doc.length = features,
-  vocab = stringi::stri_enc_toutf8(dtm @ Dimnames$features),
+  vocab = stringi::stri_enc_toutf8(dtm@Dimnames$features),
   term.frequency = quanteda::colSums(dtm)
 ) %>%
-  LDAvis::serVis(open.browser = FALSE, out.dir = file.path(getwd(), "cache"))
+  LDAvis::serVis(open.browser = FALSE, out.dir = file.path(getwd(), "cache/ldavis"))
 
-readr::read_lines_raw(file.path(getwd(), "cache", "lda.json")) %>%
+readr::read_lines_raw(file.path(getwd(), "cache/ldavis", "lda.json")) %>%
   iconv(from = "CP932", to = "UTF-8") %>%
   jsonlite::parse_json(simplifyVector = TRUE) %>%
-  jsonlite::write_json(file.path(getwd(), "cache", "lda.json"), dataframe = "columns", auto_unbox = TRUE)
+  jsonlite::write_json(file.path(getwd(), "cache/ldavis", "lda.json"), dataframe = "columns", auto_unbox = TRUE)
 ```
 
+```{r copy_ldavis_dir, include=FALSE}
+files <- list.files(file.path("cache/ldavis"), full.names = TRUE)
+for (file in files) {
+  file.copy(
+    from = file,
+    to = file.path(getwd(), "../docs/ldavis")
+  )
+}
+```
+
+> [LDAvis](https://paithiov909.github.io/RcppKagome/ldavis/index.html)
+
 ## GloVe
+
+ここでは50次元の埋め込みを得ます。
 
 ```{r glove}
 toks <- corp %>%
@@ -268,13 +246,13 @@ toks <- corp %>%
 
 vocab <- toks %>%
   text2vec::create_vocabulary() %>%
-  text2vec::prune_vocabulary(term_count_min = 5L)
+  text2vec::prune_vocabulary(term_count_min = 10L)
 
-vect <- text2vec::vocab_vectorizer(vocab)
+vectorize <- text2vec::vocab_vectorizer(vocab)
 
 tcm <- text2vec::create_tcm(
   it = toks,
-  vectorizer = vect,
+  vectorizer = vectorize,
   skip_grams_window = 5L
 )
 
@@ -291,15 +269,14 @@ wv <- glove$fit_transform(
   tibble::as_tibble(.name_repair = "minimal", rownames = NA)
 ```
 
-Rtsneで次元を減らして可視化します。
+[{umap}](https://github.com/tkonopka/umap)で次元を減らして可視化します。色は`kmeans`でクラスタリング（ユークリッド距離）して付けています。
 
-```{r tsne}
-getRtsneAsTbl <- function(tbl, dim = 2, perp = 30) {
-  tsn <- tbl %>% Rtsne::Rtsne(dim = dim, perplexity = perp)
-  tsny <- tsn$Y
-  rownames(tsny) <- row.names(tbl)
-  tsny <- as.data.frame(tsny, stringsAsFactors = FALSE)
-  return(tibble::as_tibble(tsny, .name_repair = "minimal", rownames = NA))
+```{r umap}
+pull_layout <- function(tbl) {
+  umap <- umap::umap(as.matrix(tbl))
+  layout <- umap$layout
+  rownames(layout) <- rownames(tbl)
+  return(as.data.frame(layout))
 }
 
 vec <- vocab %>%
@@ -308,14 +285,14 @@ vec <- vocab %>%
     by = c("term" = "words")
   ) %>%
   dplyr::arrange(desc(term_count)) %>%
-  head(100) %>%
+  dplyr::slice_head(n = 100L) %>%
   dplyr::left_join(tibble::rownames_to_column(wv), by = c("term" = "rowname")) %>%
   tibble::column_to_rownames("term") %>%
-  dplyr::select(V1, V2)
+  dplyr::select(starts_with("V"))
 
-dist <- proxy::dist(x = vec, y = vec, method = "Euclidean", diag = TRUE)
-clust <- kmeans(x = dist, centers = 5)
-vec <- getRtsneAsTbl(vec, perp = 2) %>%
+dist <- proxyC::simil(as(as.matrix(vec), "dgCMatrix"), method = "cosine")
+clust <- kmeans(x = dist, centers = 9)
+vec <- pull_layout(vec) %>%
   tibble::rownames_to_column() %>%
   dplyr::mutate(cluster = as.factor(clust$cluster))
 

@@ -1,8 +1,8 @@
 #' Prettifies kagome output
-##
+#'
 #' @param list Output of \code{RcppKagome::kagome}.
 #' @return data.frame.
-##
+#'
 #' @export
 prettify <- function(list) {
   res <- furrr::future_imap_dfr(list, function(v, i) {
@@ -45,4 +45,3 @@ prettify <- function(list) {
     )
   ))
 }
-

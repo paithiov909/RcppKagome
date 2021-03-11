@@ -32,4 +32,3 @@ test_that("kagomer works", {
     kick()
   expect_equal(res$surface[2], enc2utf8("\u632f\u308a\u5411\u304f"))
 })
-

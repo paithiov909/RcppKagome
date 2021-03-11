@@ -38,4 +38,3 @@ test_that("pack_df works", {
   res <- pack_df(res)
   expect_type(res$text, "character")
 })
-

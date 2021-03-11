@@ -2,8 +2,9 @@ pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  demo_ja: demo_ja.html
   readme_ja: readme_ja.html
-last_built: 2021-03-10T14:53Z
+last_built: 2021-03-11T12:01Z
 urls:
   reference: https://paithiov909.github.io/RcppKagome/reference
   article: https://paithiov909.github.io/RcppKagome/articles

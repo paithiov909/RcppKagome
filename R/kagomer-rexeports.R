@@ -37,4 +37,3 @@ kick <- function(requests,
                  .skip_enc_reset = FALSE) {
   kagomer::kick(requests, keep, .skip_enc_reset)
 }
-
