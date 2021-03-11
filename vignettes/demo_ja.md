@@ -89,7 +89,7 @@ corp %>%
   quanteda.textplots::textplot_wordcloud(color = viridis::cividis(8L))
 ```
 
-![wordcloud-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/wordcloud-1.png)
+![wordcloud-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/wordcloud-1.png)
 
 ## 出現頻度の集計
 
@@ -112,7 +112,7 @@ corp %>%
   ggplot2::theme_bw()
 ```
 
-![stats-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/stats-1.png)
+![stats-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/stats-1.png)
 
 ## Keyness
 
@@ -135,7 +135,7 @@ corp %>%
 #>   tail.textstat_proxy          quanteda
 ```
 
-![keyness-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/keyness-1.png)
+![keyness-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/keyness-1.png)
 
 ## 対応分析
 
@@ -156,7 +156,7 @@ corp_sample %>%
   )
 ```
 
-![ca-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/ca-1.png)
+![ca-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/ca-1.png)
 
 ## 共起ネットワーク
 
@@ -172,7 +172,7 @@ corp %>%
 #> Warning: ggrepel: 67 unlabeled data points (too many overlaps). Consider increasing max.overlaps
 ```
 
-![network-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/network-1.png)
+![network-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/network-1.png)
 
 ## クラスタリング
 
@@ -205,7 +205,7 @@ ggplot2::ggplot(ggdendro::segment(d)) +
   ggdendro::theme_dendro()
 ```
 
-![clust-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/clust-1.png)
+![clust-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/clust-1.png)
 
 ## LDA（Latent Dirichlet Allocation）
 
@@ -324,7 +324,7 @@ wv <- glove$fit_transform(
 #> INFO  [20:59:21.545] epoch 10, loss 0.0488
 ```
 
-[{umap}](https://github.com/tkonopka/umap)で次元を減らして可視化します。色は`kmeans`でクラスタリング（ユークリッド距離）して付けています。
+[{umap}](https://github.com/tkonopka/umap)で次元を減らして可視化します。色は`kmeans`でクラスタリング（コサイン類似度）して付けています。
 
 
 ```r
@@ -360,7 +360,7 @@ vec %>%
 #> Warning: ggrepel: 76 unlabeled data points (too many overlaps). Consider increasing max.overlaps
 ```
 
-![umap-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/docs/articles/demo_ja_files/figure-html/umap-1.png)
+![umap-1](https://raw.githack.com/paithiov909/RcppKagome/main/docs/articles/demo_ja_files/figure-html/umap-1.png)
 
 ## セッション情報
 

@@ -548,7 +548,7 @@
 <span class="co">#&gt; INFO  [21:05:50.732] epoch 8, loss 0.0528 </span>
 <span class="co">#&gt; INFO  [21:05:51.949] epoch 9, loss 0.0502 </span>
 <span class="co">#&gt; INFO  [21:05:53.129] epoch 10, loss 0.0480</span></code></pre></div>
-<p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code>kmeans</code>でクラスタリング（ユークリッド距離）して付けています。</p>
+<p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code>kmeans</code>でクラスタリング（コサイン類似度）して付けています。</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pull_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">umap</span> <span class="op">&lt;-</span> <span class="fu">umap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/umap/man/umap.html">umap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span><span class="op">)</span>
