@@ -15,7 +15,7 @@ coverage](https://codecov.io/gh/paithiov909/RcppKagome/branch/main/graph/badge.s
 <!-- badges: end -->
 
 RcppKagome is an R interface to
-[ikawaha/Kagome](https://github.com/ikawaha/kagome); Self-contained
+[ikawaha/kagome](https://github.com/ikawaha/kagome); Self-contained
 Japanese morphological analyzer written in pure Go.
 
 ## System Requirements

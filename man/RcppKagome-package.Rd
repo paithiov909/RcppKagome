@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
+Interface to ikawaha/kagome; Self-contained Japanese morphological analyzer
     written in pure Go.
 }
 \seealso{

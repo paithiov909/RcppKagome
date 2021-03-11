@@ -5,7 +5,7 @@ Version: 0.0.1.900
 Authors@R: c(
     person("Akiru", "Kato", email = "paithiov909@gmail.com", role = c("aut", "cre")))
 Maintainer: Kato Akiru <paithiov909@gmail.com>
-Description: Interface to ikawaha/Kagome; Self-contained Japanese morphological analyzer
+Description: Interface to ikawaha/kagome; Self-contained Japanese morphological analyzer
     written in pure Go.
 Depends: R (>= 4.0.0)
 SystemRequirements: GNU make, GNU GCC, Go, C++11
