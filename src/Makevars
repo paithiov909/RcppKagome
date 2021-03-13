@@ -1,4 +1,7 @@
-CURDIR = $(shell "$(R_HOME)/bin/Rscript" -e "cat(getwd())")
+ifeq "$(CURDIR)" ""
+	CURDIR = $(shell "$(R_HOME)/bin/Rscript" -e "cat(getwd())")
+endif
+
 GOPATH = $(CURDIR)/go
 GOBUILD = go build
 CXX_STD = CXX11
@@ -12,7 +15,7 @@ all: build copy $(SHLIB)
 
 build:
 	@rm -f ../inst/include/libkagome.h
-	CXX="$(CXX11)" GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
+	CXX=$(CXX11) GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
 
 copy:
 	@cd $(CURDIR)
