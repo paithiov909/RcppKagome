@@ -97,7 +97,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Text analysis using quanteda and RcppKagome</h1>
             
-            <h4 class="date">2021-03-11</h4>
+            <h4 class="date">2021-03-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/demo_ja.Rmd"><code>vignettes/demo_ja.Rmd</code></a></small>
       <div class="hidden name"><code>demo_ja.Rmd</code></div>
@@ -143,8 +143,7 @@
 <span class="co">#&gt; Parsing peachy...</span>
 <span class="co">#&gt; Parsing smax...</span>
 <span class="co">#&gt; Parsing sports-watch...</span>
-<span class="co">#&gt; Parsing topic-news...</span>
-<span class="co">#&gt; Done.</span></code></pre></div>
+<span class="co">#&gt; Parsing topic-news...</span></code></pre></div>
 <p>このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
@@ -152,7 +151,7 @@
 
 <span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">"[[:punct:]]+"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">"[[:punct:]]+"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">## quanteda::tokensにremove_punctというオプションがあるのでそれを用いてもよい</span>
   <span class="fu">zipangu</span><span class="fu">::</span><span class="fu"><a href="https://uribo.github.io/zipangu/reference/str_jnormalize.html">str_jnormalize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -246,7 +245,9 @@
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="st">"category"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html">textplot_network</a></span><span class="op">(</span>min_freq <span class="op">=</span> <span class="fl">.96</span><span class="op">)</span></code></pre></div>
+  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html">textplot_network</a></span><span class="op">(</span>min_freq <span class="op">=</span> <span class="fl">.96</span><span class="op">)</span>
+<span class="co">#&gt; Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider</span>
+<span class="co">#&gt; increasing max.overlaps</span></code></pre></div>
 <p><img src="demo_ja_files/figure-html/network-1.png" width="700"></p>
 </div>
 <div id="クラスタリング" class="section level2">
@@ -282,6 +283,7 @@
 <div id="ldalatent-dirichlet-allocation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ldalatent-dirichlet-allocation" class="anchor"></a>LDA（Latent Dirichlet Allocation）</h2>
+<p>LDAについては<code><a href="https://quanteda.io/reference/convert.html">quanteda::convert</a></code>でdfmを変換して<code>topicmodels::LDA</code>に直接渡すこともできます。公式の<a href="https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models">クイックスタートガイド</a>も参考にしてください。</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -316,169 +318,169 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">セキュリティ</td>
-<td align="left">キャロ</td>
-<td align="left">ソフトウェア</td>
-<td align="left">男性</td>
-<td align="left">選手</td>
-<td align="left">コモ</td>
+<td align="left">婚</td>
+<td align="left">画面</td>
 <td align="left">賞</td>
-<td align="left">韓国</td>
-<td align="left">肌</td>
-</tr>
-<tr class="even">
+<td align="left">コモ</td>
 <td align="left">通</td>
 <td align="left">転職</td>
+<td align="left">自転車</td>
+<td align="left">韓国</td>
 <td align="left">ゴルフ</td>
-<td align="left">独</td>
-<td align="left">サッカー</td>
-<td align="left">フォン</td>
-<td align="left">★</td>
-<td align="left">まつ毛</td>
-<td align="left">鍋</td>
-</tr>
-<tr class="odd">
-<td align="left">ブース</td>
-<td align="left">レビュー</td>
-<td align="left">表示</td>
-<td align="left">クリスマス</td>
-<td align="left">試合</td>
-<td align="left">スマート</td>
-<td align="left">祭</td>
-<td align="left">韓</td>
-<td align="left">脚</td>
 </tr>
 <tr class="even">
-<td align="left">パソコン</td>
-<td align="left">年収</td>
-<td align="left">設定</td>
-<td align="left">子ども</td>
-<td align="left">本田</td>
-<td align="left">搭載</td>
-<td align="left">movie</td>
-<td align="left">ピーター</td>
-<td align="left">野菜</td>
+<td align="left">保険</td>
+<td align="left">タグ</td>
+<td align="left">監督</td>
+<td align="left">スマート</td>
+<td align="left">デジタル</td>
+<td align="left">孫</td>
+<td align="left">イーライ</td>
+<td align="left">akb</td>
+<td align="left">肌</td>
 </tr>
 <tr class="odd">
-<td align="left">ソフト</td>
+<td align="left">男性</td>
+<td align="left">釣</td>
+<td align="left">ベル</td>
+<td align="left">フォン</td>
+<td align="left">ソフトウェア</td>
+<td align="left">試合</td>
 <td align="left">占い</td>
-<td align="left">画面</td>
-<td align="left">夫</td>
-<td align="left">番組</td>
-<td align="left">smax</td>
-<td align="left">監督</td>
-<td align="left">マツコ</td>
+<td align="left">cm</td>
+<td align="left">紺</td>
+</tr>
+<tr class="even">
+<td align="left">独</td>
+<td align="left">設定</td>
+<td align="left">セル</td>
+<td align="left">搭載</td>
+<td align="left">ソフト</td>
+<td align="left">五輪</td>
+<td align="left">弁護士</td>
+<td align="left">48</td>
+<td align="left">ファッション</td>
+</tr>
+<tr class="odd">
+<td align="left">活</td>
+<td align="left">表示</td>
+<td align="left">ショコラ</td>
+<td align="left">対応</td>
+<td align="left">アップデート</td>
+<td align="left">選手</td>
+<td align="left">ホームズ</td>
+<td align="left">紗</td>
+<td align="left">デート</td>
+</tr>
+<tr class="even">
+<td align="left">ひとり</td>
+<td align="left">タップ</td>
+<td align="left">ホテル</td>
+<td align="left">モデル</td>
+<td align="left">機能</td>
+<td align="left">社長</td>
+<td align="left">リムーブ</td>
+<td align="left">隙</td>
+<td align="left">美容</td>
+</tr>
+<tr class="odd">
+<td align="left">展</td>
+<td align="left">ブック</td>
+<td align="left">チョコレート</td>
+<td align="left">ntt</td>
+<td align="left">ジ</td>
+<td align="left">サッカー</td>
+<td align="left">体操</td>
+<td align="left">栄子</td>
+<td align="left">預金</td>
+</tr>
+<tr class="even">
+<td align="left">老人</td>
+<td align="left">ムカデ</td>
+<td align="left">主演</td>
+<td align="left">06</td>
+<td align="left">機器</td>
+<td align="left">代表</td>
+<td align="left">ロボット</td>
+<td align="left">韓</td>
+<td align="left">アヤコ</td>
+</tr>
+<tr class="odd">
+<td align="left">gtx</td>
+<td align="left">iphone</td>
+<td align="left">ニュー</td>
+<td align="left">galaxy</td>
+<td align="left">容量</td>
+<td align="left">斎藤</td>
+<td align="left">ラジオ</td>
+<td align="left">島</td>
+<td align="left">外貨</td>
+</tr>
+<tr class="even">
+<td align="left">メール</td>
+<td align="left">クリック</td>
+<td align="left">役</td>
+<td align="left">phone</td>
+<td align="left">パソコン</td>
+<td align="left">年収</td>
+<td align="left">ノマド</td>
+<td align="left">料理</td>
+<td align="left">水着</td>
+</tr>
+<tr class="odd">
+<td align="left">sns</td>
+<td align="left">ねこ</td>
+<td align="left">マリリン</td>
+<td align="left">xi</td>
+<td align="left">ipad</td>
+<td align="left">営業</td>
+<td align="left">ウルトラマン</td>
+<td align="left">サトコ</td>
 <td align="left">ケア</td>
 </tr>
 <tr class="even">
-<td align="left">対策</td>
-<td align="left">企業</td>
-<td align="left">当選</td>
-<td align="left">勤務</td>
-<td align="left">掲示板</td>
-<td align="left">対応</td>
-<td align="left">ディズニー</td>
-<td align="left">流</td>
-<td align="left">トイレ</td>
-</tr>
-<tr class="odd">
-<td align="left">サービス</td>
-<td align="left">虚構</td>
-<td align="left">タップ</td>
-<td align="left">在宅</td>
-<td align="left">アナ</td>
-<td align="left">容量</td>
-<td align="left">ムカデ</td>
-<td align="left">ティファニー</td>
-<td align="left">ニキビ</td>
-</tr>
-<tr class="even">
-<td align="left">ユーザー</td>
-<td align="left">孫</td>
-<td align="left">入力</td>
-<td align="left">婚</td>
-<td align="left">カセット</td>
-<td align="left">約</td>
-<td align="left">enter</td>
-<td align="left">夏目</td>
-<td align="left">韓国</td>
-</tr>
-<tr class="odd">
+<td align="left">まし</td>
+<td align="left">文字</td>
+<td align="left">★</td>
+<td align="left">android</td>
 <td align="left">ノート</td>
-<td align="left">自動車</td>
-<td align="left">excel</td>
-<td align="left">活</td>
-<td align="left">監督</td>
-<td align="left">gb</td>
-<td align="left">ジョン</td>
-<td align="left">藤本</td>
+<td align="left">長友</td>
+<td align="left">探偵</td>
+<td align="left">竹島</td>
 <td align="left">コスメ</td>
 </tr>
-<tr class="even">
-<td align="left">スマート</td>
-<td align="left">求人</td>
+<tr class="odd">
+<td align="left">佐藤</td>
 <td align="left">マーク</td>
-<td align="left">まし</td>
-<td align="left">フジ</td>
-<td align="left">機能</td>
-<td align="left">猿</td>
-<td align="left">杭</td>
-<td align="left">頭皮</td>
-</tr>
-<tr class="odd">
-<td align="left">富士通</td>
-<td align="left">社長</td>
-<td align="left">htc</td>
-<td align="left">紺</td>
-<td align="left">sports</td>
-<td align="left">本体</td>
-<td align="left">劇場</td>
-<td align="left">竹島</td>
-<td align="left">化粧</td>
+<td align="left">クリスマス</td>
+<td align="left">|</td>
+<td align="left">windows</td>
+<td align="left">求人</td>
+<td align="left">ロゴ</td>
+<td align="left">ルズ</td>
+<td align="left">アイテム</td>
 </tr>
 <tr class="even">
-<td align="left">ワイヤレス</td>
-<td align="left">ビューアー</td>
-<td align="left">フォント</td>
-<td align="left">すっぴん</td>
-<td align="left">77</td>
-<td align="left">ntt</td>
-<td align="left">メリダ</td>
-<td align="left">akb</td>
-<td align="left">細胞</td>
+<td align="left">出会い</td>
+<td align="left">星座</td>
+<td align="left">レイ</td>
+<td align="left">コア</td>
+<td align="left">gb</td>
+<td align="left">企業</td>
+<td align="left">nifty</td>
+<td align="left">掲示板</td>
+<td align="left">peachy</td>
 </tr>
 <tr class="odd">
-<td align="left">フォン</td>
-<td align="left">ultrabookerjp</td>
-<td align="left">シャフト</td>
-<td align="left">夫婦</td>
-<td align="left">スポーツ</td>
-<td align="left">wifi</td>
-<td align="left">カーター</td>
-<td align="left">北朝鮮</td>
-<td align="left">美容</td>
-</tr>
-<tr class="even">
-<td align="left">ニコニコ</td>
-<td align="left">投資</td>
-<td align="left">one</td>
-<td align="left">出産</td>
-<td align="left">なでしこ</td>
-<td align="left">×</td>
-<td align="left">2011</td>
-<td align="left">ガブリエラ</td>
-<td align="left">効果</td>
-</tr>
-<tr class="odd">
-<td align="left">コーヒー</td>
-<td align="left">ballo</td>
-<td align="left">クリック</td>
-<td align="left">墓</td>
-<td align="left">五輪</td>
-<td align="left">接続</td>
-<td align="left">主演</td>
-<td align="left">空港</td>
-<td align="left">幹</td>
+<td align="left">友人</td>
+<td align="left">家計</td>
+<td align="left">ケーキ</td>
+<td align="left">発表</td>
+<td align="left">os</td>
+<td align="left">歯</td>
+<td align="left">億</td>
+<td align="left">まさお</td>
+<td align="left">キャビア</td>
 </tr>
 </tbody>
 </table>
@@ -491,7 +493,7 @@
   vocab <span class="op">=</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_enc_toutf8.html">stri_enc_toutf8</a></span><span class="op">(</span><span class="va">dtm</span><span class="op">@</span><span class="va">Dimnames</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>,
   term.frequency <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu">colSums</span><span class="op">(</span><span class="va">dtm</span><span class="op">)</span>
 <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/LDAvis/man/serVis.html">serVis</a></span><span class="op">(</span>open.browser <span class="op">=</span> <span class="cn">FALSE</span>, out.dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/LDAvis/man/serVis.html">serVis</a></span><span class="op">(</span>out.dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning in dir.create(out.dir): 'C:</span>
 <span class="co">#&gt; \Users\user\Documents\GitHub\RcppKagome\vignettes\cache\ldavis' はすでに存在しま</span>
 <span class="co">#&gt; す</span>
@@ -538,17 +540,17 @@
 <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="co">#&gt; INFO  [21:05:42.393] epoch 1, loss 0.1767 </span>
-<span class="co">#&gt; INFO  [21:05:43.630] epoch 2, loss 0.0990 </span>
-<span class="co">#&gt; INFO  [21:05:44.793] epoch 3, loss 0.0818 </span>
-<span class="co">#&gt; INFO  [21:05:45.994] epoch 4, loss 0.0717 </span>
-<span class="co">#&gt; INFO  [21:05:47.181] epoch 5, loss 0.0649 </span>
-<span class="co">#&gt; INFO  [21:05:48.392] epoch 6, loss 0.0598 </span>
-<span class="co">#&gt; INFO  [21:05:49.588] epoch 7, loss 0.0559 </span>
-<span class="co">#&gt; INFO  [21:05:50.732] epoch 8, loss 0.0528 </span>
-<span class="co">#&gt; INFO  [21:05:51.949] epoch 9, loss 0.0502 </span>
-<span class="co">#&gt; INFO  [21:05:53.129] epoch 10, loss 0.0480</span></code></pre></div>
-<p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code>kmeans</code>でクラスタリング（コサイン類似度）して付けています。</p>
+<span class="co">#&gt; INFO  [00:26:16.049] epoch 1, loss 0.1800 </span>
+<span class="co">#&gt; INFO  [00:26:17.389] epoch 2, loss 0.1006 </span>
+<span class="co">#&gt; INFO  [00:26:18.726] epoch 3, loss 0.0831 </span>
+<span class="co">#&gt; INFO  [00:26:20.005] epoch 4, loss 0.0728 </span>
+<span class="co">#&gt; INFO  [00:26:21.274] epoch 5, loss 0.0657 </span>
+<span class="co">#&gt; INFO  [00:26:22.492] epoch 6, loss 0.0605 </span>
+<span class="co">#&gt; INFO  [00:26:23.802] epoch 7, loss 0.0565 </span>
+<span class="co">#&gt; INFO  [00:26:25.081] epoch 8, loss 0.0533 </span>
+<span class="co">#&gt; INFO  [00:26:26.367] epoch 9, loss 0.0506 </span>
+<span class="co">#&gt; INFO  [00:26:27.639] epoch 10, loss 0.0484</span></code></pre></div>
+<p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code><a href="https://rdrr.io/r/stats/kmeans.html">stats::kmeans</a></code>でクラスタリング（コサイン類似度）して付けています。</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pull_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">umap</span> <span class="op">&lt;-</span> <span class="fu">umap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/umap/man/umap.html">umap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span><span class="op">)</span>
@@ -596,7 +598,7 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-03-11                  </span>
+<span class="co">#&gt;  date     2021-03-17                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
 <span class="co">#&gt;  package             * version    date       lib</span>
@@ -605,6 +607,8 @@
 <span class="co">#&gt;  assertthat            0.2.1      2019-03-21 [2]</span>
 <span class="co">#&gt;  async                 0.0.0.9004 2021-03-03 [2]</span>
 <span class="co">#&gt;  backports             1.2.1      2020-12-09 [2]</span>
+<span class="co">#&gt;  bit                   4.0.4      2020-08-04 [2]</span>
+<span class="co">#&gt;  bit64                 4.0.5      2020-08-30 [2]</span>
 <span class="co">#&gt;  broom                 0.7.5      2021-02-19 [2]</span>
 <span class="co">#&gt;  bslib                 0.2.4      2021-01-25 [2]</span>
 <span class="co">#&gt;  cachem                1.0.4      2021-02-13 [2]</span>
@@ -663,7 +667,7 @@
 <span class="co">#&gt;  later                 1.1.0.1    2020-06-05 [2]</span>
 <span class="co">#&gt;  lattice               0.20-41    2020-04-02 [3]</span>
 <span class="co">#&gt;  LDAvis                0.3.2      2015-10-24 [2]</span>
-<span class="co">#&gt;  ldccr                 0.0.4      2021-03-11 [2]</span>
+<span class="co">#&gt;  ldccr                 0.0.5      2021-03-16 [2]</span>
 <span class="co">#&gt;  lgr                   0.4.2      2021-01-10 [2]</span>
 <span class="co">#&gt;  LiblineaR             2.10-12    2021-03-02 [2]</span>
 <span class="co">#&gt;  lifecycle             1.0.0      2021-02-15 [2]</span>
@@ -680,7 +684,7 @@
 <span class="co">#&gt;  nsyllable             1.0        2020-11-30 [2]</span>
 <span class="co">#&gt;  openssl               1.4.3      2020-09-18 [2]</span>
 <span class="co">#&gt;  openxlsx              4.2.3      2020-10-27 [2]</span>
-<span class="co">#&gt;  parallelly            1.23.0     2021-01-04 [2]</span>
+<span class="co">#&gt;  parallelly            1.24.0     2021-03-14 [2]</span>
 <span class="co">#&gt;  pillar                1.5.1      2021-03-05 [2]</span>
 <span class="co">#&gt;  pkgconfig             2.0.3      2019-09-22 [2]</span>
 <span class="co">#&gt;  pkgdown               1.6.1      2020-09-12 [2]</span>
@@ -693,7 +697,7 @@
 <span class="co">#&gt;  quanteda              2.1.2      2020-09-23 [2]</span>
 <span class="co">#&gt;  quanteda.textmodels   0.9.3      2021-03-07 [2]</span>
 <span class="co">#&gt;  quanteda.textplots    0.93       2021-02-18 [2]</span>
-<span class="co">#&gt;  quanteda.textstats    0.92       2021-02-20 [2]</span>
+<span class="co">#&gt;  quanteda.textstats    0.93       2021-03-15 [2]</span>
 <span class="co">#&gt;  R.cache               0.14.0     2019-12-06 [2]</span>
 <span class="co">#&gt;  R.methodsS3           1.8.1      2020-08-26 [2]</span>
 <span class="co">#&gt;  R.oo                  1.24.0     2020-08-26 [2]</span>
@@ -701,11 +705,12 @@
 <span class="co">#&gt;  R6                    2.5.0      2020-10-28 [2]</span>
 <span class="co">#&gt;  ragg                  1.1.1      2021-02-25 [2]</span>
 <span class="co">#&gt;  Rcpp                  1.0.6      2021-01-15 [2]</span>
-<span class="co">#&gt;  RcppKagome            0.0.1.900  2021-03-06 [2]</span>
+<span class="co">#&gt;  RcppKagome            0.0.1.900  2021-03-16 [1]</span>
 <span class="co">#&gt;  RcppParallel          5.0.3      2021-02-24 [2]</span>
 <span class="co">#&gt;  RcppProgress          0.4.2      2020-02-06 [2]</span>
 <span class="co">#&gt;  readr               * 1.4.0      2020-10-05 [2]</span>
 <span class="co">#&gt;  readxl                1.3.1      2019-03-13 [2]</span>
+<span class="co">#&gt;  rematch2              2.1.2      2020-05-01 [2]</span>
 <span class="co">#&gt;  reprex                1.0.0      2021-01-27 [2]</span>
 <span class="co">#&gt;  reticulate            1.18       2020-10-25 [2]</span>
 <span class="co">#&gt;  RhpcBLASctl           0.20-137   2020-05-17 [2]</span>
@@ -733,7 +738,7 @@
 <span class="co">#&gt;  stringi               1.5.3      2020-09-09 [2]</span>
 <span class="co">#&gt;  stringr             * 1.4.0      2019-02-10 [2]</span>
 <span class="co">#&gt;  styler                1.3.2      2020-02-23 [2]</span>
-<span class="co">#&gt;  survival              3.2-7      2020-09-28 [2]</span>
+<span class="co">#&gt;  survival              3.2-9      2021-03-14 [2]</span>
 <span class="co">#&gt;  systemfonts           1.0.1      2021-02-09 [2]</span>
 <span class="co">#&gt;  text2vec              0.6        2020-02-18 [2]</span>
 <span class="co">#&gt;  textmineR             3.0.4      2019-04-18 [2]</span>
@@ -743,13 +748,14 @@
 <span class="co">#&gt;  tidyselect            1.1.0      2020-05-11 [2]</span>
 <span class="co">#&gt;  tidyverse           * 1.3.0      2019-11-21 [2]</span>
 <span class="co">#&gt;  umap                  0.2.7.0    2020-11-04 [2]</span>
-<span class="co">#&gt;  utf8                  1.1.4      2018-05-24 [2]</span>
+<span class="co">#&gt;  utf8                  1.2.1      2021-03-12 [2]</span>
 <span class="co">#&gt;  uuid                  0.1-4      2020-02-26 [2]</span>
 <span class="co">#&gt;  vctrs                 0.3.6      2020-12-17 [2]</span>
 <span class="co">#&gt;  viridis               0.5.1      2018-03-29 [2]</span>
 <span class="co">#&gt;  viridisLite           0.3.0      2018-02-01 [2]</span>
+<span class="co">#&gt;  vroom                 1.4.0      2021-02-01 [2]</span>
 <span class="co">#&gt;  withr                 2.4.1      2021-01-26 [2]</span>
-<span class="co">#&gt;  xfun                  0.21       2021-02-10 [2]</span>
+<span class="co">#&gt;  xfun                  0.22       2021-03-11 [2]</span>
 <span class="co">#&gt;  xml2                  1.3.2      2020-04-23 [2]</span>
 <span class="co">#&gt;  yaml                  2.2.1      2020-02-01 [2]</span>
 <span class="co">#&gt;  zip                   2.1.1      2020-08-27 [2]</span>
@@ -760,6 +766,8 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  Github (gaborcsardi/async@e6af7be)  </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -818,14 +826,14 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
-<span class="co">#&gt;  Github (paithiov909/ldccr@14fc1ca)  </span>
+<span class="co">#&gt;  Github (paithiov909/ldccr@efbea20)  </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -835,7 +843,7 @@
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
@@ -861,6 +869,7 @@
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
@@ -888,9 +897,6 @@
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -899,18 +905,22 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  Github (uribo/zipangu@0e43aef)      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpg3deNo/temp_libpath21b435b43fd</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmp8eXYJs/temp_libpath27d82d2d9f2</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
 <span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span></code></pre></div>
 </div>

@@ -230,7 +230,7 @@ sentences %>%
 #> 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を
 ```
 
-## Comparison with Alternatives
+## Performance
 
 ### Targets of Comparison
 

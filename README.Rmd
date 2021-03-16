@@ -102,7 +102,7 @@ sentences %>%
   RcppKagome::pack_df("surface")
 ```
 
-## Comparison with Alternatives
+## Performance
 
 ### Targets of Comparison
 

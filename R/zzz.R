@@ -1,4 +1,4 @@
-#' On Unload
+#' On unload
 #' @noRd
 #' @param libpath libpath
 #' @keywords internal

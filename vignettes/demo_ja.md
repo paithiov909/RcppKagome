@@ -50,7 +50,6 @@ data <- ldccr::parse_ldcc(exdir = "cache")
 #> Parsing smax...
 #> Parsing sports-watch...
 #> Parsing topic-news...
-#> Done.
 ```
 
 このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。
@@ -62,7 +61,7 @@ corp <- data %>%
 
 corp <- corp %>%
   dplyr::pull("body") %>%
-  stringr::str_remove_all("[[:punct:]]+") %>%
+  stringr::str_remove_all("[[:punct:]]+") %>% ## quanteda::tokensにremove_punctというオプションがあるのでそれを用いてもよい
   zipangu::str_jnormalize() %>%
   RcppKagome::kagome() %>%
   RcppKagome::pack_list() %>%
@@ -209,6 +208,7 @@ ggplot2::ggplot(ggdendro::segment(d)) +
 
 ## LDA（Latent Dirichlet Allocation）
 
+LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。
 
 ```r
 dtm <- corp %>%
@@ -367,7 +367,7 @@ vec %>%
 
 ```r
 sessioninfo::session_info()
-#> - Session info ----------------------------------------------------------------------------------
+#> - Session info ------------------------------------------------------------------------------
 #>  setting  value                       
 #>  version  R version 4.0.2 (2020-06-22)
 #>  os       Windows 10 x64              
@@ -377,17 +377,20 @@ sessioninfo::session_info()
 #>  collate  Japanese_Japan.932          
 #>  ctype    Japanese_Japan.932          
 #>  tz       Asia/Tokyo                  
-#>  date     2021-03-11                  
+#>  date     2021-03-17                  
 #> 
-#> - Packages --------------------------------------------------------------------------------------
+#> - Packages ----------------------------------------------------------------------------------
 #>  package             * version    date       lib source                              
 #>  abind                 1.4-5      2016-07-21 [1] CRAN (R 4.0.0)                      
 #>  askpass               1.1        2019-01-13 [1] CRAN (R 4.0.2)                      
 #>  assertthat            0.2.1      2019-03-21 [1] CRAN (R 4.0.2)                      
 #>  async                 0.0.0.9004 2021-03-03 [1] Github (gaborcsardi/async@e6af7be)  
 #>  backports             1.2.1      2020-12-09 [1] CRAN (R 4.0.3)                      
+#>  bit                   4.0.4      2020-08-04 [1] CRAN (R 4.0.4)                      
+#>  bit64                 4.0.5      2020-08-30 [1] CRAN (R 4.0.4)                      
 #>  broom                 0.7.5      2021-02-19 [1] CRAN (R 4.0.2)                      
 #>  bslib                 0.2.4      2021-01-25 [1] CRAN (R 4.0.3)                      
+#>  cachem                1.0.4      2021-02-13 [1] CRAN (R 4.0.2)                      
 #>  callr                 3.5.1      2020-10-13 [1] CRAN (R 4.0.3)                      
 #>  car                   3.0-10     2020-09-29 [1] CRAN (R 4.0.3)                      
 #>  carData               3.0-4      2020-05-22 [1] CRAN (R 4.0.0)                      
@@ -407,6 +410,7 @@ sessioninfo::session_info()
 #>  evaluate              0.14       2019-05-28 [1] CRAN (R 4.0.2)                      
 #>  fansi                 0.4.2      2021-01-15 [1] CRAN (R 4.0.3)                      
 #>  farver                2.1.0      2021-02-28 [1] CRAN (R 4.0.2)                      
+#>  fastmap               1.1.0      2021-01-25 [1] CRAN (R 4.0.3)                      
 #>  fastmatch             1.1-0      2017-01-28 [1] CRAN (R 4.0.0)                      
 #>  float                 0.2-4      2020-04-22 [1] CRAN (R 4.0.0)                      
 #>  forcats             * 0.5.1      2021-01-27 [1] CRAN (R 4.0.2)                      
@@ -441,15 +445,16 @@ sessioninfo::session_info()
 #>  later                 1.1.0.1    2020-06-05 [1] CRAN (R 4.0.2)                      
 #>  lattice               0.20-41    2020-04-02 [2] CRAN (R 4.0.2)                      
 #>  LDAvis                0.3.2      2015-10-24 [1] CRAN (R 4.0.4)                      
-#>  ldccr                 0.0.4      2021-03-11 [1] Github (paithiov909/ldccr@14fc1ca)  
+#>  ldccr                 0.0.5      2021-03-16 [1] Github (paithiov909/ldccr@efbea20)  
 #>  lgr                   0.4.2      2021-01-10 [1] CRAN (R 4.0.3)                      
 #>  LiblineaR             2.10-12    2021-03-02 [1] CRAN (R 4.0.4)                      
 #>  lifecycle             1.0.0      2021-02-15 [1] CRAN (R 4.0.2)                      
 #>  listenv               0.8.0      2019-12-05 [1] CRAN (R 4.0.2)                      
 #>  lubridate             1.7.10     2021-02-26 [1] CRAN (R 4.0.2)                      
 #>  magrittr              2.0.1      2020-11-17 [1] CRAN (R 4.0.3)                      
-#>  MASS                  7.3-53.1   2021-02-12 [1] CRAN (R 4.0.2)                      
+#>  MASS                  7.3-53.1   2021-02-12 [1] CRAN (R 4.0.4)                      
 #>  Matrix                1.3-2      2021-01-06 [1] CRAN (R 4.0.2)                      
+#>  memoise               2.0.0      2021-01-26 [1] CRAN (R 4.0.3)                      
 #>  mlapi                 0.1.0      2017-12-17 [1] CRAN (R 4.0.2)                      
 #>  modelr                0.1.8      2020-05-19 [1] CRAN (R 4.0.2)                      
 #>  munsell               0.5.0      2018-06-12 [1] CRAN (R 4.0.2)                      
@@ -457,7 +462,7 @@ sessioninfo::session_info()
 #>  nsyllable             1.0        2020-11-30 [1] CRAN (R 4.0.4)                      
 #>  openssl               1.4.3      2020-09-18 [1] CRAN (R 4.0.3)                      
 #>  openxlsx              4.2.3      2020-10-27 [1] CRAN (R 4.0.3)                      
-#>  parallelly            1.23.0     2021-01-04 [1] CRAN (R 4.0.3)                      
+#>  parallelly            1.24.0     2021-03-14 [1] CRAN (R 4.0.4)                      
 #>  pillar                1.5.1      2021-03-05 [1] CRAN (R 4.0.4)                      
 #>  pkgconfig             2.0.3      2019-09-22 [1] CRAN (R 4.0.2)                      
 #>  processx              3.4.5      2020-11-30 [1] CRAN (R 4.0.3)                      
@@ -469,14 +474,14 @@ sessioninfo::session_info()
 #>  quanteda              2.1.2      2020-09-23 [1] CRAN (R 4.0.3)                      
 #>  quanteda.textmodels   0.9.3      2021-03-07 [1] CRAN (R 4.0.4)                      
 #>  quanteda.textplots    0.93       2021-02-18 [1] CRAN (R 4.0.4)                      
-#>  quanteda.textstats    0.92       2021-02-20 [1] CRAN (R 4.0.4)                      
+#>  quanteda.textstats    0.93       2021-03-15 [1] CRAN (R 4.0.4)                      
 #>  R.cache               0.14.0     2019-12-06 [1] CRAN (R 4.0.3)                      
 #>  R.methodsS3           1.8.1      2020-08-26 [1] CRAN (R 4.0.3)                      
 #>  R.oo                  1.24.0     2020-08-26 [1] CRAN (R 4.0.3)                      
 #>  R.utils               2.10.1     2020-08-26 [1] CRAN (R 4.0.3)                      
 #>  R6                    2.5.0      2020-10-28 [1] CRAN (R 4.0.3)                      
 #>  Rcpp                  1.0.6      2021-01-15 [1] CRAN (R 4.0.3)                      
-#>  RcppKagome            0.0.1.900  2021-03-06 [1] local                               
+#>  RcppKagome            0.0.1.900  2021-03-16 [1] local                               
 #>  RcppParallel          5.0.3      2021-02-24 [1] CRAN (R 4.0.2)                      
 #>  RcppProgress          0.4.2      2020-02-06 [1] CRAN (R 4.0.4)                      
 #>  readr               * 1.4.0      2020-10-05 [1] CRAN (R 4.0.3)                      
@@ -507,7 +512,7 @@ sessioninfo::session_info()
 #>  stringi               1.5.3      2020-09-09 [1] CRAN (R 4.0.3)                      
 #>  stringr             * 1.4.0      2019-02-10 [1] CRAN (R 4.0.2)                      
 #>  styler                1.3.2      2020-02-23 [1] CRAN (R 4.0.3)                      
-#>  survival              3.2-7      2020-09-28 [1] CRAN (R 4.0.3)                      
+#>  survival              3.2-9      2021-03-14 [1] CRAN (R 4.0.4)                      
 #>  text2vec              0.6        2020-02-18 [1] CRAN (R 4.0.2)                      
 #>  textmineR             3.0.4      2019-04-18 [1] CRAN (R 4.0.4)                      
 #>  tibble              * 3.1.0      2021-02-25 [1] CRAN (R 4.0.2)                      
@@ -515,13 +520,14 @@ sessioninfo::session_info()
 #>  tidyselect            1.1.0      2020-05-11 [1] CRAN (R 4.0.2)                      
 #>  tidyverse           * 1.3.0      2019-11-21 [1] CRAN (R 4.0.2)                      
 #>  umap                  0.2.7.0    2020-11-04 [1] CRAN (R 4.0.4)                      
-#>  utf8                  1.1.4      2018-05-24 [1] CRAN (R 4.0.2)                      
+#>  utf8                  1.2.1      2021-03-12 [1] CRAN (R 4.0.2)                      
 #>  uuid                  0.1-4      2020-02-26 [1] CRAN (R 4.0.3)                      
 #>  vctrs                 0.3.6      2020-12-17 [1] CRAN (R 4.0.3)                      
 #>  viridis               0.5.1      2018-03-29 [1] CRAN (R 4.0.2)                      
 #>  viridisLite           0.3.0      2018-02-01 [1] CRAN (R 4.0.2)                      
+#>  vroom                 1.4.0      2021-02-01 [1] CRAN (R 4.0.4)                      
 #>  withr                 2.4.1      2021-01-26 [1] CRAN (R 4.0.3)                      
-#>  xfun                  0.21       2021-02-10 [1] CRAN (R 4.0.2)                      
+#>  xfun                  0.22       2021-03-11 [1] CRAN (R 4.0.4)                      
 #>  xml2                  1.3.2      2020-04-23 [1] CRAN (R 4.0.2)                      
 #>  yaml                  2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                      
 #>  zip                   2.1.1      2020-08-27 [1] CRAN (R 4.0.3)                      
