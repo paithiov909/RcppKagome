@@ -17,3 +17,6 @@ list.
 \description{
 Call sentence splitter.
 }
+\seealso{
+\url{https://zenn.dev/ikawaha/books/kagome-v2-japanese-tokenizer/viewer/filter#\%E6\%96\%87\%E3\%81\%AB\%E5\%8C\%BA\%E5\%88\%87\%E3\%82\%8B}
+}
