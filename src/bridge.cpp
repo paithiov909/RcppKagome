@@ -43,3 +43,37 @@ Rcpp::CharacterVector tokenize_morphemes(Rcpp::CharacterVector text)
   free(tokens);
   return result;
 }
+
+//' Split sentence
+//'
+//' For internal use. The argument should be UTF8 encoded.
+//'
+//' @param text Character vector.
+//' @return res List.
+//'
+//' @name tokenize_sentences
+//' @keywords internal
+//' @export
+//
+// [[Rcpp::interfaces(r, cpp)]]
+// [[Rcpp::export]]
+Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
+{
+  char* sentences;
+  std::function< Rcpp::String(Rcpp::String) > func = [&](Rcpp::String x) {
+    const char* s = x.get_cstring();
+    const std::size_t n = std::strlen(s);
+    const std::ptrdiff_t len = n;
+    const GoString mes = { s, len };
+
+    sentences = split(mes);
+
+    const std::string res = sentences;
+    const Rcpp::String result = res;
+
+    return result;
+  };
+  const Rcpp::List result = lapply(text, func);
+  free(sentences);
+  return result;
+}

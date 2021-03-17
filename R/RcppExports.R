@@ -14,8 +14,24 @@
 #' @export
 NULL
 
+#' Split sentence
+#'
+#' For internal use. The argument should be UTF8 encoded.
+#'
+#' @param text Character vector.
+#' @return res List.
+#'
+#' @name tokenize_sentences
+#' @keywords internal
+#' @export
+NULL
+
 tokenize_morphemes <- function(text) {
     .Call(`_RcppKagome_tokenize_morphemes`, text)
+}
+
+tokenize_sentences <- function(text) {
+    .Call(`_RcppKagome_tokenize_sentences`, text)
 }
 
 # Register entry points for exported C++ functions

@@ -21,4 +21,6 @@ reference:
       - prettify
       - pack_list
       - pack_df
+      - split_sentences
+
 

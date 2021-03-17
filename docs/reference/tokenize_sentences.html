@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • RcppKagome</title>
+<title>Split sentence — tokenize_sentences • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Split sentence — tokenize_sentences" />
+<meta property="og:description" content="For internal use. The argument should be UTF8 encoded." />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 
 
@@ -76,7 +77,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,116 +139,32 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Split sentence</h1>
+    <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
+    <div class="hidden name"><code>tokenize_sentences.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>For internal use. The argument should be UTF8 encoded.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tokenizer" class="hasAnchor"><a href="#section-tokenizer" class="anchor"></a>Tokenizer</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="kagome.html">kagome()</a></code> </p>
-        </td>
-        <td><p>Japanese morphological analyzer</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-web-api" class="hasAnchor"><a href="#section-web-api" class="anchor"></a>Web API</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ping.html">ping()</a></code> </p>
-        </td>
-        <td><p>Send a HEAD request to Kagome server</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="serialize.html">serialize()</a></code> </p>
-        </td>
-        <td><p>Create json data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="queue.html">queue()</a></code> </p>
-        </td>
-        <td><p>Create asynchronous requests</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="kick.html">kick()</a></code> </p>
-        </td>
-        <td><p>Kick requests</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="prettify.html">prettify()</a></code> </p>
-        </td>
-        <td><p>Prettify kagome output</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pack_list.html">pack_list()</a></code> </p>
-        </td>
-        <td><p>Pack ouput of kagome</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pack_df.html">pack_df()</a></code> </p>
-        </td>
-        <td><p>Pack prettified output</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="split_sentences.html">split_sentences()</a></code> </p>
-        </td>
-        <td><p>Japanese sentence splitter</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>text</th>
+      <td><p>Character vector.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>res List.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

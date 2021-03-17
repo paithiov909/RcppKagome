@@ -73,6 +73,7 @@ extern "C" {
 #endif
 
 extern char* tokenize(GoString text);
+extern char* split(GoString text);
 
 #ifdef __cplusplus
 }
