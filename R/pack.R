@@ -1,4 +1,4 @@
-#' Packs ouput of kagome
+#' Pack ouput of kagome
 #'
 #' @param list Output of \code{RcppKagome::kagome}.
 #' @param .collapse This argument will be passed to \code{stringr::str_c()}.
@@ -16,7 +16,7 @@ pack_list <- function(list, .collapse = " ") {
 }
 
 
-#' Packs prettified output
+#' Pack prettified output
 #'
 #' @param df Output of \code{RcppKagome::prettify}.
 #' @param pull Column name to be packed into data.frame. Default value is `token`.

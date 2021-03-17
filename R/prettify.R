@@ -1,4 +1,4 @@
-#' Prettifies kagome output
+#' Prettify kagome output
 #'
 #' @param list Output of \code{RcppKagome::kagome}.
 #' @return data.frame.

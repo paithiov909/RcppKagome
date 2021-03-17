@@ -2,7 +2,7 @@
 % Please edit documentation in R/pack.R
 \name{pack_list}
 \alias{pack_list}
-\title{Packs ouput of kagome}
+\title{Pack ouput of kagome}
 \usage{
 pack_list(list, .collapse = " ")
 }
@@ -15,5 +15,5 @@ pack_list(list, .collapse = " ")
 data.frame
 }
 \description{
-Packs ouput of kagome
+Pack ouput of kagome
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{tokenize_morphemes}
 \alias{tokenize_morphemes}
-\title{Triggers kagome tokenizer}
+\title{Trigger kagome tokenizer}
 \arguments{
 \item{text}{Character vector.}
 }

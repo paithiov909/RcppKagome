@@ -2,7 +2,7 @@
 % Please edit documentation in R/prettify.R
 \name{prettify}
 \alias{prettify}
-\title{Prettifies kagome output}
+\title{Prettify kagome output}
 \usage{
 prettify(list)
 }
@@ -13,5 +13,5 @@ prettify(list)
 data.frame.
 }
 \description{
-Prettifies kagome output
+Prettify kagome output
 }

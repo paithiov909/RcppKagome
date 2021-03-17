@@ -2,7 +2,7 @@
 % Please edit documentation in R/pack.R
 \name{pack_df}
 \alias{pack_df}
-\title{Packs prettified output}
+\title{Pack prettified output}
 \usage{
 pack_df(df, pull = "token", .collapse = " ")
 }
@@ -17,5 +17,5 @@ pack_df(df, pull = "token", .collapse = " ")
 data.frame.
 }
 \description{
-Packs prettified output
+Pack prettified output
 }

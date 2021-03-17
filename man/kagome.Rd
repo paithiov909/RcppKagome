@@ -15,5 +15,5 @@ kagome(text, ...)
 list.
 }
 \description{
-Calls kagome tokenizer.
+Call kagome tokenizer.
 }

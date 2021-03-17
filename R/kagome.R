@@ -1,6 +1,6 @@
 #' Japanese morphological analyzer
 #'
-#' Calls kagome tokenizer.
+#' Call kagome tokenizer.
 #'
 #' @param text Character vector.
 #' @param ... All other arguments are passed to \code{jsonlite::fromJSON}.

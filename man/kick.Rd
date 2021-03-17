@@ -2,7 +2,7 @@
 % Please edit documentation in R/kagomer-rexeports.R
 \name{kick}
 \alias{kick}
-\title{Kicks requests}
+\title{Kick requests}
 \usage{
 kick(requests, keep = c("surface"), .skip_enc_reset = FALSE)
 }
@@ -15,5 +15,5 @@ kick(requests, keep = c("surface"), .skip_enc_reset = FALSE)
 data.frame.
 }
 \description{
-Kicks requests
+Kick requests
 }

@@ -9,7 +9,7 @@
 
 using namespace Rcpp;
 
-//' Triggers kagome tokenizer
+//' Trigger kagome tokenizer
 //'
 //' For internal use. The argument should be UTF8 encoded. This function just
 //' returns an UTF8-encoded json as a character scalar.

@@ -1,4 +1,4 @@
-#' Sends a HEAD request to Kagome server
+#' Send a HEAD request to Kagome server
 #' @inherit kagomer::ping
 #' @importFrom kagomer ping
 #' @export
@@ -7,7 +7,7 @@ ping <- function(url = Sys.getenv("KAGOME_URL")) {
 }
 
 
-#' Creates json data
+#' Create json data
 #' @inherit kagomer::serialize
 #' @importFrom kagomer serialize
 #' @export
@@ -18,7 +18,7 @@ serialize <- function(sentences,
 }
 
 
-#' Creates asynchronous requests
+#' Create asynchronous requests
 #' @inherit kagomer::queue
 #' @importFrom kagomer queue
 #' @export
@@ -28,7 +28,7 @@ queue <- function(params,
 }
 
 
-#' Kicks requests
+#' Kick requests
 #' @inherit kagomer::kick
 #' @importFrom kagomer kick
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/kagomer-rexeports.R
 \name{ping}
 \alias{ping}
-\title{Sends a HEAD request to Kagome server}
+\title{Send a HEAD request to Kagome server}
 \usage{
 ping(url = Sys.getenv("KAGOME_URL"))
 }
@@ -10,8 +10,8 @@ ping(url = Sys.getenv("KAGOME_URL"))
 \item{url}{URL stirng.}
 }
 \value{
-returns the status code of response invisibly.
+the status code of response is returned invisibly.
 }
 \description{
-Sends a HEAD request to Kagome server
+Send a HEAD request to Kagome server
 }

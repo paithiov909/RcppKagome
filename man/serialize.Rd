@@ -2,7 +2,7 @@
 % Please edit documentation in R/kagomer-rexeports.R
 \name{serialize}
 \alias{serialize}
-\title{Creates json data}
+\title{Create json data}
 \usage{
 serialize(sentences, mode = "normal", dict = "ipa")
 }
@@ -14,8 +14,8 @@ serialize(sentences, mode = "normal", dict = "ipa")
 \item{dict}{One of `ipa` (the IPA-dic) or `uni` (the Uni-dic).}
 }
 \value{
-returns a list of json strings.
+a list of json strings.
 }
 \description{
-Creates json data
+Create json data
 }
