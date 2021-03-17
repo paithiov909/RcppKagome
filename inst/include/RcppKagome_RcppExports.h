@@ -45,6 +45,27 @@ namespace RcppKagome {
         return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
     }
 
+    inline Rcpp::List tokenize_sentences(Rcpp::CharacterVector text) {
+        typedef SEXP(*Ptr_tokenize_sentences)(SEXP);
+        static Ptr_tokenize_sentences p_tokenize_sentences = NULL;
+        if (p_tokenize_sentences == NULL) {
+            validateSignature("Rcpp::List(*tokenize_sentences)(Rcpp::CharacterVector)");
+            p_tokenize_sentences = (Ptr_tokenize_sentences)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize_sentences");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_tokenize_sentences(Shield<SEXP>(Rcpp::wrap(text)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_RcppKagome_RCPPEXPORTS_H_GEN_

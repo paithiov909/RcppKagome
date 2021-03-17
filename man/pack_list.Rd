@@ -12,7 +12,7 @@ pack_list(list, .collapse = " ")
 \item{.collapse}{This argument will be passed to \code{stringr::str_c()}.}
 }
 \value{
-data.frame
+data.frame.
 }
 \description{
 Pack ouput of kagome

@@ -42,12 +42,47 @@ RcppExport SEXP _RcppKagome_tokenize_morphemes(SEXP textSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// tokenize_sentences
+Rcpp::List tokenize_sentences(Rcpp::CharacterVector text);
+static SEXP _RcppKagome_tokenize_sentences_try(SEXP textSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type text(textSEXP);
+    rcpp_result_gen = Rcpp::wrap(tokenize_sentences(text));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _RcppKagome_tokenize_sentences(SEXP textSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_RcppKagome_tokenize_sentences_try(textSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _RcppKagome_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("Rcpp::CharacterVector(*tokenize_morphemes)(Rcpp::CharacterVector)");
+        signatures.insert("Rcpp::List(*tokenize_sentences)(Rcpp::CharacterVector)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -55,12 +90,14 @@ static int _RcppKagome_RcppExport_validate(const char* sig) {
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _RcppKagome_RcppExport_registerCCallable() { 
     R_RegisterCCallable("RcppKagome", "_RcppKagome_tokenize_morphemes", (DL_FUNC)_RcppKagome_tokenize_morphemes_try);
+    R_RegisterCCallable("RcppKagome", "_RcppKagome_tokenize_sentences", (DL_FUNC)_RcppKagome_tokenize_sentences_try);
     R_RegisterCCallable("RcppKagome", "_RcppKagome_RcppExport_validate", (DL_FUNC)_RcppKagome_RcppExport_validate);
     return R_NilValue;
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RcppKagome_tokenize_morphemes", (DL_FUNC) &_RcppKagome_tokenize_morphemes, 1},
+    {"_RcppKagome_tokenize_sentences", (DL_FUNC) &_RcppKagome_tokenize_sentences, 1},
     {"_RcppKagome_RcppExport_registerCCallable", (DL_FUNC) &_RcppKagome_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

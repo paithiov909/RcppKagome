@@ -2,7 +2,7 @@
 #'
 #' @param list Output of \code{RcppKagome::kagome}.
 #' @param .collapse This argument will be passed to \code{stringr::str_c()}.
-#' @return data.frame
+#' @return data.frame.
 #'
 #' @export
 pack_list <- function(list, .collapse = " ") {

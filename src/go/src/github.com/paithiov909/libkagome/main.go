@@ -3,11 +3,14 @@ package main
 //#include <stdlib.h>
 import "C"
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
-	ipa "github.com/ikawaha/kagome-dict/ipa"
+	"github.com/ikawaha/kagome-dict/ipa"
+	"github.com/ikawaha/kagome/filter"
 	"github.com/ikawaha/kagome/tokenizer"
 	"strconv"
+	"strings"
 )
 
 type TokenInfo struct {
@@ -25,9 +28,10 @@ func tokenize(text string) *C.char {
 	if e != nil {
 		panic(e)
 	}
+
 	tokens := t.Tokenize(text)
 
-	m := make(map[string]*TokenInfo)
+	mp := make(map[string]*TokenInfo)
 
 	for i, token := range tokens {
 		if token.Class == tokenizer.DUMMY {
@@ -40,17 +44,40 @@ func tokenize(text string) *C.char {
 			token.Surface,
 			token.Features(),
 		}
-		m[strconv.Itoa(i)] = &info
+		mp[strconv.Itoa(i)] = &info
 	}
 
-	data, err := json.Marshal(m)
+	data, err := json.Marshal(mp)
 
 	if err != nil {
 		fmt.Println("json.Marshal failed:", err)
 		s := C.CString(string("ERROR::json.Marshal failed."))
 		return s
 	} else {
-		// fmt.Println("DEBUG Go-side:", string(data))
+		s := C.CString(string(data))
+		return s
+	}
+}
+
+//export split
+func split(text string) *C.char {
+
+	scanner := bufio.NewScanner(strings.NewReader(text))
+	scanner.Split(filter.ScanSentences)
+
+	sl := make([]string, 0)
+
+	for scanner.Scan() {
+		sl = append(sl, scanner.Text())
+	}
+
+	data, err := json.Marshal(sl)
+
+	if err != nil {
+		fmt.Println("json.Marshal failed:", err)
+		s := C.CString(string("ERROR::json.Marshal failed."))
+		return s
+	} else {
 		s := C.CString(string(data))
 		return s
 	}
