@@ -26,6 +26,18 @@ NULL
 #' @export
 NULL
 
+#' Tiny Segmenter
+#'
+#' For internal use. The argument should be UTF8 encoded.
+#'
+#' @param text character vector
+#' @return character vector
+#'
+#' @name tokenize_segments
+#' @keywords internal
+#' @export
+NULL
+
 tokenize_morphemes <- function(text) {
     .Call(`_RcppKagome_tokenize_morphemes`, text)
 }

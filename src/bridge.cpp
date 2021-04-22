@@ -85,10 +85,10 @@ Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
 //' @param text character vector
 //' @return character vector
 //'
-//' @name tokenize_tinysegments
+//' @name tokenize_segments
 //' @keywords internal
 //' @export
-//'
+//
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
 Rcpp::CharacterVector tokenize_segments(Rcpp::CharacterVector text)
