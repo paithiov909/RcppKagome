@@ -22,5 +22,6 @@ reference:
       - pack_list
       - pack_df
       - split_sentences
+      - split_segments
 
 

@@ -34,6 +34,10 @@ tokenize_sentences <- function(text) {
     .Call(`_RcppKagome_tokenize_sentences`, text)
 }
 
+tokenize_segments <- function(text) {
+    .Call(`_RcppKagome_tokenize_segments`, text)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_RcppKagome_RcppExport_registerCCallable', PACKAGE = 'RcppKagome')
