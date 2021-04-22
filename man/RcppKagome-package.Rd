@@ -9,7 +9,7 @@
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Interface to ikawaha/kagome; Self-contained Japanese morphological analyzer
-    written in pure Go and other Japanese segmentation methods.
+    written in pure Go.
 }
 \seealso{
 Useful links:
