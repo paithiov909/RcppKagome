@@ -88,6 +88,7 @@ func split(text string) *C.char {
 
 //export segment
 func segment(x string) *C.char {
+
 	src := strings.NewReader(x)
 	dst := new(strings.Builder)
 	dict := segmenter.BiasCalculatorFunc(defaults.CalculateBias)
