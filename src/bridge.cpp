@@ -77,3 +77,37 @@ Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
   free(sentences);
   return result;
 }
+
+//' Tiny Segmenter
+//'
+//' For internal use. The argument should be UTF8 encoded.
+//'
+//' @param text character vector
+//' @return character vector
+//'
+//' @name tokenize_tinysegments
+//' @keywords internal
+//' @export
+//'
+// [[Rcpp::interfaces(r, cpp)]]
+// [[Rcpp::export]]
+Rcpp::CharacterVector tokenize_segments(Rcpp::CharacterVector text)
+{
+  char* response;
+  std::function< Rcpp::String(Rcpp::String) > func = [&](Rcpp::String x) {
+    const char* s = x.get_cstring();
+    const std::size_t n = std::strlen(s);
+    const std::ptrdiff_t len = n;
+    const GoString m = { s, len };
+
+    response = segment(m);
+
+    const std::string res = response;
+    const Rcpp::String result = res;
+
+    return result;
+  };
+  const Rcpp::CharacterVector result = sapply(text, func);
+  free(response);
+  return result;
+}

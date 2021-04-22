@@ -74,6 +74,7 @@ extern "C" {
 
 extern char* tokenize(GoString text);
 extern char* split(GoString text);
+extern char* segment(GoString x);
 
 #ifdef __cplusplus
 }

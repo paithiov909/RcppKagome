@@ -4,3 +4,6 @@
 [submodule "src/go/src/github.com/ikawaha/kagome-dict"]
 	path = src/go/src/github.com/ikawaha/kagome-dict
 	url = https://github.com/ikawaha/kagome-dict.git
+[submodule "src/go/src/github.com/nyarla/go-japanese-segmenter"]
+	path = src/go/src/github.com/nyarla/go-japanese-segmenter
+	url = https://github.com/nyarla/go-japanese-segmenter.git
