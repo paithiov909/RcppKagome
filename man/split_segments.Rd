@@ -2,7 +2,7 @@
 % Please edit documentation in R/split.R
 \name{split_segments}
 \alias{split_segments}
-\title{A Go implementation of TinySegmenter}
+\title{Go implementation of TinySegmenter}
 \usage{
 split_segments(text, ...)
 }

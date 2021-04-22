@@ -34,7 +34,16 @@
     <loc>https://paithiov909.github.io/RcppKagome/reference/serialize.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/RcppKagome/reference/split_segments.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/RcppKagome/reference/split_sentences.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_morphemes.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_sentences.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/articles/demo_ja.html</loc>

@@ -82,7 +82,8 @@ stopwords <- rtweet::stopwordslangs %>%
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "category") %>%
+  quanteda::dfm() %>%
+  quanteda::dfm_group(groups = category) %>%
   quanteda::dfm_trim(min_termfreq = 10L) %>%
   quanteda.textplots::textplot_wordcloud(color = viridis::cividis(8L))
 ```
@@ -95,7 +96,7 @@ corp %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
   quanteda::dfm() %>%
   quanteda::dfm_weight("prop") %>%
-  quanteda::textstat_frequency(groups = "category") %>%
+  quanteda.textstats::textstat_frequency(groups = category) %>%
   dplyr::top_n(-30L, rank) %>%
   ggpubr::ggdotchart(
     x = "feature",
@@ -115,7 +116,8 @@ ITライフハック（`it-life-hack`）グループの文書とその他の対�
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "category") %>%
+  quanteda::dfm() %>%
+  quanteda::dfm_group(groups = category) %>%
   quanteda.textstats::textstat_keyness(target = "it-life-hack") %>%
   quanteda.textplots::textplot_keyness()
 ```
@@ -144,7 +146,8 @@ corp_sample %>%
 corp %>%
   quanteda::tokens(what = "word") %>%
   quanteda::tokens_remove(stopwords, valuetype = "fixed") %>%
-  quanteda::dfm(groups = "category") %>%
+  quanteda::dfm() %>%
+  quanteda::dfm_group(groups = category) %>%
   quanteda::dfm_trim(min_termfreq = 100L) %>%
   quanteda::fcm() %>%
   quanteda.textplots::textplot_network(min_freq = .96)

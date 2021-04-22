@@ -9,7 +9,7 @@ Description: Interface to ikawaha/kagome; Self-contained Japanese morphological 
     written in pure Go and other Japanese segmentation methods.
 Depends: R (>= 4.0.0)
 SystemRequirements: GNU make, GNU GCC, Go, C++11
-License: MIT + file LICENSE | BSD
+License: MIT + file LICENSE
 URL: https://github.com/paithiov909/RcppKagome
 BugReports: https://github.com/paithiov909/RcppKagome/issues 
 Encoding: UTF-8

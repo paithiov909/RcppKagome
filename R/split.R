@@ -18,7 +18,7 @@ split_sentences <- function(text, ...) {
   return(res)
 }
 
-#' A Go implementation of TinySegmenter
+#' Go implementation of TinySegmenter
 #'
 #' Call TinySegmenter.
 #'
