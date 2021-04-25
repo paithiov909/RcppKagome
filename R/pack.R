@@ -9,7 +9,7 @@ pack_list <- function(list, .collapse = " ") {
   res <- lapply(list, function(elem) {
     purrr::map(elem, ~ purrr::pluck(., "Surface")) %>%
       purrr::flatten_chr() %>%
-      stringr::str_c(collapse = " ")
+      stringr::str_c(collapse = .collapse)
   }) %>%
     furrr::future_imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)
