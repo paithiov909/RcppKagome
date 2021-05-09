@@ -7,7 +7,7 @@
 \item{text}{Character vector.}
 }
 \value{
-res List.
+List.
 }
 \description{
 For internal use. The argument should be UTF8 encoded.

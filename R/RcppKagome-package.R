@@ -1,13 +1,11 @@
 #' RcppKagome: 'Rcpp' Interface to Kagome
 ## usethis namespace: start
 #' @importFrom Rcpp sourceCpp
-#' @importFrom furrr future_imap_dfr
-#' @importFrom furrr future_map_dfr
+#' @importFrom RcppParallel RcppParallelLibs
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringi stri_conv stri_enc_toutf8
+#' @importFrom stringr str_c
 #' @import dplyr
-#' @import purrr
-#' @import stringr
 #' @import purrr
 #' @useDynLib RcppKagome, .registration=TRUE
 ## usethis namespace: end

@@ -4,10 +4,10 @@
 #' Trigger kagome tokenizer
 #'
 #' For internal use. The argument should be UTF8 encoded. This function just
-#' returns an UTF8-encoded json as a character scalar.
+#' returns UTF8-encoded json strings as a character vector.
 #'
 #' @param text Character vector.
-#' @return res Character scalar (JSON string).
+#' @return Character vector (JSON strings).
 #'
 #' @name tokenize_morphemes
 #' @keywords internal
@@ -19,7 +19,7 @@ NULL
 #' For internal use. The argument should be UTF8 encoded.
 #'
 #' @param text Character vector.
-#' @return res List.
+#' @return List.
 #'
 #' @name tokenize_sentences
 #' @keywords internal
@@ -30,8 +30,8 @@ NULL
 #'
 #' For internal use. The argument should be UTF8 encoded.
 #'
-#' @param text character vector
-#' @return character vector
+#' @param text Character vector.
+#' @return Character vector.
 #'
 #' @name tokenize_segments
 #' @keywords internal

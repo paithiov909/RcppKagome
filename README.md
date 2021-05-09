@@ -247,40 +247,39 @@ sentences %>%
 ``` r
 csv <- file.path("tools/miyazawa_kenji_head.csv") %>%
   readr::read_csv() %>%
-  dplyr::slice_head(prop = .4) %>%
-  dplyr::mutate(
-    sentences_shift_jis = iconv(sentences, from = "UTF-8", to = "CP932")
-  )
+  dplyr::slice_head(prop = .4)
 #> 
 #> -- Column specification --------------------------------------------------------
 #> cols(
 #>   rowid = col_double(),
 #>   sentences = col_character()
 #> )
+
 dplyr::glimpse(csv)
 #> Rows: 349
-#> Columns: 3
-#> $ rowid               <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,~
-#> $ sentences           <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~
-#> $ sentences_shift_jis <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ降って、蟻の歩哨は鉄の帽子のひさ~
+#> Columns: 2
+#> $ rowid     <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1~
+#> $ sentences <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ~
 ```
 
 ### Tokenize Character Scalar
 
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCab::RMeCabC(csv$sentences_shift_jis[3], mecabrc = "C:/MeCab/ipadic-shiftjis/mecabrc"),
-  pos = RcppMeCab::pos(csv$sentences[3]),
-  posParallel = RcppMeCab::posParallel(csv$sentences[3]),
-  kagome = RcppKagome::kagome(csv$sentences[3]),
+  RMeCabC = RMeCabC(iconv(csv$sentences[3], from = "UTF-8", to = "CP932"),
+    mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
+  ),
+  pos = pos(csv$sentences[3]),
+  posParallel = posParallel(csv$sentences[3]),
+  kagome = kagome(csv$sentences[3]),
   times = 500L
 )
 summary(tm)
-#>          expr    min      lq     mean  median      uq     max neval
-#> 1     RMeCabC 2.1890 2.54765 3.165649 2.78945 3.28150 12.0767   500
-#> 2         pos 2.4616 2.91235 3.786297 3.22255 3.92750 61.0090   500
-#> 3 posParallel 2.4110 2.89575 3.598448 3.18665 3.87480 17.5336   500
-#> 4      kagome 3.6552 4.15285 5.429362 4.53995 5.68115 20.0648   500
+#>          expr    min      lq     mean  median      uq       max neval
+#> 1     RMeCabC 2.2263 2.53830 5.731349 2.70790 3.01715 1449.0666   500
+#> 2         pos 2.5654 2.87240 3.209171 3.05855 3.35410    5.9902   500
+#> 3 posParallel 2.5156 2.83295 6.074519 3.04240 3.34815 1454.1729   500
+#> 4      kagome 3.6555 3.97780 4.576113 4.26470 4.69160   17.5602   500
 ```
 
 ``` r
@@ -292,23 +291,27 @@ ggplot2::autoplot(tm)
 
 ### Tokenize Character Vector
 
-`RMeCabC` is wrapped with `purrr::map` here because that function is not
+`RMeCabC` is wrapped with `lapply` here because that function is not
 vectorized.
 
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = purrr::map(csv$sentences_shift_jis, ~ RMeCab::RMeCabC(., mecabrc = "/MeCab/ipadic-shiftjis/mecabrc")),
-  pos = RcppMeCab::pos(csv$sentences),
-  posParallel = RcppMeCab::posParallel(csv$sentences),
-  kagome = RcppKagome::kagome(csv$sentences),
+  RMeCabC = lapply(csv$sentences, function(elem) {
+    RMeCabC(iconv(elem, from = "UTF-8", to = "CP932"),
+      mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
+    )
+  }),
+  pos = pos(csv$sentences),
+  posParallel = posParallel(csv$sentences),
+  kagome = kagome(csv$sentences),
   times = 10L
 )
 summary(tm)
-#>          expr       min        lq       mean     median        uq       max
-#> 1     RMeCabC  860.9443  882.5697  929.02912  929.77815  934.7587 1066.6487
-#> 2         pos  105.2888  118.0663  155.95026  139.65940  157.0348  352.6873
-#> 3 posParallel   65.8562   77.8910   91.66571   93.86745   99.6987  122.1134
-#> 4      kagome 1596.2336 1790.6898 1845.62462 1839.26110 1904.4647 2109.9588
+#>          expr       min        lq       mean     median        uq      max
+#> 1     RMeCabC  831.0820  842.6975 1684.48809  868.94455  885.7068 9053.157
+#> 2         pos   98.1070  104.3860 1076.93178  106.92675  122.7016 9783.599
+#> 3 posParallel   65.6103   67.5119   74.30319   73.36615   75.7727   88.363
+#> 4      kagome 1408.1079 1476.8381 1523.27362 1503.85920 1591.6157 1681.546
 #>   neval
 #> 1    10
 #> 2    10

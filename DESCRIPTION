@@ -1,7 +1,7 @@
 Package: RcppKagome
 Type: Package
 Title: 'Rcpp' Interface to Kagome
-Version: 0.0.2.900
+Version: 0.0.3.900
 Authors@R: c(
     person("Akiru", "Kato", email = "paithiov909@gmail.com", role = c("aut", "cre")))
 Maintainer: Kato Akiru <paithiov909@gmail.com>
@@ -19,18 +19,18 @@ RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Language: en-US
 Imports:
-    Rcpp,
     dplyr,
     jsonlite,
     kagomer,
-    furrr,
     purrr,
+    Rcpp,
+    RcppParallel,
     stringi,
     stringr
 LinkingTo:
     Rcpp,
-    RcppThread,
-    cpp11
+    RcppParallel,
+    RcppThread
 Remotes:
     gaborcsardi/async,
     paithiov909/kagomer
