@@ -9,11 +9,11 @@
 using namespace Rcpp;
 
 // tokenize_morphemes
-Rcpp::CharacterVector tokenize_morphemes(Rcpp::CharacterVector text);
+Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text);
 static SEXP _RcppKagome_tokenize_morphemes_try(SEXP textSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type text(textSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type text(textSEXP);
     rcpp_result_gen = Rcpp::wrap(tokenize_morphemes(text));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -115,7 +115,7 @@ RcppExport SEXP _RcppKagome_tokenize_segments(SEXP textSEXP) {
 static int _RcppKagome_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Rcpp::CharacterVector(*tokenize_morphemes)(Rcpp::CharacterVector)");
+        signatures.insert("Rcpp::CharacterVector(*tokenize_morphemes)(std::vector<std::string>)");
         signatures.insert("Rcpp::List(*tokenize_sentences)(Rcpp::CharacterVector)");
         signatures.insert("Rcpp::CharacterVector(*tokenize_segments)(Rcpp::CharacterVector)");
     }

@@ -1,21 +1,49 @@
 // [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppThread)]]
+// [[Rcpp::depends(RcppThread, RcppParallel)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
+#define RCPP_PARALLEL_USE_TBB 1
 #define RCPPTHREAD_OVERRIDE_THREAD 1
 #include <cstdlib>
 #include <Rcpp.h>
+#include <RcppParallel.h>
 #include "../inst/include/libkagome.h"
 
-using namespace Rcpp;
+// KagomeTokenizer
+class KagomeTokenizer {
+public:
+  const std::vector<std::string>* text_;
+  std::vector<std::string>& results_;
+  KagomeTokenizer( const std::vector<std::string>* text, std::vector<std::string>& results )
+    : text_(text), results_(results)
+    {}
+  void operator() ( const tbb::blocked_range<std::size_t>& range ) const
+  {
+    for ( std::size_t i = range.begin(); i < range.end(); ++i ) {
+
+      const char* s = (*text_)[i].c_str();
+      const std::size_t n = std::strlen(s);
+      const std::ptrdiff_t len = n;
+      const GoString mes = { s, len };
+
+      char* tokens = tokenize(mes);
+      const std::string res = tokens;
+
+      free(tokens);
+      results_[i] = res;
+
+    }
+  }
+};
+
 
 //' Trigger kagome tokenizer
 //'
 //' For internal use. The argument should be UTF8 encoded. This function just
-//' returns an UTF8-encoded json as a character scalar.
+//' returns UTF8-encoded json strings as a character vector.
 //'
 //' @param text Character vector.
-//' @return res Character scalar (JSON string).
+//' @return res Character vector (JSON strings).
 //'
 //' @name tokenize_morphemes
 //' @keywords internal
@@ -23,24 +51,18 @@ using namespace Rcpp;
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::CharacterVector tokenize_morphemes(Rcpp::CharacterVector text)
+Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
 {
-  char* tokens;
-  std::function< Rcpp::String(Rcpp::String) > func = [&](Rcpp::String x) {
-    const char* s = x.get_cstring();
-    const std::size_t n = std::strlen(s);
-    const std::ptrdiff_t len = n;
-    const GoString mes = { s, len };
+  std::vector<std::string> results(text.size());
 
-    tokens = tokenize(mes);
+  KagomeTokenizer func = KagomeTokenizer(&text, results);
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
 
-    const std::string res = tokens;
-    const Rcpp::String result = res;
+  Rcpp::CharacterVector result;
+  for ( std::size_t l = 0; l < results.size(); ++l ) {
+    result.push_back(results[l]);
+  }
 
-    return result;
-  };
-  const Rcpp::CharacterVector result = sapply(text, func);
-  free(tokens);
   return result;
 }
 

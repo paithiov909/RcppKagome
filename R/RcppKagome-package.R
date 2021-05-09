@@ -1,6 +1,7 @@
 #' RcppKagome: 'Rcpp' Interface to Kagome
 ## usethis namespace: start
 #' @importFrom Rcpp sourceCpp
+#' @importFrom RcppParallel RcppParallelLibs
 #' @importFrom furrr future_imap_dfr
 #' @importFrom furrr future_map_dfr
 #' @importFrom jsonlite fromJSON

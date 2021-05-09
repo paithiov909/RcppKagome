@@ -24,11 +24,11 @@ namespace RcppKagome {
         }
     }
 
-    inline Rcpp::CharacterVector tokenize_morphemes(Rcpp::CharacterVector text) {
+    inline Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text) {
         typedef SEXP(*Ptr_tokenize_morphemes)(SEXP);
         static Ptr_tokenize_morphemes p_tokenize_morphemes = NULL;
         if (p_tokenize_morphemes == NULL) {
-            validateSignature("Rcpp::CharacterVector(*tokenize_morphemes)(Rcpp::CharacterVector)");
+            validateSignature("Rcpp::CharacterVector(*tokenize_morphemes)(std::vector<std::string>)");
             p_tokenize_morphemes = (Ptr_tokenize_morphemes)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize_morphemes");
         }
         RObject rcpp_result_gen;
