@@ -8,7 +8,7 @@ CXX_STD = CXX11
 CXX11 = g++
 PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()") -lm -lkagome
 PKG_CPPFLAGS += -I'../inst/include'
-PKG_CXXFLAGS += -DDLL_IMPORT
+PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 
 .PHONY: all
 

@@ -1,7 +1,6 @@
 // [[Rcpp::depends(RcppParallel, RcppThread)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
-#define RCPP_PARALLEL_USE_TBB 1
 #define RCPPTHREAD_OVERRIDE_THREAD 1
 
 #ifndef RCPPKAGOME_GRAIN_SIZE
