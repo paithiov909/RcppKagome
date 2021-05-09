@@ -5,8 +5,8 @@
 #'
 #' @export
 prettify <- function(list) {
-  res <- furrr::future_imap_dfr(list, function(v, i) {
-    furrr::future_map_dfr(v, function(elem) {
+  res <- purrr::imap_dfr(list, function(v, i) {
+    purrr::map_dfr(v, function(elem) {
       df <- data.frame(
         "sentence_id" = i,
         "token" = elem$Surface,

@@ -1,9 +1,13 @@
-// [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppThread, RcppParallel)]]
+// [[Rcpp::depends(RcppParallel, RcppThread)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
 #define RCPP_PARALLEL_USE_TBB 1
 #define RCPPTHREAD_OVERRIDE_THREAD 1
+
+#ifndef RCPPKAGOME_GRAIN_SIZE
+#define RCPPKAGOME_GRAIN_SIZE 100
+#endif
+
 #include <cstdlib>
 #include <Rcpp.h>
 #include <RcppParallel.h>
@@ -107,9 +111,10 @@ public:
 Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
 {
   std::vector<std::string> results(text.size());
+  const std::size_t grainsize = RCPPKAGOME_GRAIN_SIZE;
 
   KagomeTokenizer func = KagomeTokenizer(&text, results);
-  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
 
   Rcpp::CharacterVector result;
   for ( std::size_t l = 0; l < results.size(); ++l ) {
@@ -135,9 +140,10 @@ Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
 Rcpp::List tokenize_sentences(std::vector<std::string> text)
 {
   std::vector<std::string> results(text.size());
+  const std::size_t grainsize = RCPPKAGOME_GRAIN_SIZE;
 
   SentenceSplitter func = SentenceSplitter(&text, results);
-  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
 
   Rcpp::List result;
   for ( std::size_t l = 0; l < results.size(); ++l ) {
@@ -163,9 +169,10 @@ Rcpp::List tokenize_sentences(std::vector<std::string> text)
 Rcpp::CharacterVector tokenize_segments(std::vector<std::string> text)
 {
   std::vector<std::string> results(text.size());
+  const std::size_t grainsize = RCPPKAGOME_GRAIN_SIZE;
 
   TinySegmenter func = TinySegmenter(&text, results);
-  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
 
   Rcpp::CharacterVector result;
   for ( std::size_t l = 0; l < results.size(); ++l ) {
@@ -174,3 +181,4 @@ Rcpp::CharacterVector tokenize_segments(std::vector<std::string> text)
 
   return result;
 }
+

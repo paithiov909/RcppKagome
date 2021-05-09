@@ -19,20 +19,18 @@ RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Language: en-US
 Imports:
-    Rcpp,
-    RcppParallel,
     dplyr,
     jsonlite,
     kagomer,
-    furrr,
     purrr,
+    Rcpp,
+    RcppParallel,
     stringi,
     stringr
 LinkingTo:
     Rcpp,
     RcppParallel,
-    RcppThread,
-    cpp11
+    RcppThread
 Remotes:
     gaborcsardi/async,
     paithiov909/kagomer

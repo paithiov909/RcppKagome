@@ -7,11 +7,12 @@
 #' @export
 pack_list <- function(list, .collapse = " ") {
   res <- lapply(list, function(elem) {
-    purrr::map(elem, ~ purrr::pluck(., "Surface")) %>%
+    elem %>%
+      purrr::map(~ purrr::pluck(., "Surface")) %>%
       purrr::flatten_chr() %>%
       stringr::str_c(collapse = .collapse)
   }) %>%
-    furrr::future_imap_dfr(~ data.frame(doc_id = .y, text = .x))
+    purrr::imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)
 }
 
@@ -31,6 +32,6 @@ pack_df <- function(df, pull = "token", .collapse = " ") {
       ~ dplyr::pull(.x, {{ pull }}) %>%
         stringr::str_c(collapse = .collapse)
     ) %>%
-    furrr::future_imap_dfr(~ data.frame(doc_id = .y, text = .x))
+    purrr::imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)
 }

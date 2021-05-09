@@ -37,9 +37,9 @@ split_sentences <- function(text, ...) {
 #' @export
 split_segments <- function(text, ...) {
   json <- tokenize_segments(stringi::stri_enc_toutf8(text))
-  res <- lapply(json, function(elem) {
+  list <- lapply(json, function(elem) {
     Encoding(elem) <- "UTF-8"
     return(jsonlite::fromJSON(elem, ...))
   })
-  return(purrr::map(res, ~ purrr::discard(., ~ . == "")))
+  return(purrr::map(list, ~ purrr::discard(., ~ . == "")))
 }
