@@ -7,7 +7,7 @@ GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I'../inst/include'
-PKG_LIBS += -L../inst/libs$(R_ARCH) -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin/Rscript" -lm -lkagome
+PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -lm -lkagome
 
 .PHONY: all
 
