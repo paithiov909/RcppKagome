@@ -36,6 +36,59 @@ public:
   }
 };
 
+// SentenceSplitter
+class SentenceSplitter {
+public:
+  const std::vector<std::string>* text_;
+  std::vector<std::string>& results_;
+  SentenceSplitter( const std::vector<std::string>* text, std::vector<std::string>& results )
+    : text_(text), results_(results)
+    {}
+  void operator() ( const tbb::blocked_range<std::size_t>& range ) const
+  {
+    for ( std::size_t i = range.begin(); i < range.end(); ++i ) {
+
+      const char* s = (*text_)[i].c_str();
+      const std::size_t n = std::strlen(s);
+      const std::ptrdiff_t len = n;
+      const GoString mes = { s, len };
+
+      char* sentences = split(mes);
+      const std::string res = sentences;
+
+      free(sentences);
+      results_[i] = res;
+
+    }
+  }
+};
+
+// TinySegmenter
+class TinySegmenter {
+public:
+  const std::vector<std::string>* text_;
+  std::vector<std::string>& results_;
+  TinySegmenter( const std::vector<std::string>* text, std::vector<std::string>& results )
+    : text_(text), results_(results)
+    {}
+  void operator() ( const tbb::blocked_range<std::size_t>& range ) const
+  {
+    for ( std::size_t i = range.begin(); i < range.end(); ++i ) {
+
+      const char* s = (*text_)[i].c_str();
+      const std::size_t n = std::strlen(s);
+      const std::ptrdiff_t len = n;
+      const GoString mes = { s, len };
+
+      char* segments = segment(mes);
+      const std::string res = segments;
+
+      free(segments);
+      results_[i] = res;
+
+    }
+  }
+};
 
 //' Trigger kagome tokenizer
 //'
@@ -43,7 +96,7 @@ public:
 //' returns UTF8-encoded json strings as a character vector.
 //'
 //' @param text Character vector.
-//' @return res Character vector (JSON strings).
+//' @return Character vector (JSON strings).
 //'
 //' @name tokenize_morphemes
 //' @keywords internal
@@ -71,7 +124,7 @@ Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
 //' For internal use. The argument should be UTF8 encoded.
 //'
 //' @param text Character vector.
-//' @return res List.
+//' @return List.
 //'
 //' @name tokenize_sentences
 //' @keywords internal
@@ -79,24 +132,18 @@ Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
+Rcpp::List tokenize_sentences(std::vector<std::string> text)
 {
-  char* sentences;
-  std::function< Rcpp::String(Rcpp::String) > func = [&](Rcpp::String x) {
-    const char* s = x.get_cstring();
-    const std::size_t n = std::strlen(s);
-    const std::ptrdiff_t len = n;
-    const GoString mes = { s, len };
+  std::vector<std::string> results(text.size());
 
-    sentences = split(mes);
+  SentenceSplitter func = SentenceSplitter(&text, results);
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
 
-    const std::string res = sentences;
-    const Rcpp::String result = res;
+  Rcpp::List result;
+  for ( std::size_t l = 0; l < results.size(); ++l ) {
+    result.push_back(results[l]);
+  }
 
-    return result;
-  };
-  const Rcpp::List result = lapply(text, func);
-  free(sentences);
   return result;
 }
 
@@ -104,8 +151,8 @@ Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
 //'
 //' For internal use. The argument should be UTF8 encoded.
 //'
-//' @param text character vector
-//' @return character vector
+//' @param text Character vector.
+//' @return Character vector.
 //'
 //' @name tokenize_segments
 //' @keywords internal
@@ -113,23 +160,17 @@ Rcpp::List tokenize_sentences(Rcpp::CharacterVector text)
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::CharacterVector tokenize_segments(Rcpp::CharacterVector text)
+Rcpp::CharacterVector tokenize_segments(std::vector<std::string> text)
 {
-  char* response;
-  std::function< Rcpp::String(Rcpp::String) > func = [&](Rcpp::String x) {
-    const char* s = x.get_cstring();
-    const std::size_t n = std::strlen(s);
-    const std::ptrdiff_t len = n;
-    const GoString m = { s, len };
+  std::vector<std::string> results(text.size());
 
-    response = segment(m);
+  TinySegmenter func = TinySegmenter(&text, results);
+  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size()), func );
 
-    const std::string res = response;
-    const Rcpp::String result = res;
+  Rcpp::CharacterVector result;
+  for ( std::size_t l = 0; l < results.size(); ++l ) {
+    result.push_back(results[l]);
+  }
 
-    return result;
-  };
-  const Rcpp::CharacterVector result = sapply(text, func);
-  free(response);
   return result;
 }

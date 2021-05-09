@@ -4,10 +4,10 @@
 \alias{tokenize_segments}
 \title{Tiny Segmenter}
 \arguments{
-\item{text}{character vector}
+\item{text}{Character vector.}
 }
 \value{
-character vector
+Character vector.
 }
 \description{
 For internal use. The argument should be UTF8 encoded.

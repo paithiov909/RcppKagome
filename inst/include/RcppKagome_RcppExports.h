@@ -45,11 +45,11 @@ namespace RcppKagome {
         return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
     }
 
-    inline Rcpp::List tokenize_sentences(Rcpp::CharacterVector text) {
+    inline Rcpp::List tokenize_sentences(std::vector<std::string> text) {
         typedef SEXP(*Ptr_tokenize_sentences)(SEXP);
         static Ptr_tokenize_sentences p_tokenize_sentences = NULL;
         if (p_tokenize_sentences == NULL) {
-            validateSignature("Rcpp::List(*tokenize_sentences)(Rcpp::CharacterVector)");
+            validateSignature("Rcpp::List(*tokenize_sentences)(std::vector<std::string>)");
             p_tokenize_sentences = (Ptr_tokenize_sentences)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize_sentences");
         }
         RObject rcpp_result_gen;
@@ -66,11 +66,11 @@ namespace RcppKagome {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
-    inline Rcpp::CharacterVector tokenize_segments(Rcpp::CharacterVector text) {
+    inline Rcpp::CharacterVector tokenize_segments(std::vector<std::string> text) {
         typedef SEXP(*Ptr_tokenize_segments)(SEXP);
         static Ptr_tokenize_segments p_tokenize_segments = NULL;
         if (p_tokenize_segments == NULL) {
-            validateSignature("Rcpp::CharacterVector(*tokenize_segments)(Rcpp::CharacterVector)");
+            validateSignature("Rcpp::CharacterVector(*tokenize_segments)(std::vector<std::string>)");
             p_tokenize_segments = (Ptr_tokenize_segments)R_GetCCallable("RcppKagome", "_RcppKagome_tokenize_segments");
         }
         RObject rcpp_result_gen;

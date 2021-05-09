@@ -7,10 +7,10 @@
 \item{text}{Character vector.}
 }
 \value{
-res Character scalar (JSON string).
+Character vector (JSON strings).
 }
 \description{
 For internal use. The argument should be UTF8 encoded. This function just
-returns an UTF8-encoded json as a character scalar.
+returns UTF8-encoded json strings as a character vector.
 }
 \keyword{internal}
