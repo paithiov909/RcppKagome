@@ -45,7 +45,7 @@ RcppKagome is an R interface to [ikawaha/kagome](https://github.com/ikawaha/kago
 ## Installation
 
 ```r
-if (!requireNamespace(c("async", "kagomer"))) {
+if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
 }

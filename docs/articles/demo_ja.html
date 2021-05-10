@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.900</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.900</span>
       </span>
     </div>
 
@@ -92,12 +92,12 @@
 
       
 
-      </header><script src="demo_ja_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="demo_ja_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Text analysis using quanteda and RcppKagome</h1>
             
-            <h4 class="date">2021-04-22</h4>
+            <h4 class="date">2021-05-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/demo_ja.Rmd"><code>vignettes/demo_ja.Rmd</code></a></small>
       <div class="hidden name"><code>demo_ja.Rmd</code></div>
@@ -143,7 +143,8 @@
 <span class="co">#&gt; Parsing peachy...</span>
 <span class="co">#&gt; Parsing smax...</span>
 <span class="co">#&gt; Parsing sports-watch...</span>
-<span class="co">#&gt; Parsing topic-news...</span></code></pre></div>
+<span class="co">#&gt; Parsing topic-news...</span>
+<span class="co">#&gt; Done.</span></code></pre></div>
 <p>このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
@@ -157,7 +158,9 @@
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">corp</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Warning in .recacheSubclasses(def@className, def, env): undefined subclass</span>
+<span class="co">#&gt; "numericVector" of class "Mnumeric"; definition not updated</span></code></pre></div>
 </div>
 <div id="ワードクラウド" class="section level2">
 <h2 class="hasAnchor">
@@ -196,7 +199,9 @@
     color <span class="op">=</span> <span class="st">"group"</span>,
     rotate <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Warning in .recacheSubclasses(def@className, def, env): undefined subclass</span>
+<span class="co">#&gt; "numericVector" of class "Mnumeric"; definition not updated</span></code></pre></div>
 <p><img src="demo_ja_files/figure-html/stats-1.png" width="700"></p>
 </div>
 <div id="keyness" class="section level2">
@@ -278,7 +283,8 @@
 <div id="ldalatent-dirichlet-allocation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ldalatent-dirichlet-allocation" class="anchor"></a>LDA（Latent Dirichlet Allocation）</h2>
-<p>LDAについては<code><a href="https://quanteda.io/reference/convert.html">quanteda::convert</a></code>でdfmを変換して<code>topicmodels::LDA</code>に直接渡すこともできます。公式の<a href="https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models">クイックスタートガイド</a>も参考にしてください。</p>
+<p>LDAについては<code><a href="https://quanteda.io/reference/convert.html">quanteda::convert</a></code>でdfmを変換して<code>topicmodels::LDA</code>に直接渡すこともできます。公式の<a href="https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models">クイックスタートガイド</a>も参考にしてください。weighted LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM">{keyATM}</a>といった選択肢もあります。</p>
+<p>なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、<a href="https://github.com/nikita-moor/ldatuning">{ldatuning}</a>や<a href="https://github.com/bstewart/stm">{stm}</a>などを利用したほうがよいです。</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -313,169 +319,169 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">ゴルフ</td>
-<td align="left">話題</td>
-<td align="left">肌</td>
-<td align="left">韓国</td>
-<td align="left">表示</td>
-<td align="left">転職</td>
-<td align="left">祭</td>
-<td align="left">ソフトウェア</td>
-<td align="left">ニコニコ</td>
-</tr>
-<tr class="even">
-<td align="left">灸</td>
-<td align="left">ビデオ</td>
-<td align="left">中島</td>
-<td align="left">孫</td>
-<td align="left">iphone</td>
-<td align="left">男性</td>
-<td align="left">監督</td>
-<td align="left">コモ</td>
-<td align="left">きのこ</td>
-</tr>
-<tr class="odd">
-<td align="left">スキー</td>
-<td align="left">充電</td>
-<td align="left">韓国</td>
 <td align="left">選手</td>
-<td align="left">画面</td>
-<td align="left">モテ</td>
-<td align="left">★</td>
-<td align="left">フォン</td>
-<td align="left">町</td>
-</tr>
-<tr class="even">
-<td align="left">自動車</td>
-<td align="left">mini</td>
-<td align="left">駆け引き</td>
-<td align="left">掲示板</td>
-<td align="left">ケース</td>
-<td align="left">まし</td>
-<td align="left">ィ</td>
-<td align="left">スマート</td>
-<td align="left">ボス</td>
-</tr>
-<tr class="odd">
-<td align="left">パター</td>
-<td align="left">サークル</td>
-<td align="left">コスメ</td>
-<td align="left">48</td>
-<td align="left">通</td>
-<td align="left">年収</td>
-<td align="left">演じる</td>
-<td align="left">phone</td>
-<td align="left">痔</td>
-</tr>
-<tr class="even">
-<td align="left">マット</td>
-<td align="left">売れ筋</td>
-<td align="left">ロゴ</td>
-<td align="left">akb</td>
-<td align="left">ipad</td>
+<td align="left">自転車</td>
+<td align="left">レビュー</td>
 <td align="left">独</td>
-<td align="left">賞</td>
-<td align="left">ntt</td>
+<td align="left">ソフトウェア</td>
+<td align="left">iphone</td>
 <td align="left">当選</td>
-</tr>
-<tr class="odd">
-<td align="left">睡眠</td>
-<td align="left">salon</td>
-<td align="left">blackberry</td>
-<td align="left">発言</td>
-<td align="left">パソコン</td>
-<td align="left">指輪</td>
-<td align="left">役</td>
-<td align="left">android</td>
-<td align="left">コーヒー</td>
+<td align="left">韓国</td>
+<td align="left">孫</td>
 </tr>
 <tr class="even">
-<td align="left">子ども</td>
-<td align="left">家電</td>
-<td align="left">幹</td>
-<td align="left">代表</td>
-<td align="left">機能</td>
-<td align="left">婚</td>
-<td align="left">アクション</td>
-<td align="left">gb</td>
-<td align="left">ワイン</td>
+<td align="left">本田</td>
+<td align="left">★</td>
+<td align="left">表示</td>
+<td align="left">男性</td>
+<td align="left">フォン</td>
+<td align="left">釣</td>
+<td align="left">転職</td>
+<td align="left">韓</td>
+<td align="left">ゴルフ</td>
 </tr>
 <tr class="odd">
-<td align="left">バケツ</td>
-<td align="left">発電</td>
-<td align="left">細胞</td>
-<td align="left">社長</td>
-<td align="left">クリック</td>
-<td align="left">独身</td>
-<td align="left">篇</td>
-<td align="left">sh</td>
-<td align="left">クリスマス</td>
-</tr>
-<tr class="even">
-<td align="left">排出</td>
-<td align="left">厄年</td>
-<td align="left">google</td>
 <td align="left">サッカー</td>
-<td align="left">サービス</td>
-<td align="left">離婚</td>
-<td align="left">ダーク</td>
-<td align="left">galaxy</td>
-<td align="left">アイテム</td>
-</tr>
-<tr class="odd">
-<td align="left">お気に入り</td>
-<td align="left">生理</td>
-<td align="left">恐怖</td>
-<td align="left">マリリン</td>
-<td align="left">facebook</td>
-<td align="left">ビジネス</td>
-<td align="left">女優</td>
-<td align="left">kobo</td>
+<td align="left">監督</td>
+<td align="left">通</td>
+<td align="left">チーズ</td>
+<td align="left">スマート</td>
+<td align="left">温度</td>
+<td align="left">発送</td>
 <td align="left">肌</td>
+<td align="left">ドバイ</td>
 </tr>
 <tr class="even">
-<td align="left">りんご</td>
-<td align="left">mm</td>
-<td align="left">騎手</td>
-<td align="left">批判</td>
-<td align="left">mac</td>
-<td align="left">夫</td>
-<td align="left">俳優</td>
-<td align="left">|</td>
-<td align="left">料理</td>
-</tr>
-<tr class="odd">
-<td align="left">木材</td>
-<td align="left">ノマド</td>
-<td align="left">職業</td>
-<td align="left">違法</td>
-<td align="left">カバー</td>
-<td align="left">悩み</td>
-<td align="left">ナイト</td>
-<td align="left">smax</td>
+<td align="left">試合</td>
+<td align="left">賞</td>
+<td align="left">dropbox</td>
+<td align="left">ビスケット</td>
+<td align="left">コモ</td>
+<td align="left">浴衣</td>
+<td align="left">籠谷</td>
 <td align="left">ケア</td>
-</tr>
-<tr class="even">
-<td align="left">co</td>
-<td align="left">掃除</td>
-<td align="left">松嶋</td>
-<td align="left">なでしこ</td>
-<td align="left">入力</td>
-<td align="left">料理</td>
-<td align="left">ピラニア</td>
-<td align="left">通信</td>
-<td align="left">坊さん</td>
+<td align="left">東口</td>
 </tr>
 <tr class="odd">
-<td align="left">ストレス</td>
-<td align="left">led</td>
-<td align="left">敏感</td>
-<td align="left">寄せ</td>
-<td align="left">タップ</td>
+<td align="left">斎藤</td>
+<td align="left">ロボット</td>
+<td align="left">画面</td>
+<td align="left">まし</td>
+<td align="left">android</td>
+<td align="left">ホルダー</td>
+<td align="left">賞品</td>
+<td align="left">タイヤ</td>
+<td align="left">話題</td>
+</tr>
+<tr class="even">
+<td align="left">フジ</td>
+<td align="left">役</td>
+<td align="left">ビューアー</td>
+<td align="left">八重歯</td>
+<td align="left">phone</td>
+<td align="left">スタンド</td>
+<td align="left">求人</td>
+<td align="left">キャビア</td>
+<td align="left">社長</td>
+</tr>
+<tr class="odd">
+<td align="left">アナ</td>
+<td align="left">パチンコ</td>
+<td align="left">パソコン</td>
+<td align="left">歯</td>
+<td align="left">f</td>
+<td align="left">スキー</td>
+<td align="left">厄年</td>
+<td align="left">スキン</td>
+<td align="left">新宿</td>
+</tr>
+<tr class="even">
+<td align="left">番組</td>
+<td align="left">祭</td>
+<td align="left">it</td>
+<td align="left">クリスマス</td>
+<td align="left">smax</td>
+<td align="left">水着</td>
+<td align="left">お正月</td>
+<td align="left">野菜</td>
+<td align="left">前年</td>
+</tr>
+<tr class="odd">
+<td align="left">akb</td>
+<td align="left">手当</td>
+<td align="left">機能</td>
 <td align="left">合コン</td>
-<td align="left">主演</td>
+<td align="left">ntt</td>
+<td align="left">帯</td>
+<td align="left">スパイス</td>
+<td align="left">矢野</td>
+<td align="left">hulu</td>
+</tr>
+<tr class="even">
+<td align="left">批判</td>
+<td align="left">アクション</td>
+<td align="left">設定</td>
+<td align="left">主婦</td>
+<td align="left">機種</td>
+<td align="left">充電</td>
+<td align="left">ビジネス</td>
+<td align="left">生理</td>
+<td align="left">小原</td>
+</tr>
+<tr class="odd">
+<td align="left">紺</td>
+<td align="left">篇</td>
+<td align="left">disk</td>
+<td align="left">仮名</td>
+<td align="left">搭載</td>
+<td align="left">スパ</td>
+<td align="left">悩み</td>
+<td align="left">毛</td>
+<td align="left">展</td>
+</tr>
+<tr class="even">
+<td align="left">韓国</td>
+<td align="left">ホアキン</td>
+<td align="left">データ</td>
+<td align="left">外貨</td>
+<td align="left">約</td>
+<td align="left">柄</td>
+<td align="left">仮面ライダー</td>
+<td align="left">クリーム</td>
+<td align="left">視聴</td>
+</tr>
+<tr class="odd">
+<td align="left">発言</td>
+<td align="left">演じる</td>
+<td align="left">デジタル</td>
+<td align="left">末永</td>
 <td align="left">ghz</td>
-<td align="left">カフェ</td>
+<td align="left">ウェア</td>
+<td align="left">ライダー</td>
+<td align="left">バラ</td>
+<td align="left">数量</td>
+</tr>
+<tr class="even">
+<td align="left">なでしこ</td>
+<td align="left">劇場</td>
+<td align="left">製品</td>
+<td align="left">婚</td>
+<td align="left">モデル</td>
+<td align="left">脚</td>
+<td align="left">社員</td>
+<td align="left">ガル</td>
+<td align="left">台</td>
+</tr>
+<tr class="odd">
+<td align="left">五輪</td>
+<td align="left">アメリカ</td>
+<td align="left">lan</td>
+<td align="left">料理</td>
+<td align="left">◯</td>
+<td align="left">ブランド</td>
+<td align="left">企業</td>
+<td align="left">ピラミッド</td>
+<td align="left">韓国</td>
 </tr>
 </tbody>
 </table>
@@ -535,16 +541,16 @@
 <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="co">#&gt; INFO  [21:08:28.193] epoch 1, loss 0.1796 </span>
-<span class="co">#&gt; INFO  [21:08:29.113] epoch 2, loss 0.0997 </span>
-<span class="co">#&gt; INFO  [21:08:30.019] epoch 3, loss 0.0824 </span>
-<span class="co">#&gt; INFO  [21:08:30.894] epoch 4, loss 0.0722 </span>
-<span class="co">#&gt; INFO  [21:08:31.764] epoch 5, loss 0.0653 </span>
-<span class="co">#&gt; INFO  [21:08:32.619] epoch 6, loss 0.0602 </span>
-<span class="co">#&gt; INFO  [21:08:33.517] epoch 7, loss 0.0562 </span>
-<span class="co">#&gt; INFO  [21:08:34.394] epoch 8, loss 0.0531 </span>
-<span class="co">#&gt; INFO  [21:08:35.259] epoch 9, loss 0.0505 </span>
-<span class="co">#&gt; INFO  [21:08:36.111] epoch 10, loss 0.0483</span></code></pre></div>
+<span class="co">#&gt; INFO  [00:24:17.635] epoch 1, loss 0.1785 </span>
+<span class="co">#&gt; INFO  [00:24:18.557] epoch 2, loss 0.0996 </span>
+<span class="co">#&gt; INFO  [00:24:19.385] epoch 3, loss 0.0824 </span>
+<span class="co">#&gt; INFO  [00:24:20.230] epoch 4, loss 0.0721 </span>
+<span class="co">#&gt; INFO  [00:24:21.043] epoch 5, loss 0.0651 </span>
+<span class="co">#&gt; INFO  [00:24:21.886] epoch 6, loss 0.0600 </span>
+<span class="co">#&gt; INFO  [00:24:22.730] epoch 7, loss 0.0560 </span>
+<span class="co">#&gt; INFO  [00:24:23.574] epoch 8, loss 0.0528 </span>
+<span class="co">#&gt; INFO  [00:24:24.386] epoch 9, loss 0.0502 </span>
+<span class="co">#&gt; INFO  [00:24:25.230] epoch 10, loss 0.0481</span></code></pre></div>
 <p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code><a href="https://rdrr.io/r/stats/kmeans.html">stats::kmeans</a></code>でクラスタリング（コサイン類似度）して付けています。</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pull_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span> <span class="op">{</span>
@@ -581,6 +587,9 @@
 <div id="セッション情報" class="section level2">
 <h2 class="hasAnchor">
 <a href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1" class="anchor"></a>セッション情報</h2>
+<blockquote>
+<p><a href="https://github.com/paithiov909/RcppKagome/blob/main/vignettes/demo_ja.Rmd">記事のソースコード</a></p>
+</blockquote>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html">session_info</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; - Session info ---------------------------------------------------------------</span>
@@ -593,7 +602,7 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-04-22                  </span>
+<span class="co">#&gt;  date     2021-05-11                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
 <span class="co">#&gt;  ! package             * version    date       lib</span>
@@ -611,19 +620,19 @@
 <span class="co">#&gt;    car                   3.0-10     2020-09-29 [2]</span>
 <span class="co">#&gt;    carData               3.0-4      2020-05-22 [2]</span>
 <span class="co">#&gt;    cellranger            1.1.0      2016-07-27 [2]</span>
-<span class="co">#&gt;    cli                   2.4.0      2021-04-05 [2]</span>
+<span class="co">#&gt;    cli                   2.5.0      2021-04-26 [2]</span>
 <span class="co">#&gt;    coda                  0.19-4     2020-09-30 [2]</span>
 <span class="co">#&gt;    codetools             0.2-18     2020-11-04 [2]</span>
-<span class="co">#&gt;    colorspace            2.0-0      2020-11-11 [2]</span>
+<span class="co">#&gt;    colorspace            2.0-1      2021-05-04 [2]</span>
 <span class="co">#&gt;    crayon                1.4.1      2021-02-08 [2]</span>
-<span class="co">#&gt;    curl                  4.3        2019-12-02 [2]</span>
+<span class="co">#&gt;    curl                  4.3.1      2021-04-30 [2]</span>
 <span class="co">#&gt;    data.table            1.14.0     2021-02-21 [2]</span>
 <span class="co">#&gt;    DBI                   1.1.1      2021-01-15 [2]</span>
 <span class="co">#&gt;    dbplyr                2.1.1      2021-04-06 [2]</span>
 <span class="co">#&gt;    desc                  1.3.0      2021-03-05 [2]</span>
 <span class="co">#&gt;    digest                0.6.27     2020-10-24 [2]</span>
-<span class="co">#&gt;    dplyr               * 1.0.5      2021-03-05 [2]</span>
-<span class="co">#&gt;    ellipsis              0.3.1      2020-05-15 [2]</span>
+<span class="co">#&gt;    dplyr               * 1.0.6      2021-05-05 [2]</span>
+<span class="co">#&gt;    ellipsis              0.3.2      2021-04-29 [2]</span>
 <span class="co">#&gt;    evaluate              0.14       2019-05-28 [2]</span>
 <span class="co">#&gt;    fansi                 0.4.2      2021-01-15 [2]</span>
 <span class="co">#&gt;    farver                2.1.0      2021-02-28 [2]</span>
@@ -634,8 +643,6 @@
 <span class="co">#&gt;    foreach               1.5.1      2020-10-15 [2]</span>
 <span class="co">#&gt;    foreign               0.8-81     2020-12-22 [2]</span>
 <span class="co">#&gt;    fs                    1.5.0      2020-07-31 [2]</span>
-<span class="co">#&gt;    furrr                 0.2.2      2021-01-29 [2]</span>
-<span class="co">#&gt;    future                1.21.0     2020-12-10 [2]</span>
 <span class="co">#&gt;    generics              0.1.0      2020-10-31 [2]</span>
 <span class="co">#&gt;    ggdendro              0.1.22     2020-09-13 [2]</span>
 <span class="co">#&gt;    ggplot2             * 3.3.3      2020-12-30 [2]</span>
@@ -643,47 +650,45 @@
 <span class="co">#&gt;    ggrepel               0.9.1      2021-01-15 [2]</span>
 <span class="co">#&gt;    ggsignif              0.6.1      2021-02-23 [2]</span>
 <span class="co">#&gt;    glmnet                4.1-1      2021-02-21 [2]</span>
-<span class="co">#&gt;    globals               0.14.0     2020-11-22 [2]</span>
 <span class="co">#&gt;    glue                  1.4.2      2020-08-27 [2]</span>
 <span class="co">#&gt;    gridExtra             2.3        2017-09-09 [2]</span>
 <span class="co">#&gt;    gtable                0.3.0      2019-03-25 [2]</span>
-<span class="co">#&gt;    haven                 2.4.0      2021-04-14 [2]</span>
+<span class="co">#&gt;    haven                 2.4.1      2021-04-23 [2]</span>
 <span class="co">#&gt;    highr                 0.9        2021-04-16 [2]</span>
 <span class="co">#&gt;    hms                   1.0.0      2021-01-13 [2]</span>
 <span class="co">#&gt;    htmltools             0.5.1.1    2021-01-22 [2]</span>
-<span class="co">#&gt;    httpuv                1.5.5      2021-01-13 [2]</span>
+<span class="co">#&gt;    httpuv                1.6.1      2021-05-07 [2]</span>
 <span class="co">#&gt;    httr                  1.4.2      2020-07-20 [2]</span>
 <span class="co">#&gt;    iterators             1.0.13     2020-10-15 [2]</span>
-<span class="co">#&gt;    jquerylib             0.1.3      2020-12-17 [2]</span>
+<span class="co">#&gt;    jquerylib             0.1.4      2021-04-26 [2]</span>
 <span class="co">#&gt;    jsonlite              1.7.2      2020-12-09 [2]</span>
-<span class="co">#&gt;    kagomer               0.0.1.900  2021-04-22 [2]</span>
-<span class="co">#&gt;    knitr                 1.32       2021-04-14 [2]</span>
+<span class="co">#&gt;    kagomer               0.0.1.900  2021-04-25 [2]</span>
+<span class="co">#&gt;    knitr                 1.33       2021-04-24 [2]</span>
 <span class="co">#&gt;    labeling              0.4.2      2020-10-20 [2]</span>
-<span class="co">#&gt;    later                 1.1.0.1    2020-06-05 [2]</span>
+<span class="co">#&gt;    later                 1.2.0      2021-04-23 [2]</span>
 <span class="co">#&gt;    lattice               0.20-41    2020-04-02 [3]</span>
 <span class="co">#&gt;    LDAvis                0.3.2      2015-10-24 [2]</span>
-<span class="co">#&gt;    ldccr                 0.0.5      2021-03-16 [2]</span>
+<span class="co">#&gt;    ldccr                 0.0.5      2021-04-23 [2]</span>
 <span class="co">#&gt;    lgr                   0.4.2      2021-01-10 [2]</span>
 <span class="co">#&gt;    LiblineaR             2.10-12    2021-03-02 [2]</span>
 <span class="co">#&gt;    lifecycle             1.0.0      2021-02-15 [2]</span>
-<span class="co">#&gt;    listenv               0.8.0      2019-12-05 [2]</span>
 <span class="co">#&gt;    lubridate             1.7.10     2021-02-26 [2]</span>
 <span class="co">#&gt;    magrittr              2.0.1      2020-11-17 [2]</span>
-<span class="co">#&gt;    MASS                  7.3-53.1   2021-02-12 [2]</span>
-<span class="co">#&gt;    Matrix                1.3-2      2021-01-06 [2]</span>
+<span class="co">#&gt;    MASS                  7.3-54     2021-05-03 [2]</span>
+<span class="co">#&gt;    Matrix                1.3-3      2021-05-04 [2]</span>
 <span class="co">#&gt;    memoise               2.0.0      2021-01-26 [2]</span>
 <span class="co">#&gt;    mlapi                 0.1.0      2017-12-17 [2]</span>
 <span class="co">#&gt;    modelr                0.1.8      2020-05-19 [2]</span>
 <span class="co">#&gt;    munsell               0.5.0      2018-06-12 [2]</span>
 <span class="co">#&gt;    network               1.16.1     2020-10-07 [2]</span>
 <span class="co">#&gt;    nsyllable             1.0        2020-11-30 [2]</span>
-<span class="co">#&gt;    openssl               1.4.3      2020-09-18 [2]</span>
+<span class="co">#&gt;    openssl               1.4.4      2021-04-30 [2]</span>
 <span class="co">#&gt;    openxlsx              4.2.3      2020-10-27 [2]</span>
-<span class="co">#&gt;    parallelly            1.24.0     2021-03-14 [2]</span>
 <span class="co">#&gt;    pillar                1.6.0      2021-04-13 [2]</span>
 <span class="co">#&gt;    pkgconfig             2.0.3      2019-09-22 [2]</span>
 <span class="co">#&gt;    pkgdown               1.6.1      2020-09-12 [2]</span>
-<span class="co">#&gt;    processx              3.5.1      2021-04-04 [2]</span>
+<span class="co">#&gt;    png                   0.1-7      2013-12-03 [2]</span>
+<span class="co">#&gt;    processx              3.5.2      2021-04-30 [2]</span>
 <span class="co">#&gt;    promises              1.2.0.1    2021-02-11 [2]</span>
 <span class="co">#&gt;    proxy                 0.4-25     2021-03-05 [2]</span>
 <span class="co">#&gt;    proxyC                0.1.5      2019-07-21 [2]</span>
@@ -693,27 +698,27 @@
 <span class="co">#&gt;    quanteda.textmodels   0.9.4      2021-04-06 [2]</span>
 <span class="co">#&gt;    quanteda.textplots    0.94       2021-04-06 [2]</span>
 <span class="co">#&gt;    quanteda.textstats    0.94       2021-04-06 [2]</span>
-<span class="co">#&gt;    R.cache               0.14.0     2019-12-06 [2]</span>
+<span class="co">#&gt;    R.cache               0.15.0     2021-04-30 [2]</span>
 <span class="co">#&gt;    R.methodsS3           1.8.1      2020-08-26 [2]</span>
 <span class="co">#&gt;    R.oo                  1.24.0     2020-08-26 [2]</span>
 <span class="co">#&gt;    R.utils               2.10.1     2020-08-26 [2]</span>
 <span class="co">#&gt;    R6                    2.5.0      2020-10-28 [2]</span>
 <span class="co">#&gt;    ragg                  1.1.2      2021-03-17 [2]</span>
 <span class="co">#&gt;    Rcpp                  1.0.6      2021-01-15 [2]</span>
-<span class="co">#&gt;    RcppKagome            0.0.2.900  2021-04-22 [2]</span>
-<span class="co">#&gt;  D RcppParallel          5.1.2      2021-04-15 [2]</span>
+<span class="co">#&gt;    RcppKagome            0.0.3.900  2021-05-10 [2]</span>
+<span class="co">#&gt;  D RcppParallel          5.1.4      2021-05-04 [2]</span>
 <span class="co">#&gt;    RcppProgress          0.4.2      2020-02-06 [2]</span>
 <span class="co">#&gt;    readr               * 1.4.0      2020-10-05 [2]</span>
 <span class="co">#&gt;    readxl                1.3.1      2019-03-13 [2]</span>
 <span class="co">#&gt;    rematch2              2.1.2      2020-05-01 [2]</span>
 <span class="co">#&gt;    reprex                2.0.0      2021-04-02 [2]</span>
-<span class="co">#&gt;    reticulate            1.19       2021-04-21 [2]</span>
+<span class="co">#&gt;    reticulate            1.20       2021-05-03 [2]</span>
 <span class="co">#&gt;    RhpcBLASctl           0.20-137   2020-05-17 [2]</span>
 <span class="co">#&gt;    rio                   0.5.26     2021-03-01 [2]</span>
 <span class="co">#&gt;    RJSONIO               1.3-1.4    2020-01-15 [2]</span>
-<span class="co">#&gt;    rlang                 0.4.10     2020-12-30 [2]</span>
+<span class="co">#&gt;    rlang                 0.4.11     2021-04-30 [2]</span>
 <span class="co">#&gt;    rle                   0.9.2      2020-09-25 [2]</span>
-<span class="co">#&gt;    rmarkdown             2.7        2021-02-19 [2]</span>
+<span class="co">#&gt;    rmarkdown             2.8        2021-05-07 [2]</span>
 <span class="co">#&gt;    rprojroot             2.0.2      2020-11-15 [2]</span>
 <span class="co">#&gt;    rsparse               0.4.0      2020-04-01 [2]</span>
 <span class="co">#&gt;    RSpectra              0.16-0     2019-12-01 [2]</span>
@@ -730,22 +735,22 @@
 <span class="co">#&gt;    SparseM               1.81       2021-02-18 [2]</span>
 <span class="co">#&gt;    statnet.common        4.4.1      2020-10-03 [2]</span>
 <span class="co">#&gt;    stopwords             2.2        2021-02-10 [2]</span>
-<span class="co">#&gt;    stringi               1.5.3      2020-09-09 [2]</span>
+<span class="co">#&gt;    stringi               1.6.1      2021-05-10 [2]</span>
 <span class="co">#&gt;    stringr             * 1.4.0      2019-02-10 [2]</span>
 <span class="co">#&gt;    styler                1.4.1      2021-03-30 [2]</span>
-<span class="co">#&gt;    survival              3.2-10     2021-03-16 [2]</span>
+<span class="co">#&gt;    survival              3.2-11     2021-04-26 [2]</span>
 <span class="co">#&gt;    systemfonts           1.0.1      2021-02-09 [2]</span>
 <span class="co">#&gt;    text2vec              0.6        2020-02-18 [2]</span>
 <span class="co">#&gt;    textmineR             3.0.4      2019-04-18 [2]</span>
 <span class="co">#&gt;    textshaping           0.3.3      2021-03-16 [2]</span>
 <span class="co">#&gt;    tibble              * 3.1.1      2021-04-18 [2]</span>
 <span class="co">#&gt;    tidyr               * 1.1.3      2021-03-03 [2]</span>
-<span class="co">#&gt;    tidyselect            1.1.0      2020-05-11 [2]</span>
+<span class="co">#&gt;    tidyselect            1.1.1      2021-04-30 [2]</span>
 <span class="co">#&gt;    tidyverse           * 1.3.1      2021-04-15 [2]</span>
 <span class="co">#&gt;    umap                  0.2.7.0    2020-11-04 [2]</span>
 <span class="co">#&gt;    utf8                  1.2.1      2021-03-12 [2]</span>
 <span class="co">#&gt;    uuid                  0.1-4      2020-02-26 [2]</span>
-<span class="co">#&gt;    vctrs                 0.3.7      2021-03-29 [2]</span>
+<span class="co">#&gt;    vctrs                 0.3.8      2021-04-29 [2]</span>
 <span class="co">#&gt;    viridis               0.6.0      2021-04-15 [2]</span>
 <span class="co">#&gt;    viridisLite           0.4.0      2021-04-13 [2]</span>
 <span class="co">#&gt;    vroom                 1.4.0      2021-02-01 [2]</span>
@@ -755,167 +760,163 @@
 <span class="co">#&gt;    yaml                  2.2.1      2020-02-01 [2]</span>
 <span class="co">#&gt;    zip                   2.1.1      2020-08-27 [2]</span>
 <span class="co">#&gt;    zipangu               0.2.3.9000 2021-03-02 [2]</span>
-<span class="co">#&gt;  source                            </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  Github (gaborcsardi/async@e6af7be)</span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  local                             </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  Github (paithiov909/ldccr@efbea20)</span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  local                             </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.0)                    </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  Github (uribo/zipangu@0e43aef)    </span>
+<span class="co">#&gt;  source                              </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  Github (gaborcsardi/async@e6af7be)  </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  Github (paithiov909/kagomer@448d13b)</span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  local                               </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  local                               </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  Github (uribo/zipangu@0e43aef)      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmp6J6ACL/temp_libpath1fec2b171785</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpe802Ye/temp_libpath23cc396d78fb</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
 <span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span>
 <span class="co">#&gt; </span>

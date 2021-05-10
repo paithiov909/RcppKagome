@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppKagome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.900</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.900</span>
       </span>
     </div>
 
@@ -92,12 +92,12 @@
 
       
 
-      </header><script src="readme_ja_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="readme_ja_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>About RcppKagome package</h1>
             
-            <h4 class="date">2021-04-22</h4>
+            <h4 class="date">2021-05-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/readme_ja.Rmd"><code>vignettes/readme_ja.Rmd</code></a></small>
       <div class="hidden name"><code>readme_ja.Rmd</code></div>
@@ -120,7 +120,7 @@
 <a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" class="anchor"></a>インストール</h3>
 <p>ソースからビルドします。makeとGCCとGoが必要です。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"async"</span>, <span class="st">"kagomer"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"async"</span>, <span class="st">"kagomer"</span><span class="op">)</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"gaborcsardi/async"</span><span class="op">)</span>
   <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/kagomer"</span><span class="op">)</span>
 <span class="op">}</span>
@@ -296,8 +296,8 @@
 <span class="co">#&gt; 2      2 ぎちぎち と 鳴る 　 汚い 掌 を 、 おれ は これから もつ こと に なる</span></code></pre></div>
 <p>なお、<code>prettify</code>を経由しなくても同じかたちのデータフレームを得ることができます。</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"雨にも負けず　風にも負けず"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="st">"雨にも負けず　風にも負けず"</span><span class="op">)</span>
+<span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt;   doc_id                                 text</span>
 <span class="co">#&gt; 1      1 雨 に も 負け ず 　 風 に も 負け ず</span></code></pre></div>
 </div>
@@ -367,9 +367,9 @@
 <div id="複数の文を渡す場合" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>複数の文を渡す場合</h3>
-<p>ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、<code><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCab::RMeCabC</a></code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code>でラップして比較しています。</p>
-<p>このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>より<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>のほうがかえってパフォーマンスが悪化することがあります）。</p>
-<p>RMeCabやRcppKagomeではベクトルの要素ごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。</p>
+<p>ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、<code><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCab::RMeCabC</a></code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code>lapply</code>でラップして比較しています。</p>
+<p>このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがボトルネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>より<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>のほうがかえってパフォーマンスが悪化することがあります）。</p>
+<p>RMeCabやRcppKagomeでは解析するたびごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。</p>
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png" alt=""><p class="caption">bench-plot-2</p>
 </div>
@@ -394,6 +394,9 @@
 <div id="セッション情報" class="section level2">
 <h2 class="hasAnchor">
 <a href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1" class="anchor"></a>セッション情報</h2>
+<blockquote>
+<p><a href="https://github.com/paithiov909/RcppKagome/blob/main/vignettes/readme_ja.Rmd">記事のソースコード</a></p>
+</blockquote>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html">session_info</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; - Session info ---------------------------------------------------------------</span>
@@ -406,82 +409,143 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-04-22                  </span>
+<span class="co">#&gt;  date     2021-05-11                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
-<span class="co">#&gt;  package     * version    date       lib source                            </span>
-<span class="co">#&gt;  assertthat    0.2.1      2019-03-21 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  async         0.0.0.9004 2021-03-03 [2] Github (gaborcsardi/async@e6af7be)</span>
-<span class="co">#&gt;  backports     1.2.1      2020-12-09 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  bslib         0.2.4      2021-01-25 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  cachem        1.0.4      2021-02-13 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  callr         3.7.0      2021-04-20 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  cli           2.4.0      2021-04-05 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  codetools     0.2-18     2020-11-04 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  crayon        1.4.1      2021-02-08 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  curl          4.3        2019-12-02 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  DBI           1.1.1      2021-01-15 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  desc          1.3.0      2021-03-05 [2] CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  digest        0.6.27     2020-10-24 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  dplyr         1.0.5      2021-03-05 [2] CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  ellipsis      0.3.1      2020-05-15 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  evaluate      0.14       2019-05-28 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  fansi         0.4.2      2021-01-15 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  fastmap       1.1.0      2021-01-25 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  fs            1.5.0      2020-07-31 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  furrr         0.2.2      2021-01-29 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  future        1.21.0     2020-12-10 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  generics      0.1.0      2020-10-31 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  globals       0.14.0     2020-11-22 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  glue          1.4.2      2020-08-27 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  hms           1.0.0      2021-01-13 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  htmltools     0.5.1.1    2021-01-22 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  jquerylib     0.1.3      2020-12-17 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  jsonlite      1.7.2      2020-12-09 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  kagomer       0.0.1.900  2021-04-22 [2] local                             </span>
-<span class="co">#&gt;  knitr         1.32       2021-04-14 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  lifecycle     1.0.0      2021-02-15 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  listenv       0.8.0      2019-12-05 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  magrittr      2.0.1      2020-11-17 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  memoise       2.0.0      2021-01-26 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  parallelly    1.24.0     2021-03-14 [2] CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  pillar        1.6.0      2021-04-13 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  pkgconfig     2.0.3      2019-09-22 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  pkgdown       1.6.1      2020-09-12 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  processx      3.5.1      2021-04-04 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  ps            1.6.0      2021-02-28 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  purrr       * 0.3.4      2020-04-17 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  R.cache       0.14.0     2019-12-06 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  R.methodsS3   1.8.1      2020-08-26 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  R.oo          1.24.0     2020-08-26 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  R.utils       2.10.1     2020-08-26 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  R6            2.5.0      2020-10-28 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  ragg          1.1.2      2021-03-17 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  Rcpp          1.0.6      2021-01-15 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  RcppKagome  * 0.0.2.900  2021-04-22 [2] local                             </span>
-<span class="co">#&gt;  readr         1.4.0      2020-10-05 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  rlang         0.4.10     2020-12-30 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  rmarkdown     2.7        2021-02-19 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  rprojroot     2.0.2      2020-11-15 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  sass          0.3.1      2021-01-24 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  sessioninfo   1.1.1      2018-11-05 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  stringi       1.5.3      2020-09-09 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  stringr       1.4.0      2019-02-10 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  styler        1.4.1      2021-03-30 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  systemfonts   1.0.1      2021-02-09 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  textshaping   0.3.3      2021-03-16 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  tibble        3.1.1      2021-04-18 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  tidyselect    1.1.0      2020-05-11 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  utf8          1.2.1      2021-03-12 [2] CRAN (R 4.0.2)                    </span>
-<span class="co">#&gt;  uuid          0.1-4      2020-02-26 [2] CRAN (R 4.0.3)                    </span>
-<span class="co">#&gt;  vctrs         0.3.7      2021-03-29 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  withr         2.4.2      2021-04-18 [2] CRAN (R 4.0.5)                    </span>
-<span class="co">#&gt;  xfun          0.22       2021-03-11 [2] CRAN (R 4.0.4)                    </span>
-<span class="co">#&gt;  yaml          2.2.1      2020-02-01 [2] CRAN (R 4.0.0)                    </span>
+<span class="co">#&gt;  ! package      * version    date       lib</span>
+<span class="co">#&gt;    assertthat     0.2.1      2019-03-21 [2]</span>
+<span class="co">#&gt;    async          0.0.0.9004 2021-03-03 [2]</span>
+<span class="co">#&gt;    backports      1.2.1      2020-12-09 [2]</span>
+<span class="co">#&gt;    bslib          0.2.4      2021-01-25 [2]</span>
+<span class="co">#&gt;    cachem         1.0.4      2021-02-13 [2]</span>
+<span class="co">#&gt;    callr          3.7.0      2021-04-20 [2]</span>
+<span class="co">#&gt;    cli            2.5.0      2021-04-26 [2]</span>
+<span class="co">#&gt;    crayon         1.4.1      2021-02-08 [2]</span>
+<span class="co">#&gt;    curl           4.3.1      2021-04-30 [2]</span>
+<span class="co">#&gt;    DBI            1.1.1      2021-01-15 [2]</span>
+<span class="co">#&gt;    desc           1.3.0      2021-03-05 [2]</span>
+<span class="co">#&gt;    digest         0.6.27     2020-10-24 [2]</span>
+<span class="co">#&gt;    dplyr          1.0.6      2021-05-05 [2]</span>
+<span class="co">#&gt;    ellipsis       0.3.2      2021-04-29 [2]</span>
+<span class="co">#&gt;    evaluate       0.14       2019-05-28 [2]</span>
+<span class="co">#&gt;    fansi          0.4.2      2021-01-15 [2]</span>
+<span class="co">#&gt;    fastmap        1.1.0      2021-01-25 [2]</span>
+<span class="co">#&gt;    fs             1.5.0      2020-07-31 [2]</span>
+<span class="co">#&gt;    generics       0.1.0      2020-10-31 [2]</span>
+<span class="co">#&gt;    glue           1.4.2      2020-08-27 [2]</span>
+<span class="co">#&gt;    hms            1.0.0      2021-01-13 [2]</span>
+<span class="co">#&gt;    htmltools      0.5.1.1    2021-01-22 [2]</span>
+<span class="co">#&gt;    jquerylib      0.1.4      2021-04-26 [2]</span>
+<span class="co">#&gt;    jsonlite       1.7.2      2020-12-09 [2]</span>
+<span class="co">#&gt;    kagomer        0.0.1.900  2021-04-25 [2]</span>
+<span class="co">#&gt;    knitr          1.33       2021-04-24 [2]</span>
+<span class="co">#&gt;    lifecycle      1.0.0      2021-02-15 [2]</span>
+<span class="co">#&gt;    magrittr       2.0.1      2020-11-17 [2]</span>
+<span class="co">#&gt;    memoise        2.0.0      2021-01-26 [2]</span>
+<span class="co">#&gt;    pillar         1.6.0      2021-04-13 [2]</span>
+<span class="co">#&gt;    pkgconfig      2.0.3      2019-09-22 [2]</span>
+<span class="co">#&gt;    pkgdown        1.6.1      2020-09-12 [2]</span>
+<span class="co">#&gt;    processx       3.5.2      2021-04-30 [2]</span>
+<span class="co">#&gt;    ps             1.6.0      2021-02-28 [2]</span>
+<span class="co">#&gt;    purrr          0.3.4      2020-04-17 [2]</span>
+<span class="co">#&gt;    R.cache        0.15.0     2021-04-30 [2]</span>
+<span class="co">#&gt;    R.methodsS3    1.8.1      2020-08-26 [2]</span>
+<span class="co">#&gt;    R.oo           1.24.0     2020-08-26 [2]</span>
+<span class="co">#&gt;    R.utils        2.10.1     2020-08-26 [2]</span>
+<span class="co">#&gt;    R6             2.5.0      2020-10-28 [2]</span>
+<span class="co">#&gt;    ragg           1.1.2      2021-03-17 [2]</span>
+<span class="co">#&gt;    Rcpp           1.0.6      2021-01-15 [2]</span>
+<span class="co">#&gt;    RcppKagome   * 0.0.3.900  2021-05-10 [2]</span>
+<span class="co">#&gt;  D RcppParallel   5.1.4      2021-05-04 [2]</span>
+<span class="co">#&gt;    readr          1.4.0      2020-10-05 [2]</span>
+<span class="co">#&gt;    rlang          0.4.11     2021-04-30 [2]</span>
+<span class="co">#&gt;    rmarkdown      2.8        2021-05-07 [2]</span>
+<span class="co">#&gt;    rprojroot      2.0.2      2020-11-15 [2]</span>
+<span class="co">#&gt;    sass           0.3.1      2021-01-24 [2]</span>
+<span class="co">#&gt;    sessioninfo    1.1.1      2018-11-05 [2]</span>
+<span class="co">#&gt;    stringi        1.6.1      2021-05-10 [2]</span>
+<span class="co">#&gt;    stringr        1.4.0      2019-02-10 [2]</span>
+<span class="co">#&gt;    styler         1.4.1      2021-03-30 [2]</span>
+<span class="co">#&gt;    systemfonts    1.0.1      2021-02-09 [2]</span>
+<span class="co">#&gt;    textshaping    0.3.3      2021-03-16 [2]</span>
+<span class="co">#&gt;    tibble         3.1.1      2021-04-18 [2]</span>
+<span class="co">#&gt;    tidyselect     1.1.1      2021-04-30 [2]</span>
+<span class="co">#&gt;    utf8           1.2.1      2021-03-12 [2]</span>
+<span class="co">#&gt;    uuid           0.1-4      2020-02-26 [2]</span>
+<span class="co">#&gt;    vctrs          0.3.8      2021-04-29 [2]</span>
+<span class="co">#&gt;    withr          2.4.2      2021-04-18 [2]</span>
+<span class="co">#&gt;    xfun           0.22       2021-03-11 [2]</span>
+<span class="co">#&gt;    yaml           2.2.1      2020-02-01 [2]</span>
+<span class="co">#&gt;  source                              </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  Github (gaborcsardi/async@e6af7be)  </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  Github (paithiov909/kagomer@448d13b)</span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  local                               </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
+<span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmp6J6ACL/temp_libpath1fec2b171785</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpe802Ye/temp_libpath23cc396d78fb</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
-<span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span></code></pre></div>
+<span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  D -- DLL MD5 mismatch, broken installation.</span></code></pre></div>
 </div>
   </div>
 

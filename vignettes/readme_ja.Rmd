@@ -80,8 +80,8 @@ RcppKagome::pack_df(res)
 なお、`prettify`を経由しなくても同じかたちのデータフレームを得ることができます。
 
 ```{r pack_output_2}
-RcppKagome::kagome("雨にも負けず　風にも負けず") %>%
-  RcppKagome::pack_list()
+res <- RcppKagome::kagome("雨にも負けず　風にも負けず")
+RcppKagome::pack_list(res)
 ```
 
 ### Web APIの利用

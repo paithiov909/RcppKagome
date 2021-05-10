@@ -28,7 +28,7 @@ Japanese morphological analyzer written in pure Go.
 ## Installation
 
 ``` r
-if (!requireNamespace(c("async", "kagomer"))) {
+if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
 }
