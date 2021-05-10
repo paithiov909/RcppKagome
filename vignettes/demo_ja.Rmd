@@ -185,7 +185,9 @@ ggplot2::ggplot(ggdendro::segment(d)) +
 
 ## LDA（Latent Dirichlet Allocation）
 
-LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。
+LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。weighted LDAなどの実装を含む[{keyATM}](https://github.com/keyATM/keyATM)といった選択肢もあります。
+
+なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、[{ldatuning}](https://github.com/nikita-moor/ldatuning)や[{stm}](https://github.com/bstewart/stm)などを利用したほうがよいです。
 
 ```{r lda_1}
 dtm <- corp %>%
@@ -309,6 +311,8 @@ vec %>%
 ```
 
 ## セッション情報
+
+> [記事のソースコード](https://github.com/paithiov909/RcppKagome/blob/main/vignettes/demo_ja.Rmd)
 
 ```{r sessioninfo}
 sessioninfo::session_info()
