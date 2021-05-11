@@ -27,13 +27,21 @@ Japanese morphological analyzer written in pure Go.
 
 ## Installation
 
+For Windows x64 arch, try the pre-built binary release.
+
 ```r
 if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
 }
-remotes::install_github("paithiov909/RcppKagome") ## For Windows, append `INSTALL_opts = "--no-multiarch"`
+install.packages(
+  "https://github.com/paithiov909/RcppKagome/releases/download/v0.0.2.900/RcppKagome.zip",
+  repos = NULL,
+  quiet = TRUE
+)
 ```
+
+Or, clone this repo and build the package manually.
 
 ## Usage
 
