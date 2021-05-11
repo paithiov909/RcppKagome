@@ -1,4 +1,9 @@
 ---
+ID: 707cbe04dc48d5060053
+Title: "RcppKagome - Rcpp経由でGoのライブラリを呼んで形態素解析するRパッケージ"
+Tags: Go,R,自然言語処理,形態素解析
+Author: Kato Akiru
+Private: false
 title: "About RcppKagome package"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -21,11 +26,9 @@ stopifnot(
 )
 ```
 
-[![paithiov909/RcppKagome - GitHub](https://gh-card.dev/repos/paithiov909/RcppKagome.svg)](https://github.com/paithiov909/RcppKagome)
-
 ## これは何？
 
-Rで形態素解析するためのパッケージです。[Pure Goで辞書同梱な形態素解析器](https://qiita.com/ikawaha/items/ff27ac03e22b7f36811b)として知られる[ikawaha/kagome](https://github.com/ikawaha/kagome)をラップしています。
+[RcppKagome](https://github.com/paithiov909/RcppKagome)は、Rで形態素解析するためのパッケージです。[Pure Goで辞書同梱な形態素解析器](https://qiita.com/ikawaha/items/ff27ac03e22b7f36811b)として知られる[ikawaha/kagome](https://github.com/ikawaha/kagome)をラップしています。
 
 ## 使い方
 

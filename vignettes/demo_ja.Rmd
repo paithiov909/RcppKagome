@@ -1,9 +1,12 @@
 ---
+ID: a47a097836e8a9ec12ef
+Title: "R（quanteda）によるテキスト解析"
+Tags: R,自然言語処理,NLP,テキストマイニング
+Author: Kato Akiru
+Private: false
 title: "Text analysis using quanteda and RcppKagome"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-header-includes:
-  - \usepackage[utf8]{inputenc}
 vignette: >
   %\VignetteIndexEntry{Text analysis using quanteda and RcppKagome}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,13 +17,15 @@ vignette: >
 knitr::opts_chunk$set(
   tidy = "styler",
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.keep = "none" ## Run all chunks but never save new figures.
 )
+
+require(magrittr)
+
 #### prepare directories for cache ---
 if (!dir.exists("cache")) dir.create("cache")
 if (!dir.exists("cache/ldavis")) dir.create("cache/ldavis")
-#### load packages ---
-library(tidyverse)
 ```
 
 ## この記事について
@@ -61,7 +66,7 @@ corp <- data %>%
 
 corp <- corp %>%
   dplyr::pull("body") %>%
-  stringr::str_remove_all("[[:punct:]]+") %>% ## quanteda::tokensにremove_punctというオプションがあるのでそれを用いてもよい
+  stringr::str_remove_all("[[:punct:]]+") %>%
   zipangu::str_jnormalize() %>%
   RcppKagome::kagome() %>%
   RcppKagome::pack_list() %>%
@@ -88,6 +93,8 @@ corp %>%
   quanteda.textplots::textplot_wordcloud(color = viridis::cividis(8L))
 ```
 
+![wordcloud](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/wordcloud-1.png)
+
 ## 出現頻度の集計
 
 ```{r stats}
@@ -108,6 +115,8 @@ corp %>%
   ggplot2::theme_bw()
 ```
 
+![stats](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/stats-1.png)
+
 ## Keyness
 
 ITライフハック（`it-life-hack`）グループの文書とその他の対照を見ています。
@@ -121,6 +130,8 @@ corp %>%
   quanteda.textstats::textstat_keyness(target = "it-life-hack") %>%
   quanteda.textplots::textplot_keyness()
 ```
+
+![keyness](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/keyness-1.png)
 
 ## 対応分析
 
@@ -140,6 +151,8 @@ corp_sample %>%
   )
 ```
 
+![ca](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/ca-1.png)
+
 ## 共起ネットワーク
 
 ```{r network}
@@ -152,6 +165,8 @@ corp %>%
   quanteda::fcm() %>%
   quanteda.textplots::textplot_network(min_freq = .96)
 ```
+
+![network](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/network-1.png)
 
 ## クラスタリング
 
@@ -182,6 +197,8 @@ ggplot2::ggplot(ggdendro::segment(d)) +
   ggplot2::scale_y_reverse(expand = c(.2, 0)) +
   ggdendro::theme_dendro()
 ```
+
+![clust](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/clust-1.png)
 
 ## LDA（Latent Dirichlet Allocation）
 
@@ -229,7 +246,7 @@ readr::read_lines_raw(file.path(getwd(), "cache/ldavis", "lda.json")) %>%
   jsonlite::write_json(file.path(getwd(), "cache/ldavis", "lda.json"), dataframe = "columns", auto_unbox = TRUE)
 ```
 
-```{r copy_ldavis_dir, include=FALSE}
+```{r copy_ldavis_dir, include = FALSE}
 files <- list.files(file.path("cache/ldavis"), full.names = TRUE)
 for (file in files) {
   file.copy(
@@ -309,6 +326,8 @@ vec %>%
   ggrepel::geom_text_repel(aes(label = rowname)) +
   ggplot2::theme_light()
 ```
+
+![umap](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/umap-1.png)
 
 ## セッション情報
 

@@ -27,12 +27,12 @@ Japanese morphological analyzer written in pure Go.
 
 ## Installation
 
-``` r
+```r
 if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
 }
-remotes::install_github("paithiov909/RcppKagome")
+remotes::install_github("paithiov909/RcppKagome") ## For Windows, append `INSTALL_opts = "--no-multiarch"`
 ```
 
 ## Usage

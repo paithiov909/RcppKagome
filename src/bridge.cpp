@@ -1,3 +1,4 @@
+// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::depends(RcppParallel, RcppThread)]]
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
@@ -10,6 +11,7 @@
 #include <cstdlib>
 #include <Rcpp.h>
 #include <RcppParallel.h>
+#include <RcppThread.h>
 #include "../inst/include/libkagome.h"
 
 // KagomeTokenizer
