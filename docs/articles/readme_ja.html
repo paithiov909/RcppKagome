@@ -97,7 +97,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>About RcppKagome package</h1>
             
-            <h4 class="date">2021-05-11</h4>
+            <h4 class="date">2021-05-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/readme_ja.Rmd"><code>vignettes/readme_ja.Rmd</code></a></small>
       <div class="hidden name"><code>readme_ja.Rmd</code></div>
@@ -106,11 +106,10 @@
 
     
     
-<p><a href="https://github.com/paithiov909/RcppKagome"><img src="https://gh-card.dev/repos/paithiov909/RcppKagome.svg" alt="paithiov909/RcppKagome - GitHub"></a></p>
 <div id="これは何" class="section level2">
 <h2 class="hasAnchor">
 <a href="#%E3%81%93%E3%82%8C%E3%81%AF%E4%BD%95" class="anchor"></a>これは何？</h2>
-<p>Rで形態素解析するためのパッケージです。<a href="https://qiita.com/ikawaha/items/ff27ac03e22b7f36811b">Pure Goで辞書同梱な形態素解析器</a>として知られる<a href="https://github.com/ikawaha/kagome">ikawaha/kagome</a>をラップしています。</p>
+<p><a href="https://github.com/paithiov909/RcppKagome">RcppKagome</a>は、Rで形態素解析するためのパッケージです。<a href="https://qiita.com/ikawaha/items/ff27ac03e22b7f36811b">Pure Goで辞書同梱な形態素解析器</a>として知られる<a href="https://github.com/ikawaha/kagome">ikawaha/kagome</a>をラップしています。</p>
 </div>
 <div id="使い方" class="section level2">
 <h2 class="hasAnchor">
@@ -118,13 +117,18 @@
 <div id="インストール" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" class="anchor"></a>インストール</h3>
-<p>ソースからビルドします。makeとGCCとGoが必要です。</p>
+<p>64bit Windows向けにはバイナリパッケージをインストールできるようにしています。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"async"</span>, <span class="st">"kagomer"</span><span class="op">)</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"gaborcsardi/async"</span><span class="op">)</span>
   <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/kagomer"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span>
+  <span class="st">"https://github.com/paithiov909/RcppKagome/releases/download/v0.0.2.900/RcppKagome.zip"</span>,
+  repos <span class="op">=</span> <span class="cn">NULL</span>,
+  quiet <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
+<p>ソースからビルドする場合、cloneしたリポジトリ内でsubmoduleをアップデートしたうえでpkgbuildなどを使ってビルドしてください</p>
 </div>
 <div id="形態素解析" class="section level3">
 <h3 class="hasAnchor">
@@ -363,16 +367,18 @@
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png" alt=""><p class="caption">bench-plot-1</p>
 </div>
+<p>このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（’ja_core_news_md’モデルを使用、<code>spacyr::parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)</code>）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。</p>
 </div>
 <div id="複数の文を渡す場合" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>複数の文を渡す場合</h3>
-<p>ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、<code><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCab::RMeCabC</a></code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code>lapply</code>でラップして比較しています。</p>
-<p>このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがボトルネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>より<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>のほうがかえってパフォーマンスが悪化することがあります）。</p>
-<p>RMeCabやRcppKagomeでは解析するたびごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。</p>
+<p>ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。なお、<code><a href="https://rdrr.io/pkg/RMeCab/man/RMeCabC.html">RMeCab::RMeCabC</a></code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code>lapply</code>でラップして比較しています。</p>
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png" alt=""><p class="caption">bench-plot-2</p>
 </div>
+<p>このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがボトルネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、<code><a href="https://rdrr.io/pkg/RcppMeCab/man/pos.html">RcppMeCab::pos</a></code>より<code><a href="https://rdrr.io/pkg/RcppMeCab/man/posParallel.html">RcppMeCab::posParallel</a></code>のほうがかえってパフォーマンスが悪化することがあります）。</p>
+<p>RMeCabやRcppKagomeでは解析するたびごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。</p>
+<p>なお、この記事の主旨から外れますが、これくらいの分量のベクトルをspacyrで解析しようとすると結果をデータフレームにパースするコストが高すぎて死ぬほど時間がかかるので、そういう使い方は避けたほうがよいです。</p>
 </div>
 </div>
 <div id="rとgoの連携について" class="section level2">
@@ -409,7 +415,7 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-05-11                  </span>
+<span class="co">#&gt;  date     2021-05-12                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
 <span class="co">#&gt;  ! package      * version    date       lib</span>
@@ -437,7 +443,7 @@
 <span class="co">#&gt;    htmltools      0.5.1.1    2021-01-22 [2]</span>
 <span class="co">#&gt;    jquerylib      0.1.4      2021-04-26 [2]</span>
 <span class="co">#&gt;    jsonlite       1.7.2      2020-12-09 [2]</span>
-<span class="co">#&gt;    kagomer        0.0.1.900  2021-04-25 [2]</span>
+<span class="co">#&gt;    kagomer        0.0.2.900  2021-05-11 [2]</span>
 <span class="co">#&gt;    knitr          1.33       2021-04-24 [2]</span>
 <span class="co">#&gt;    lifecycle      1.0.0      2021-02-15 [2]</span>
 <span class="co">#&gt;    magrittr       2.0.1      2020-11-17 [2]</span>
@@ -455,7 +461,7 @@
 <span class="co">#&gt;    R6             2.5.0      2020-10-28 [2]</span>
 <span class="co">#&gt;    ragg           1.1.2      2021-03-17 [2]</span>
 <span class="co">#&gt;    Rcpp           1.0.6      2021-01-15 [2]</span>
-<span class="co">#&gt;    RcppKagome   * 0.0.3.900  2021-05-10 [2]</span>
+<span class="co">#&gt;    RcppKagome   * 0.0.3.900  2021-05-11 [2]</span>
 <span class="co">#&gt;  D RcppParallel   5.1.4      2021-05-04 [2]</span>
 <span class="co">#&gt;    readr          1.4.0      2020-10-05 [2]</span>
 <span class="co">#&gt;    rlang          0.4.11     2021-04-30 [2]</span>
@@ -501,7 +507,7 @@
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  Github (paithiov909/kagomer@448d13b)</span>
+<span class="co">#&gt;  Github (paithiov909/kagomer@06bf1d0)</span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
@@ -541,7 +547,7 @@
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpe802Ye/temp_libpath23cc396d78fb</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/RtmpwheMCL/temp_libpath19c8b08b81</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
 <span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span>
 <span class="co">#&gt; </span>

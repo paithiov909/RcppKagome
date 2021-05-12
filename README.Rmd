@@ -125,23 +125,22 @@ sentences %>%
 
 ### Data
 
-```{r bench-prep}
-csv <- file.path("tools/miyazawa_kenji_head.csv") %>%
-  readr::read_csv() %>%
-  dplyr::slice_head(prop = .4)
+Here uses the `NekoText` dataset provided in [{ldccr}](https://github.com/paithiov909/ldccr) package, that is whole text of 'Wagahai Wa Neko Dearu' written by Natsume Souseki. The text is originally from [Aozora Bunko](https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip).
 
-dplyr::glimpse(csv)
+```{r bench-prep}
+sentences <- ldccr::NekoText
+dplyr::glimpse(sentences)
 ```
 
 ### Tokenize Character Scalar
 
 ```{r bench-summary_1}
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCabC(iconv(csv$sentences[3], from = "UTF-8", to = "CP932")
+  RMeCabC = RMeCabC(iconv(sentences[30], from = "UTF-8", to = "CP932")
 , mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"),
-  pos = pos(csv$sentences[3]),
-  posParallel = posParallel(csv$sentences[3]),
-  kagome = kagome(csv$sentences[3]),
+  pos = pos(sentences[30]),
+  posParallel = posParallel(sentences[30]),
+  kagome = kagome(sentences[30]),
   times = 500L
 )
 summary(tm)
@@ -157,11 +156,11 @@ ggplot2::autoplot(tm)
 
 ```{r bench-summary_2}
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = lapply(csv$sentences, function(elem){ RMeCabC(iconv(elem, from = "UTF-8", to = "CP932")
+  RMeCabC = lapply(sentences, function(elem){ RMeCabC(iconv(elem, from = "UTF-8", to = "CP932")
 , mecabrc = "/MeCab/ipadic-shiftjis/mecabrc") }),
-  pos = pos(csv$sentences),
-  posParallel = posParallel(csv$sentences),
-  kagome = kagome(csv$sentences),
+  pos = pos(sentences),
+  posParallel = posParallel(sentences),
+  kagome = kagome(sentences),
   times = 10L
 )
 summary(tm)

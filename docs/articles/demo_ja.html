@@ -97,7 +97,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Text analysis using quanteda and RcppKagome</h1>
             
-            <h4 class="date">2021-05-11</h4>
+            <h4 class="date">2021-05-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/RcppKagome/blob/master/vignettes/demo_ja.Rmd"><code>vignettes/demo_ja.Rmd</code></a></small>
       <div class="hidden name"><code>demo_ja.Rmd</code></div>
@@ -153,7 +153,6 @@
 <span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">"[[:punct:]]+"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="co">## quanteda::tokensにremove_punctというオプションがあるのでそれを用いてもよい</span>
   <span class="fu">zipangu</span><span class="fu">::</span><span class="fu"><a href="https://uribo.github.io/zipangu/reference/str_jnormalize.html">str_jnormalize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/kagome.html">kagome</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="../reference/pack_list.html">pack_list</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -179,7 +178,9 @@
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_wordcloud.html">textplot_wordcloud</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html">cividis</a></span><span class="op">(</span><span class="fl">8L</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/wordcloud-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/wordcloud-1.png" alt=""><p class="caption">wordcloud</p>
+</div>
 </div>
 <div id="出現頻度の集計" class="section level2">
 <h2 class="hasAnchor">
@@ -202,7 +203,9 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning in .recacheSubclasses(def@className, def, env): undefined subclass</span>
 <span class="co">#&gt; "numericVector" of class "Mnumeric"; definition not updated</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/stats-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/stats-1.png" alt=""><p class="caption">stats</p>
+</div>
 </div>
 <div id="keyness" class="section level2">
 <h2 class="hasAnchor">
@@ -216,7 +219,9 @@
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_keyness.html">textstat_keyness</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"it-life-hack"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_keyness.html">textplot_keyness</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/keyness-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/keyness-1.png" alt=""><p class="caption">keyness</p>
+</div>
 </div>
 <div id="対応分析" class="section level2">
 <h2 class="hasAnchor">
@@ -234,7 +239,9 @@
     margin <span class="op">=</span> <span class="st">"documents"</span>,
     groups <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/docvars.html">docvars</a></span><span class="op">(</span><span class="va">corp_sample</span>, <span class="st">"category"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/ca-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/ca-1.png" alt=""><p class="caption">ca</p>
+</div>
 </div>
 <div id="共起ネットワーク" class="section level2">
 <h2 class="hasAnchor">
@@ -248,7 +255,9 @@
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/fcm.html">fcm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html">textplot_network</a></span><span class="op">(</span>min_freq <span class="op">=</span> <span class="fl">.96</span><span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/network-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/network-1.png" alt=""><p class="caption">network</p>
+</div>
 </div>
 <div id="クラスタリング" class="section level2">
 <h2 class="hasAnchor">
@@ -278,7 +287,9 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/theme_dendro.html">theme_dendro</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/clust-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/clust-1.png" alt=""><p class="caption">clust</p>
+</div>
 </div>
 <div id="ldalatent-dirichlet-allocation" class="section level2">
 <h2 class="hasAnchor">
@@ -319,169 +330,169 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">選手</td>
-<td align="left">自転車</td>
-<td align="left">レビュー</td>
-<td align="left">独</td>
 <td align="left">ソフトウェア</td>
-<td align="left">iphone</td>
-<td align="left">当選</td>
-<td align="left">韓国</td>
-<td align="left">孫</td>
-</tr>
-<tr class="even">
-<td align="left">本田</td>
-<td align="left">★</td>
-<td align="left">表示</td>
-<td align="left">男性</td>
-<td align="left">フォン</td>
-<td align="left">釣</td>
-<td align="left">転職</td>
-<td align="left">韓</td>
-<td align="left">ゴルフ</td>
-</tr>
-<tr class="odd">
-<td align="left">サッカー</td>
 <td align="left">監督</td>
+<td align="left">ゴルフ</td>
+<td align="left">チョコレート</td>
 <td align="left">通</td>
-<td align="left">チーズ</td>
-<td align="left">スマート</td>
-<td align="left">温度</td>
-<td align="left">発送</td>
-<td align="left">肌</td>
-<td align="left">ドバイ</td>
-</tr>
-<tr class="even">
-<td align="left">試合</td>
-<td align="left">賞</td>
-<td align="left">dropbox</td>
-<td align="left">ビスケット</td>
-<td align="left">コモ</td>
-<td align="left">浴衣</td>
-<td align="left">籠谷</td>
-<td align="left">ケア</td>
-<td align="left">東口</td>
-</tr>
-<tr class="odd">
-<td align="left">斎藤</td>
-<td align="left">ロボット</td>
-<td align="left">画面</td>
-<td align="left">まし</td>
-<td align="left">android</td>
-<td align="left">ホルダー</td>
-<td align="left">賞品</td>
-<td align="left">タイヤ</td>
-<td align="left">話題</td>
-</tr>
-<tr class="even">
-<td align="left">フジ</td>
-<td align="left">役</td>
-<td align="left">ビューアー</td>
-<td align="left">八重歯</td>
-<td align="left">phone</td>
-<td align="left">スタンド</td>
-<td align="left">求人</td>
-<td align="left">キャビア</td>
-<td align="left">社長</td>
-</tr>
-<tr class="odd">
-<td align="left">アナ</td>
-<td align="left">パチンコ</td>
-<td align="left">パソコン</td>
-<td align="left">歯</td>
-<td align="left">f</td>
-<td align="left">スキー</td>
-<td align="left">厄年</td>
-<td align="left">スキン</td>
-<td align="left">新宿</td>
-</tr>
-<tr class="even">
-<td align="left">番組</td>
-<td align="left">祭</td>
-<td align="left">it</td>
-<td align="left">クリスマス</td>
-<td align="left">smax</td>
-<td align="left">水着</td>
-<td align="left">お正月</td>
-<td align="left">野菜</td>
-<td align="left">前年</td>
-</tr>
-<tr class="odd">
-<td align="left">akb</td>
-<td align="left">手当</td>
-<td align="left">機能</td>
-<td align="left">合コン</td>
-<td align="left">ntt</td>
-<td align="left">帯</td>
-<td align="left">スパイス</td>
-<td align="left">矢野</td>
-<td align="left">hulu</td>
-</tr>
-<tr class="even">
-<td align="left">批判</td>
-<td align="left">アクション</td>
-<td align="left">設定</td>
-<td align="left">主婦</td>
-<td align="left">機種</td>
-<td align="left">充電</td>
-<td align="left">ビジネス</td>
-<td align="left">生理</td>
-<td align="left">小原</td>
-</tr>
-<tr class="odd">
-<td align="left">紺</td>
-<td align="left">篇</td>
-<td align="left">disk</td>
-<td align="left">仮名</td>
-<td align="left">搭載</td>
-<td align="left">スパ</td>
-<td align="left">悩み</td>
-<td align="left">毛</td>
-<td align="left">展</td>
-</tr>
-<tr class="even">
-<td align="left">韓国</td>
-<td align="left">ホアキン</td>
-<td align="left">データ</td>
-<td align="left">外貨</td>
-<td align="left">約</td>
-<td align="left">柄</td>
-<td align="left">仮面ライダー</td>
-<td align="left">クリーム</td>
-<td align="left">視聴</td>
-</tr>
-<tr class="odd">
-<td align="left">発言</td>
-<td align="left">演じる</td>
-<td align="left">デジタル</td>
-<td align="left">末永</td>
-<td align="left">ghz</td>
-<td align="left">ウェア</td>
-<td align="left">ライダー</td>
-<td align="left">バラ</td>
-<td align="left">数量</td>
-</tr>
-<tr class="even">
-<td align="left">なでしこ</td>
-<td align="left">劇場</td>
-<td align="left">製品</td>
-<td align="left">婚</td>
-<td align="left">モデル</td>
-<td align="left">脚</td>
-<td align="left">社員</td>
-<td align="left">ガル</td>
-<td align="left">台</td>
-</tr>
-<tr class="odd">
-<td align="left">五輪</td>
-<td align="left">アメリカ</td>
-<td align="left">lan</td>
+<td align="left">自転車</td>
 <td align="left">料理</td>
-<td align="left">◯</td>
-<td align="left">ブランド</td>
-<td align="left">企業</td>
-<td align="left">ピラミッド</td>
+<td align="left">当選</td>
+<td align="left">転職</td>
+</tr>
+<tr class="even">
+<td align="left">フォン</td>
+<td align="left">★</td>
+<td align="left">男性</td>
+<td align="left">レビュー</td>
+<td align="left">ipv</td>
+<td align="left">試合</td>
+<td align="left">孫</td>
+<td align="left">占い</td>
+<td align="left">年収</td>
+</tr>
+<tr class="odd">
+<td align="left">コモ</td>
+<td align="left">賞</td>
+<td align="left">独</td>
+<td align="left">optimus</td>
+<td align="left">ジ</td>
+<td align="left">サッカー</td>
+<td align="left">ワイン</td>
+<td align="left">ウルトラマン</td>
+<td align="left">肌</td>
+</tr>
+<tr class="even">
+<td align="left">スマート</td>
+<td align="left">祭</td>
+<td align="left">おばさん</td>
+<td align="left">運休</td>
+<td align="left">機能</td>
+<td align="left">選手</td>
+<td align="left">ヨーグルト</td>
+<td align="left">賞品</td>
+<td align="left">求人</td>
+</tr>
+<tr class="odd">
+<td align="left">galaxy</td>
+<td align="left">アクション</td>
+<td align="left">結婚式</td>
+<td align="left">wifi</td>
+<td align="left">デジタル</td>
+<td align="left">五輪</td>
+<td align="left">鍋</td>
+<td align="left">クルマ</td>
+<td align="left">1000</td>
+</tr>
+<tr class="even">
+<td align="left">xperia</td>
+<td align="left">ファッション</td>
+<td align="left">レッスン</td>
+<td align="left">pocket</td>
+<td align="left">ノート</td>
+<td align="left">なでしこ</td>
+<td align="left">星座</td>
+<td align="left">発送</td>
+<td align="left">ビジネス</td>
+</tr>
+<tr class="odd">
+<td align="left">画面</td>
+<td align="left">ダーク</td>
+<td align="left">在宅</td>
+<td align="left">ケーキ</td>
+<td align="left">パソコン</td>
+<td align="left">容疑</td>
+<td align="left">イーライ</td>
+<td align="left">椿</td>
+<td align="left">深山</td>
+</tr>
+<tr class="even">
+<td align="left">搭載</td>
+<td align="left">ナイト</td>
+<td align="left">子ども</td>
+<td align="left">lan</td>
+<td align="left">iphone</td>
+<td align="left">掲示板</td>
+<td align="left">社長</td>
+<td align="left">大島</td>
 <td align="left">韓国</td>
+</tr>
+<tr class="odd">
+<td align="left">約</td>
+<td align="left">ハリウッド</td>
+<td align="left">勤務</td>
+<td align="left">ター</td>
+<td align="left">ubuntu</td>
+<td align="left">アナ</td>
+<td align="left">崖っぷち</td>
+<td align="left">ヘア</td>
+<td align="left">紙</td>
+</tr>
+<tr class="even">
+<td align="left">sh</td>
+<td align="left">上映</td>
+<td align="left">独身</td>
+<td align="left">ビューアー</td>
+<td align="left">機器</td>
+<td align="left">斎藤</td>
+<td align="left">花粉</td>
+<td align="left">peachy</td>
+<td align="left">企業</td>
+</tr>
+<tr class="odd">
+<td align="left">android</td>
+<td align="left">マリリン</td>
+<td align="left">婚</td>
+<td align="left">ultrabooktm</td>
+<td align="left">使える</td>
+<td align="left">joy</td>
+<td align="left">温泉</td>
+<td align="left">ダメージ</td>
+<td align="left">オフィス</td>
+</tr>
+<tr class="even">
+<td align="left">06</td>
+<td align="left">スター</td>
+<td align="left">ジョー</td>
+<td align="left">アイテム</td>
+<td align="left">ファイル</td>
+<td align="left">代表</td>
+<td align="left">ポーズ</td>
+<td align="left">メール</td>
+<td align="left">発想</td>
+</tr>
+<tr class="odd">
+<td align="left">aquos</td>
+<td align="left">役</td>
+<td align="left">ゴルファー</td>
+<td align="left">構図</td>
+<td align="left">サービス</td>
+<td align="left">sports</td>
+<td align="left">旅</td>
+<td align="left">篠田</td>
+<td align="left">韓</td>
+</tr>
+<tr class="even">
+<td align="left">phone</td>
+<td align="left">ストーリー</td>
+<td align="left">友人</td>
+<td align="left">wng</td>
+<td align="left">ultrabook</td>
+<td align="left">芸能</td>
+<td align="left">セキュリティ</td>
+<td align="left">48</td>
+<td align="left">化粧</td>
+</tr>
+<tr class="odd">
+<td align="left">smax</td>
+<td align="left">ミステリー</td>
+<td align="left">既婚</td>
+<td align="left">gl</td>
+<td align="left">ビデオ</td>
+<td align="left">週刊</td>
+<td align="left">アイアン</td>
+<td align="left">インド</td>
+<td align="left">禁煙</td>
 </tr>
 </tbody>
 </table>
@@ -541,16 +552,16 @@
 <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="co">#&gt; INFO  [00:24:17.635] epoch 1, loss 0.1785 </span>
-<span class="co">#&gt; INFO  [00:24:18.557] epoch 2, loss 0.0996 </span>
-<span class="co">#&gt; INFO  [00:24:19.385] epoch 3, loss 0.0824 </span>
-<span class="co">#&gt; INFO  [00:24:20.230] epoch 4, loss 0.0721 </span>
-<span class="co">#&gt; INFO  [00:24:21.043] epoch 5, loss 0.0651 </span>
-<span class="co">#&gt; INFO  [00:24:21.886] epoch 6, loss 0.0600 </span>
-<span class="co">#&gt; INFO  [00:24:22.730] epoch 7, loss 0.0560 </span>
-<span class="co">#&gt; INFO  [00:24:23.574] epoch 8, loss 0.0528 </span>
-<span class="co">#&gt; INFO  [00:24:24.386] epoch 9, loss 0.0502 </span>
-<span class="co">#&gt; INFO  [00:24:25.230] epoch 10, loss 0.0481</span></code></pre></div>
+<span class="co">#&gt; INFO  [17:02:38.778] epoch 1, loss 0.1845 </span>
+<span class="co">#&gt; INFO  [17:02:39.793] epoch 2, loss 0.1020 </span>
+<span class="co">#&gt; INFO  [17:02:40.618] epoch 3, loss 0.0839 </span>
+<span class="co">#&gt; INFO  [17:02:41.476] epoch 4, loss 0.0734 </span>
+<span class="co">#&gt; INFO  [17:02:42.316] epoch 5, loss 0.0662 </span>
+<span class="co">#&gt; INFO  [17:02:43.165] epoch 6, loss 0.0609 </span>
+<span class="co">#&gt; INFO  [17:02:44.032] epoch 7, loss 0.0568 </span>
+<span class="co">#&gt; INFO  [17:02:44.844] epoch 8, loss 0.0536 </span>
+<span class="co">#&gt; INFO  [17:02:45.707] epoch 9, loss 0.0509 </span>
+<span class="co">#&gt; INFO  [17:02:46.562] epoch 10, loss 0.0486</span></code></pre></div>
 <p><a href="https://github.com/tkonopka/umap">{umap}</a>で次元を減らして可視化します。色は<code><a href="https://rdrr.io/r/stats/kmeans.html">stats::kmeans</a></code>でクラスタリング（コサイン類似度）して付けています。</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pull_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span> <span class="op">{</span>
@@ -582,7 +593,9 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">rowname</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="demo_ja_files/figure-html/umap-1.png" width="700"></p>
+<div class="figure">
+<img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/umap-1.png" alt=""><p class="caption">umap</p>
+</div>
 </div>
 <div id="セッション情報" class="section level2">
 <h2 class="hasAnchor">
@@ -602,7 +615,7 @@
 <span class="co">#&gt;  collate  Japanese_Japan.932          </span>
 <span class="co">#&gt;  ctype    Japanese_Japan.932          </span>
 <span class="co">#&gt;  tz       Asia/Tokyo                  </span>
-<span class="co">#&gt;  date     2021-05-11                  </span>
+<span class="co">#&gt;  date     2021-05-12                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
 <span class="co">#&gt;  ! package             * version    date       lib</span>
@@ -628,10 +641,9 @@
 <span class="co">#&gt;    curl                  4.3.1      2021-04-30 [2]</span>
 <span class="co">#&gt;    data.table            1.14.0     2021-02-21 [2]</span>
 <span class="co">#&gt;    DBI                   1.1.1      2021-01-15 [2]</span>
-<span class="co">#&gt;    dbplyr                2.1.1      2021-04-06 [2]</span>
 <span class="co">#&gt;    desc                  1.3.0      2021-03-05 [2]</span>
 <span class="co">#&gt;    digest                0.6.27     2020-10-24 [2]</span>
-<span class="co">#&gt;    dplyr               * 1.0.6      2021-05-05 [2]</span>
+<span class="co">#&gt;    dplyr                 1.0.6      2021-05-05 [2]</span>
 <span class="co">#&gt;    ellipsis              0.3.2      2021-04-29 [2]</span>
 <span class="co">#&gt;    evaluate              0.14       2019-05-28 [2]</span>
 <span class="co">#&gt;    fansi                 0.4.2      2021-01-15 [2]</span>
@@ -639,7 +651,7 @@
 <span class="co">#&gt;    fastmap               1.1.0      2021-01-25 [2]</span>
 <span class="co">#&gt;    fastmatch             1.1-0      2017-01-28 [2]</span>
 <span class="co">#&gt;    float                 0.2-4      2020-04-22 [2]</span>
-<span class="co">#&gt;    forcats             * 0.5.1      2021-01-27 [2]</span>
+<span class="co">#&gt;    forcats               0.5.1      2021-01-27 [2]</span>
 <span class="co">#&gt;    foreach               1.5.1      2020-10-15 [2]</span>
 <span class="co">#&gt;    foreign               0.8-81     2020-12-22 [2]</span>
 <span class="co">#&gt;    fs                    1.5.0      2020-07-31 [2]</span>
@@ -662,23 +674,21 @@
 <span class="co">#&gt;    iterators             1.0.13     2020-10-15 [2]</span>
 <span class="co">#&gt;    jquerylib             0.1.4      2021-04-26 [2]</span>
 <span class="co">#&gt;    jsonlite              1.7.2      2020-12-09 [2]</span>
-<span class="co">#&gt;    kagomer               0.0.1.900  2021-04-25 [2]</span>
+<span class="co">#&gt;    kagomer               0.0.2.900  2021-05-11 [2]</span>
 <span class="co">#&gt;    knitr                 1.33       2021-04-24 [2]</span>
 <span class="co">#&gt;    labeling              0.4.2      2020-10-20 [2]</span>
 <span class="co">#&gt;    later                 1.2.0      2021-04-23 [2]</span>
 <span class="co">#&gt;    lattice               0.20-41    2020-04-02 [3]</span>
 <span class="co">#&gt;    LDAvis                0.3.2      2015-10-24 [2]</span>
-<span class="co">#&gt;    ldccr                 0.0.5      2021-04-23 [2]</span>
+<span class="co">#&gt;    ldccr                 0.0.5      2021-05-11 [2]</span>
 <span class="co">#&gt;    lgr                   0.4.2      2021-01-10 [2]</span>
 <span class="co">#&gt;    LiblineaR             2.10-12    2021-03-02 [2]</span>
 <span class="co">#&gt;    lifecycle             1.0.0      2021-02-15 [2]</span>
-<span class="co">#&gt;    lubridate             1.7.10     2021-02-26 [2]</span>
-<span class="co">#&gt;    magrittr              2.0.1      2020-11-17 [2]</span>
+<span class="co">#&gt;    magrittr            * 2.0.1      2020-11-17 [2]</span>
 <span class="co">#&gt;    MASS                  7.3-54     2021-05-03 [2]</span>
 <span class="co">#&gt;    Matrix                1.3-3      2021-05-04 [2]</span>
 <span class="co">#&gt;    memoise               2.0.0      2021-01-26 [2]</span>
 <span class="co">#&gt;    mlapi                 0.1.0      2017-12-17 [2]</span>
-<span class="co">#&gt;    modelr                0.1.8      2020-05-19 [2]</span>
 <span class="co">#&gt;    munsell               0.5.0      2018-06-12 [2]</span>
 <span class="co">#&gt;    network               1.16.1     2020-10-07 [2]</span>
 <span class="co">#&gt;    nsyllable             1.0        2020-11-30 [2]</span>
@@ -693,7 +703,7 @@
 <span class="co">#&gt;    proxy                 0.4-25     2021-03-05 [2]</span>
 <span class="co">#&gt;    proxyC                0.1.5      2019-07-21 [2]</span>
 <span class="co">#&gt;    ps                    1.6.0      2021-02-28 [2]</span>
-<span class="co">#&gt;    purrr               * 0.3.4      2020-04-17 [2]</span>
+<span class="co">#&gt;    purrr                 0.3.4      2020-04-17 [2]</span>
 <span class="co">#&gt;    quanteda              3.0.0      2021-04-06 [2]</span>
 <span class="co">#&gt;    quanteda.textmodels   0.9.4      2021-04-06 [2]</span>
 <span class="co">#&gt;    quanteda.textplots    0.94       2021-04-06 [2]</span>
@@ -705,13 +715,11 @@
 <span class="co">#&gt;    R6                    2.5.0      2020-10-28 [2]</span>
 <span class="co">#&gt;    ragg                  1.1.2      2021-03-17 [2]</span>
 <span class="co">#&gt;    Rcpp                  1.0.6      2021-01-15 [2]</span>
-<span class="co">#&gt;    RcppKagome            0.0.3.900  2021-05-10 [2]</span>
+<span class="co">#&gt;    RcppKagome            0.0.3.900  2021-05-11 [2]</span>
 <span class="co">#&gt;  D RcppParallel          5.1.4      2021-05-04 [2]</span>
 <span class="co">#&gt;    RcppProgress          0.4.2      2020-02-06 [2]</span>
-<span class="co">#&gt;    readr               * 1.4.0      2020-10-05 [2]</span>
+<span class="co">#&gt;    readr                 1.4.0      2020-10-05 [2]</span>
 <span class="co">#&gt;    readxl                1.3.1      2019-03-13 [2]</span>
-<span class="co">#&gt;    rematch2              2.1.2      2020-05-01 [2]</span>
-<span class="co">#&gt;    reprex                2.0.0      2021-04-02 [2]</span>
 <span class="co">#&gt;    reticulate            1.20       2021-05-03 [2]</span>
 <span class="co">#&gt;    RhpcBLASctl           0.20-137   2020-05-17 [2]</span>
 <span class="co">#&gt;    rio                   0.5.26     2021-03-01 [2]</span>
@@ -723,9 +731,7 @@
 <span class="co">#&gt;    rsparse               0.4.0      2020-04-01 [2]</span>
 <span class="co">#&gt;    RSpectra              0.16-0     2019-12-01 [2]</span>
 <span class="co">#&gt;    rstatix               0.7.0      2021-02-13 [2]</span>
-<span class="co">#&gt;    rstudioapi            0.13       2020-11-12 [2]</span>
 <span class="co">#&gt;    rtweet                0.7.0      2020-01-08 [2]</span>
-<span class="co">#&gt;    rvest                 1.0.0      2021-03-09 [2]</span>
 <span class="co">#&gt;    sass                  0.3.1      2021-01-24 [2]</span>
 <span class="co">#&gt;    scales                1.1.1      2020-05-11 [2]</span>
 <span class="co">#&gt;    servr                 0.22       2021-04-14 [2]</span>
@@ -736,17 +742,16 @@
 <span class="co">#&gt;    statnet.common        4.4.1      2020-10-03 [2]</span>
 <span class="co">#&gt;    stopwords             2.2        2021-02-10 [2]</span>
 <span class="co">#&gt;    stringi               1.6.1      2021-05-10 [2]</span>
-<span class="co">#&gt;    stringr             * 1.4.0      2019-02-10 [2]</span>
+<span class="co">#&gt;    stringr               1.4.0      2019-02-10 [2]</span>
 <span class="co">#&gt;    styler                1.4.1      2021-03-30 [2]</span>
 <span class="co">#&gt;    survival              3.2-11     2021-04-26 [2]</span>
 <span class="co">#&gt;    systemfonts           1.0.1      2021-02-09 [2]</span>
 <span class="co">#&gt;    text2vec              0.6        2020-02-18 [2]</span>
 <span class="co">#&gt;    textmineR             3.0.4      2019-04-18 [2]</span>
 <span class="co">#&gt;    textshaping           0.3.3      2021-03-16 [2]</span>
-<span class="co">#&gt;    tibble              * 3.1.1      2021-04-18 [2]</span>
-<span class="co">#&gt;    tidyr               * 1.1.3      2021-03-03 [2]</span>
+<span class="co">#&gt;    tibble                3.1.1      2021-04-18 [2]</span>
+<span class="co">#&gt;    tidyr                 1.1.3      2021-03-03 [2]</span>
 <span class="co">#&gt;    tidyselect            1.1.1      2021-04-30 [2]</span>
-<span class="co">#&gt;    tidyverse           * 1.3.1      2021-04-15 [2]</span>
 <span class="co">#&gt;    umap                  0.2.7.0    2020-11-04 [2]</span>
 <span class="co">#&gt;    utf8                  1.2.1      2021-03-12 [2]</span>
 <span class="co">#&gt;    uuid                  0.1-4      2020-02-26 [2]</span>
@@ -756,7 +761,6 @@
 <span class="co">#&gt;    vroom                 1.4.0      2021-02-01 [2]</span>
 <span class="co">#&gt;    withr                 2.4.2      2021-04-18 [2]</span>
 <span class="co">#&gt;    xfun                  0.22       2021-03-11 [2]</span>
-<span class="co">#&gt;    xml2                  1.3.2      2020-04-23 [2]</span>
 <span class="co">#&gt;    yaml                  2.2.1      2020-02-01 [2]</span>
 <span class="co">#&gt;    zip                   2.1.1      2020-08-27 [2]</span>
 <span class="co">#&gt;    zipangu               0.2.3.9000 2021-03-02 [2]</span>
@@ -783,7 +787,6 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -817,22 +820,20 @@
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  Github (paithiov909/kagomer@448d13b)</span>
+<span class="co">#&gt;  Github (paithiov909/kagomer@06bf1d0)</span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
-<span class="co">#&gt;  local                               </span>
+<span class="co">#&gt;  Github (paithiov909/ldccr@ba72b12)  </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
@@ -865,8 +866,6 @@
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -878,8 +877,6 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
@@ -901,7 +898,6 @@
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
@@ -911,12 +907,11 @@
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.5)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.4)                      </span>
-<span class="co">#&gt;  CRAN (R 4.0.2)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.0)                      </span>
 <span class="co">#&gt;  CRAN (R 4.0.3)                      </span>
 <span class="co">#&gt;  Github (uribo/zipangu@0e43aef)      </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/Rtmpe802Ye/temp_libpath23cc396d78fb</span>
+<span class="co">#&gt; [1] C:/Users/user/AppData/Local/Temp/RtmpwheMCL/temp_libpath19c8b08b81</span>
 <span class="co">#&gt; [2] C:/Users/user/Documents/R/win-library/4.0</span>
 <span class="co">#&gt; [3] C:/Program Files/R/R-4.0.2/library</span>
 <span class="co">#&gt; </span>

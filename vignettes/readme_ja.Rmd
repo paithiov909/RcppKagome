@@ -7,8 +7,6 @@ Private: false
 title: "About RcppKagome package"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-header-includes:
-  - \usepackage[utf8]{inputenc}
 vignette: >
   %\VignetteIndexEntry{About RcppKagome package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -131,15 +129,19 @@ RMeCab、RcppMeCabと速度比較しています。
 
 ![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png)
 
+このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（'ja_core_news_md'モデルを使用、`spacyr::parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)`）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。
+
 ### 複数の文を渡す場合
 
-ベクトルを渡す場合、ふつうに使うかぎりではRcppMeCabのほうが速いと思われます。なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`lapply`でラップして比較しています。
+ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`lapply`でラップして比較しています。
+
+![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png)
 
 このような結果になる理由として、RcppMeCabはC++のレベルでvectorizeされているという点があります。`RcppMeCab::pos`はMeCabのタガーインスタンスを一つだけつくってそれぞれの文をひとつずつ解析する処理を繰り返します。一方で、`RcppMeCab::posParallel`はマルチスレッドで、スレッドごとにMeCabのタガーインスタンスを生成します。いずれにせよ、RcppMeCabではベクトルを与えられた場合、各文の解析に用いるタガーを内部的に使いまわしています。形態素解析をするライブラリでは一般にタガーインスタンスの生成はコストが高い処理であるため、解析の際にタガーの生成が繰り返されるとそれがボトルネックになって、解析に時間がかかります（これはRcppMeCabだけについてみても同様で、たとえばスレッドごとに処理する文の分量が極端に少ない場合、個々の文の解析にかかる時間の割にインスタンスの生成にコストが割かれることになって、`RcppMeCab::pos`より`RcppMeCab::posParallel`のほうがかえってパフォーマンスが悪化することがあります）。
 
 RMeCabやRcppKagomeでは解析するたびごとにタガーの生成を繰り返す必要があるため、実用上はおそらくRcppMeCabに比べて遅くなります。
 
-![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png)
+なお、この記事の主旨から外れますが、これくらいの分量のベクトルをspacyrで解析しようとすると結果をデータフレームにパースするコストが高すぎて死ぬほど時間がかかるので、そういう使い方は避けたほうがよいです。
 
 ## RとGoの連携について
 

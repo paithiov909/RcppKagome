@@ -29,7 +29,7 @@ Japanese morphological analyzer written in pure Go.
 
 For Windows x64 arch, try the pre-built binary release.
 
-```r
+``` r
 if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
   remotes::install_github("gaborcsardi/async")
   remotes::install_github("paithiov909/kagomer")
@@ -252,42 +252,36 @@ sentences %>%
 
 ### Data
 
-``` r
-csv <- file.path("tools/miyazawa_kenji_head.csv") %>%
-  readr::read_csv() %>%
-  dplyr::slice_head(prop = .4)
-#> 
-#> -- Column specification --------------------------------------------------------
-#> cols(
-#>   rowid = col_double(),
-#>   sentences = col_character()
-#> )
+Here uses the `NekoText` dataset provided in
+[{ldccr}](https://github.com/paithiov909/ldccr) package, that is whole
+text of ‘Wagahai Wa Neko Dearu’ written by Natsume Souseki. The text is
+originally from [Aozora
+Bunko](https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip).
 
-dplyr::glimpse(csv)
-#> Rows: 349
-#> Columns: 2
-#> $ rowid     <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1~
-#> $ sentences <chr> "ありときのこ", "宮沢賢治", "苔いちめんに、霧がぽしゃぽしゃ~
+``` r
+sentences <- ldccr::NekoText
+dplyr::glimpse(sentences)
+#>  chr [1:2258] "吾輩は猫である" "夏目漱石" "一" ...
 ```
 
 ### Tokenize Character Scalar
 
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCabC(iconv(csv$sentences[3], from = "UTF-8", to = "CP932"),
+  RMeCabC = RMeCabC(iconv(sentences[30], from = "UTF-8", to = "CP932"),
     mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
   ),
-  pos = pos(csv$sentences[3]),
-  posParallel = posParallel(csv$sentences[3]),
-  kagome = kagome(csv$sentences[3]),
+  pos = pos(sentences[30]),
+  posParallel = posParallel(sentences[30]),
+  kagome = kagome(sentences[30]),
   times = 500L
 )
 summary(tm)
-#>          expr    min      lq     mean  median      uq       max neval
-#> 1     RMeCabC 2.2263 2.53830 5.731349 2.70790 3.01715 1449.0666   500
-#> 2         pos 2.5654 2.87240 3.209171 3.05855 3.35410    5.9902   500
-#> 3 posParallel 2.5156 2.83295 6.074519 3.04240 3.34815 1454.1729   500
-#> 4      kagome 3.6555 3.97780 4.576113 4.26470 4.69160   17.5602   500
+#>          expr      min       lq      mean   median        uq         max neval
+#> 1     RMeCabC 2.674702 3.139551  3.676729 3.398651  3.954751   11.776000   500
+#> 2         pos 3.206701 3.705650  4.319800 4.070301  4.624551    8.729301   500
+#> 3 posParallel 3.215901 3.646752 20.396130 3.978201  4.574301 8050.952301   500
+#> 4      kagome 7.658601 8.734651 10.576105 9.397651 11.120950  107.796701   500
 ```
 
 ``` r
@@ -304,27 +298,22 @@ vectorized.
 
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = lapply(csv$sentences, function(elem) {
+  RMeCabC = lapply(sentences, function(elem) {
     RMeCabC(iconv(elem, from = "UTF-8", to = "CP932"),
       mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
     )
   }),
-  pos = pos(csv$sentences),
-  posParallel = posParallel(csv$sentences),
-  kagome = kagome(csv$sentences),
+  pos = pos(sentences),
+  posParallel = posParallel(sentences),
+  kagome = kagome(sentences),
   times = 10L
 )
 summary(tm)
-#>          expr       min        lq       mean     median        uq      max
-#> 1     RMeCabC  831.0820  842.6975 1684.48809  868.94455  885.7068 9053.157
-#> 2         pos   98.1070  104.3860 1076.93178  106.92675  122.7016 9783.599
-#> 3 posParallel   65.6103   67.5119   74.30319   73.36615   75.7727   88.363
-#> 4      kagome 1408.1079 1476.8381 1523.27362 1503.85920 1591.6157 1681.546
-#>   neval
-#> 1    10
-#> 2    10
-#> 3    10
-#> 4    10
+#>          expr       min        lq      mean    median        uq       max neval
+#> 1     RMeCabC  5.863860  6.140005 21.826306  6.336037  6.847106 159.11359    10
+#> 2         pos  2.021757  2.130650 10.962829  2.171713  2.362333  89.54920    10
+#> 3 posParallel  1.700337  1.708320  3.349709  1.778058  1.825391  17.60427    10
+#> 4      kagome 17.176854 17.811335 18.627469 18.514677 19.183360  20.57439    10
 ```
 
 ``` r

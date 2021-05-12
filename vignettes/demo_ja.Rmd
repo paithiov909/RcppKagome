@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 )
 
 require(magrittr)
+require(ggplot2)
 
 #### prepare directories for cache ---
 if (!dir.exists("cache")) dir.create("cache")
