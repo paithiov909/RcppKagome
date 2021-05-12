@@ -129,7 +129,7 @@ RMeCab、RcppMeCabと速度比較しています。
 
 ![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png)
 
-このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（'ja_core_news_md'モデルを使用、`spacyr::parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)`）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。
+このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（'ja_core_news_md'モデルを使用、`spacyr::spacy_parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)`）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。
 
 ### 複数の文を渡す場合
 

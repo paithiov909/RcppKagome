@@ -367,7 +367,7 @@
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png" alt=""><p class="caption">bench-plot-1</p>
 </div>
-<p>このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（’ja_core_news_md’モデルを使用、<code>spacyr::parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)</code>）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。</p>
+<p>このグラフからだとやや遅く見えるかもしれませんが、同じ実行環境でspacyrを用いてPOS tagging（’ja_core_news_md’モデルを使用、<code><a href="https://rdrr.io/github/quanteda/spacyr/man/spacy_parse.html">spacyr::spacy_parse(lemma = FALSE, entity = FALSE, mutlithread = TRUE)</a></code>）すると、平均で90ms程度かかります。sapCyはUniversal Dependenciesを扱うライブラリであってそもそも「形態素解析」をする実装ではないのですが、あえて比較するならば、RcppKagomeでも明らかに速いです。</p>
 </div>
 <div id="複数の文を渡す場合" class="section level3">
 <h3 class="hasAnchor">
