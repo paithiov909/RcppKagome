@@ -33,6 +33,8 @@ jobs:
           install.packages(c("remotes", "rcmdcheck", "covr"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
+      - name: Install Kagome
+        run: go install github.com/ikawaha/kagome/v2@latest
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-multiarch", "--no-vignettes", "--no-manual"), build_args = c("--no-build-vignettes", "--no-manual"), error_on = "error")
         shell: Rscript {0}
