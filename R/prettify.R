@@ -1,10 +1,72 @@
+#' Get names of features of each dictionaries supported.
+#'
+#' @param dic The name of dictionary.
+#' @return character vector.
+#'
+#' @export
+get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
+  dic <- match.arg(dic)
+  res <- c(
+    "sentence_id",
+    "token",
+    "POS1",
+    "POS2",
+    "POS3",
+    "POS4",
+    "X5StageUse1",
+    "X5StageUse2",
+    "Original",
+    "Yomi1",
+    "Yomi2"
+  )
+  if (dic == "ko") {
+    res <- c(
+      "sentence_id",
+      "token",
+      "pos",
+      "meaning",
+      "has_patchim",
+      "reading",
+      "type",
+      "analytic1",
+      "analytic2",
+      "expression"
+    )
+  }
+  if (dic == "uni") {
+    res <- c(
+      "sentence_id",
+      "token",
+      "POS",
+      "POS1",
+      "POS2",
+      "POS3",
+      "cType",
+      "cForm",
+      "lForm",
+      "lemma",
+      "orth",
+      "pron",
+      "orthBase",
+      "pronBase",
+      "goshu",
+      "iType",
+      "iForm",
+      "fType",
+      "fForm"
+    )
+  }
+  return(res)
+}
+
 #' Prettify kagome output
 #'
 #' @param list Output of \code{RcppKagome::kagome}.
+#' @param col_names Column names of output data.frame.
 #' @return data.frame.
 #'
 #' @export
-prettify <- function(list) {
+prettify <- function(list, col_names = get_feature_names("ipa")) {
   res <- purrr::imap_dfr(list, function(v, i) {
     purrr::map_dfr(v, function(elem) {
       df <- data.frame(
@@ -21,19 +83,7 @@ prettify <- function(list) {
           )
         )
       }
-      colnames(df) <- c(
-        "sentence_id",
-        "token",
-        "POS1",
-        "POS2",
-        "POS3",
-        "POS4",
-        "X5StageUse1",
-        "X5StageUse2",
-        "Original",
-        "Yomi1",
-        "Yomi2"
-      )
+      colnames(df) <- col_names
       return(df)
     })
   })

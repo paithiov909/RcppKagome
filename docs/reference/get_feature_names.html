@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prettify kagome output — prettify • RcppKagome</title>
+<title>Get names of features of each dictionaries supported. — get_feature_names • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Prettify kagome output — prettify" />
-<meta property="og:description" content="Prettify kagome output" />
+<meta property="og:title" content="Get names of features of each dictionaries supported. — get_feature_names" />
+<meta property="og:description" content="Get names of features of each dictionaries supported." />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 
 
@@ -119,33 +119,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prettify kagome output</h1>
+    <h1>Get names of features of each dictionaries supported.</h1>
     <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/prettify.R'><code>R/prettify.R</code></a></small>
-    <div class="hidden name"><code>prettify.Rd</code></div>
+    <div class="hidden name"><code>get_feature_names.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prettify kagome output</p>
+    <p>Get names of features of each dictionaries supported.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prettify</span><span class='op'>(</span><span class='va'>list</span>, col_names <span class='op'>=</span> <span class='fu'><a href='get_feature_names.html'>get_feature_names</a></span><span class='op'>(</span><span class='st'>"ipa"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_feature_names</span><span class='op'>(</span>dic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ipa"</span>, <span class='st'>"uni"</span>, <span class='st'>"ko"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>list</th>
-      <td><p>Output of <code><a href='kagome.html'>RcppKagome::kagome</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col_names</th>
-      <td><p>Column names of output data.frame.</p></td>
+      <th>dic</th>
+      <td><p>The name of dictionary.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame.</p>
+    <p>character vector.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

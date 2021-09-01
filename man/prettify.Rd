@@ -4,10 +4,12 @@
 \alias{prettify}
 \title{Prettify kagome output}
 \usage{
-prettify(list)
+prettify(list, col_names = get_feature_names("ipa"))
 }
 \arguments{
 \item{list}{Output of \code{RcppKagome::kagome}.}
+
+\item{col_names}{Column names of output data.frame.}
 }
 \value{
 data.frame.

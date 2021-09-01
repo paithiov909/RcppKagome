@@ -1,3 +1,7 @@
+ifeq "$(RCPPKAGOME_DIC)" ""
+	RCPPKAGOME_DIC = ipa
+endif
+
 CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I.
@@ -8,9 +12,9 @@ PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin/Rscript" -e "RcppPara
 all: build copy $(SHLIB)
 
 build:
-	@cp ../tools/libkagome/go.mod ./go.mod
-	@cp ../tools/libkagome/go.sum ./go.sum
-	@cp ../tools/libkagome/main.go ./main.go
+	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/go.mod ./go.mod
+	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/go.sum ./go.sum
+	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/main.go ./main.go
 	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
 
 copy:

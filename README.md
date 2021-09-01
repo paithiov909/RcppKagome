@@ -35,6 +35,8 @@ remotes::install_github("paithiov909/RcppKagome")
 Note that the installation RcppKagome from source package requires
 ikawaha/kagome (v2 or later).
 
+By default, the package uses a static library generated with Cgo, which contains the Japanese IPA dictionary. However, you can also specify another dictionary to be bundled before build and install the package. If you would like to use another one, try `Sys.setenv(RCPPKAGOME_DIC = "uni")` for uni-dic or try `Sys.setenv(RCPPKAGOME_DIC = "ko")` for mecab-ko-dic.
+
 ## Usage
 
 ### Call Kagome
@@ -191,7 +193,7 @@ print(res)
 #> 32      基本形     なる       ナル       ナル
 ```
 
-Prettified outputs have these columns.
+In case using IPA dictionary, prettified outputs have these columns.
 
 -   sentence\_id: 文番号（sentence index）
 -   token: 表層形 (surface form)

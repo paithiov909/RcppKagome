@@ -101,6 +101,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/RcppKagome"</span><span class="op">)</span></code></pre></div>
 <p>Note that the installation RcppKagome from source package requires ikawaha/kagome (v2 or later).</p>
+<p>By default, the package uses a static library generated with Cgo, which contains the Japanese IPA dictionary. However, you can also specify another dictionary to be bundled before build and install the package. If you would like to use another one, try <code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv(RCPPKAGOME_DIC = "uni")</a></code> for uni-dic or try <code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv(RCPPKAGOME_DIC = "ko")</a></code> for mecab-ko-dic.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -258,7 +259,7 @@
 <span class="co">#&gt; 30        &lt;NA&gt;     こと       コト       コト</span>
 <span class="co">#&gt; 31        &lt;NA&gt;       に         ニ         ニ</span>
 <span class="co">#&gt; 32      基本形     なる       ナル       ナル</span></code></pre></div>
-<p>Prettified outputs have these columns.</p>
+<p>In case using IPA dictionary, prettified outputs have these columns.</p>
 <ul>
 <li>sentence_id: 文番号（sentence index）</li>
 <li>token: 表層形 (surface form)</li>
