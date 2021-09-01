@@ -20,11 +20,11 @@ Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
 
-- GNU make
-- GNU GCC
-- Go (>= 1.16)
-- Kagome (v2 or later)
-- C++11
+-   GNU make
+-   GNU GCC
+-   Go (&gt;= 1.16)
+-   Kagome (v2 or later)
+-   C++11
 
 ## Installation
 
@@ -32,7 +32,8 @@ Japanese morphological analyzer written in pure Go.
 remotes::install_github("paithiov909/RcppKagome")
 ```
 
-Note that the installation RcppKagome from source package requires ikawaha/kagome (v2 or higher). 
+Note that the installation RcppKagome from source package requires
+ikawaha/kagome (v2 or later).
 
 ## Usage
 
@@ -242,11 +243,11 @@ tm <- microbenchmark::microbenchmark(
   times = 500L
 )
 summary(tm)
-#>          expr    min      lq      mean  median      uq       max neval
-#> 1     RMeCabC 2.5685 3.05515  8.518103 3.31855 3.77700 2491.8138   500
-#> 2         pos 3.3110 3.75990  4.298283 4.04950 4.60875   23.0919   500
-#> 3 posParallel 3.3323 3.73425 20.157842 4.02270 4.62285 7957.3641   500
-#> 4      kagome 7.5810 8.56650  9.619283 9.13375 9.90700   18.4555   500
+#>          expr    min      lq      mean  median       uq       max neval
+#> 1     RMeCabC 2.5750 2.99870  6.999727 3.24175  3.61930 1805.7920   500
+#> 2         pos 3.3255 3.79935  8.054130 4.08480  4.54245 1915.2999   500
+#> 3 posParallel 3.3564 3.79635  4.292475 4.09785  4.49910   11.3043   500
+#> 4      kagome 7.6236 8.61080 10.121088 9.48500 10.49365   40.4014   500
 ```
 
 ``` r
@@ -275,10 +276,10 @@ tm <- microbenchmark::microbenchmark(
 )
 summary(tm)
 #>          expr       min        lq      mean    median        uq       max neval
-#> 1     RMeCabC  5.584179  5.832281  8.459582  5.888863  6.162858 31.334395    10
-#> 2         pos  1.409587  1.447397  1.528601  1.482963  1.582918  1.848818    10
-#> 3 posParallel  1.006863  1.039567  3.061842  1.125072  1.279496 20.465482    10
-#> 4      kagome 16.578204 16.759688 17.371959 17.089880 18.129323 18.657516    10
+#> 1     RMeCabC  5.805136  5.839948 10.256494  5.901558  6.013439 49.283217    10
+#> 2         pos  1.397774  1.425251  1.456929  1.434485  1.473289  1.611007    10
+#> 3 posParallel  1.008613  1.041375  1.923267  1.052314  1.110713  9.591273    10
+#> 4      kagome 16.248031 16.542258 17.281911 17.355875 17.908366 18.481000    10
 ```
 
 ``` r
