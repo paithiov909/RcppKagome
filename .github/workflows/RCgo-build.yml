@@ -26,8 +26,6 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "pkgbuild"))
-          remotes::install_github("gaborcsardi/async")
-          remotes::install_github("paithiov909/kagomer")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Draft release
@@ -42,8 +40,6 @@ jobs:
           prerelease: false
       - name: Build binary package
         run: |
-          git submodule init
-          git submodule update --recommend-shallow --recursive
           Rscript -e "pkgbuild::build('.', dest_path = '.', args = '--no-multiarch', binary = TRUE)"
           ren *.zip temp.zip
       - name: Upload binary package

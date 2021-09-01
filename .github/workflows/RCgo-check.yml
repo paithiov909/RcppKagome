@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@v1
         with:
@@ -30,16 +30,9 @@ jobs:
         run: sudo apt-get install libcurl4-openssl-dev
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
-          remotes::install_github("r-lib/covr")
-          remotes::install_github("gaborcsardi/async")
-          remotes::install_github("paithiov909/kagomer")
+          install.packages(c("remotes", "rcmdcheck", "covr"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-      - name: Update submodules
-        run: |
-          git submodule init
-          git submodule update --recommend-shallow --recursive
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-multiarch", "--no-vignettes", "--no-manual"), build_args = c("--no-build-vignettes", "--no-manual"), error_on = "error")
         shell: Rscript {0}
