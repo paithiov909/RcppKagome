@@ -1,5 +1,6 @@
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::depends(RcppParallel, RcppThread)]]
+
 #define STRICT_R_HEADERS
 #define R_NO_REMAP
 #define RCPPTHREAD_OVERRIDE_THREAD 1
@@ -12,13 +13,15 @@
 #include <Rcpp.h>
 #include <RcppParallel.h>
 #include <RcppThread.h>
-#include "../inst/include/libkagome.h"
+#include "libkagome.h"
 
 // KagomeTokenizer
 class KagomeTokenizer {
 public:
+
   const std::vector<std::string>* text_;
   std::vector<std::string>& results_;
+
   KagomeTokenizer( const std::vector<std::string>* text, std::vector<std::string>& results )
     : text_(text), results_(results)
     {}
@@ -36,7 +39,6 @@ public:
 
       free(tokens);
       results_[i] = res;
-
     }
   }
 };
@@ -44,8 +46,10 @@ public:
 // SentenceSplitter
 class SentenceSplitter {
 public:
+
   const std::vector<std::string>* text_;
   std::vector<std::string>& results_;
+
   SentenceSplitter( const std::vector<std::string>* text, std::vector<std::string>& results )
     : text_(text), results_(results)
     {}
@@ -63,34 +67,6 @@ public:
 
       free(sentences);
       results_[i] = res;
-
-    }
-  }
-};
-
-// TinySegmenter
-class TinySegmenter {
-public:
-  const std::vector<std::string>* text_;
-  std::vector<std::string>& results_;
-  TinySegmenter( const std::vector<std::string>* text, std::vector<std::string>& results )
-    : text_(text), results_(results)
-    {}
-  void operator() ( const tbb::blocked_range<std::size_t>& range ) const
-  {
-    for ( std::size_t i = range.begin(); i < range.end(); ++i ) {
-
-      const char* s = (*text_)[i].c_str();
-      const std::size_t n = std::strlen(s);
-      const std::ptrdiff_t len = n;
-      const GoString mes = { s, len };
-
-      char* segments = segment(mes);
-      const std::string res = segments;
-
-      free(segments);
-      results_[i] = res;
-
     }
   }
 };
@@ -117,12 +93,7 @@ Rcpp::CharacterVector tokenize_morphemes(std::vector<std::string> text)
   KagomeTokenizer func = KagomeTokenizer(&text, results);
   tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
 
-  Rcpp::CharacterVector result;
-  for ( std::size_t l = 0; l < results.size(); ++l ) {
-    result.push_back(results[l]);
-  }
-
-  return result;
+  return Rcpp::wrap(results);
 }
 
 //' Split sentence
@@ -146,40 +117,5 @@ Rcpp::List tokenize_sentences(std::vector<std::string> text)
   SentenceSplitter func = SentenceSplitter(&text, results);
   tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
 
-  Rcpp::List result;
-  for ( std::size_t l = 0; l < results.size(); ++l ) {
-    result.push_back(results[l]);
-  }
-
-  return result;
+  return Rcpp::wrap(results);
 }
-
-//' Tiny Segmenter
-//'
-//' For internal use. The argument should be UTF8 encoded.
-//'
-//' @param text Character vector.
-//' @return Character vector.
-//'
-//' @name tokenize_segments
-//' @keywords internal
-//' @export
-//
-// [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export]]
-Rcpp::CharacterVector tokenize_segments(std::vector<std::string> text)
-{
-  std::vector<std::string> results(text.size());
-  const std::size_t grainsize = RCPPKAGOME_GRAIN_SIZE;
-
-  TinySegmenter func = TinySegmenter(&text, results);
-  tbb::parallel_for( tbb::blocked_range<std::size_t>(0, text.size(), grainsize), func );
-
-  Rcpp::CharacterVector result;
-  for ( std::size_t l = 0; l < results.size(); ++l ) {
-    result.push_back(results[l]);
-  }
-
-  return result;
-}
-

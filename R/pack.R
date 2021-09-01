@@ -10,7 +10,7 @@ pack_list <- function(list, .collapse = " ") {
     elem %>%
       purrr::map(~ purrr::pluck(., "Surface")) %>%
       purrr::flatten_chr() %>%
-      stringr::str_c(collapse = .collapse)
+      stringi::stri_c(collapse = .collapse)
   }) %>%
     purrr::imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)
@@ -30,7 +30,7 @@ pack_df <- function(df, pull = "token", .collapse = " ") {
     dplyr::group_by(sentence_id) %>%
     dplyr::group_map(
       ~ dplyr::pull(.x, {{ pull }}) %>%
-        stringr::str_c(collapse = .collapse)
+        stringi::stri_c(collapse = .collapse)
     ) %>%
     purrr::imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)

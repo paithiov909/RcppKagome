@@ -24,8 +24,3 @@ test_that("split_sentences works", {
   res <- split_sentences(sentence)
   expect_length(res[[1]], 2L)
 })
-
-test_that("split_segments works", {
-  res <- split_segments(sentence)
-  expect_length(res[[1]], 81L)
-})

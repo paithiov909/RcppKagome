@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 stopifnot(
   require(RMeCab),
   require(RcppMeCab),
-  require(RcppKagome),
-  RcppKagome::ping() == 200L
+  require(RcppKagome)
 )
 ## Initial loads of dynamic libraries ---
 RMeCabC("test load", mecabrc = "/MeCab/ipadic-shiftjis/mecabrc")
@@ -45,21 +44,9 @@ RcppKagome is an R interface to [ikawaha/kagome](https://github.com/ikawaha/kago
 
 ## Installation
 
-For Windows x64 arch, try the pre-built binary release.
-
 ```r
-if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
-  remotes::install_github("gaborcsardi/async")
-  remotes::install_github("paithiov909/kagomer")
-}
-install.packages(
-  "https://github.com/paithiov909/RcppKagome/releases/download/v0.0.2.900/RcppKagome.zip",
-  repos = NULL,
-  quiet = TRUE
-)
+remotes::install_github("paithiov909/RcppKagome")
 ```
-
-Or, clone this repo and build the package manually.
 
 ## Usage
 
@@ -91,26 +78,6 @@ Prettified outputs have these columns.
 - Yomi1: 読み（readings）
 - Yomi2: 発音（pronunciation）
 
-### Kick Web API of Kagome
-
-RcppKagome provides three simple helpers, that are `serialize`, `queue`, and `kick`, so that user can access their own Kagome Web API.
-Once set `KAGOME_URL` as environment vars and following steps below, you can easily use Kagome server via Web API.
-
-```{r usage_3}
-library(RcppKagome)
-
-sentences <- c(
-  "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
-  "銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"
-)
-
-sentences %>%
-  RcppKagome::serialize() %>%
-  RcppKagome::queue() %>%
-  RcppKagome::kick() %>%
-  RcppKagome::pack_df("surface")
-```
-
 ## Performance
 
 ### Targets of Comparison
@@ -119,7 +86,7 @@ sentences %>%
   - RcppKagome::kagome
 - [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
   - RMeCab::RMeCabC
-- [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+- [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): a fork originally from [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
   - RcppMeCab::pos
   - RcppMeCab::posParallel
 
@@ -169,10 +136,6 @@ summary(tm)
 ```{r bench-plot-2}
 ggplot2::autoplot(tm)
 ```
-
-## Code of Conduct
-
-Please note that the RcppKagome project is released with a [Contributor Code of Conduct](https://paithiov909.github.io/RcppKagome/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 ## License
 

@@ -27,21 +27,9 @@ Japanese morphological analyzer written in pure Go.
 
 ## Installation
 
-For Windows x64 arch, try the pre-built binary release.
-
 ``` r
-if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
-  remotes::install_github("gaborcsardi/async")
-  remotes::install_github("paithiov909/kagomer")
-}
-install.packages(
-  "https://github.com/paithiov909/RcppKagome/releases/download/v0.0.2.900/RcppKagome.zip",
-  repos = NULL,
-  quiet = TRUE
-)
+remotes::install_github("paithiov909/RcppKagome")
 ```
-
-Or, clone this repo and build the package manually.
 
 ## Usage
 
@@ -210,34 +198,6 @@ Prettified outputs have these columns.
 -   Yomi1: 読み（readings）
 -   Yomi2: 発音（pronunciation）
 
-### Kick Web API of Kagome
-
-RcppKagome provides three simple helpers, that are `serialize`, `queue`,
-and `kick`, so that user can access their own Kagome Web API. Once set
-`KAGOME_URL` as environment vars and following steps below, you can
-easily use Kagome server via Web API.
-
-``` r
-library(RcppKagome)
-
-sentences <- c(
-  "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
-  "銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"
-)
-
-sentences %>%
-  RcppKagome::serialize() %>%
-  RcppKagome::queue() %>%
-  RcppKagome::kick() %>%
-  RcppKagome::pack_df("surface")
-#>   doc_id
-#> 1      1
-#> 2      2
-#>                                                                                        text
-#> 1                    激しい 激しい 熱 や 喘ぎ の あいだ から 、 お前 は 私 に 頼ん だ の だ
-#> 2 銀河 や 太陽 、 気圏 など と 呼ば れ た 世界 の 　 空 から 落ち た 雪 の 最後 の 一 碗 を
-```
-
 ## Performance
 
 ### Targets of Comparison
@@ -246,7 +206,9 @@ sentences %>%
     -   RcppKagome::kagome
 -   [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
     -   RMeCab::RMeCabC
--   [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+-   [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): a
+    fork originally from
+    [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
     -   RcppMeCab::pos
     -   RcppMeCab::posParallel
 
@@ -277,11 +239,11 @@ tm <- microbenchmark::microbenchmark(
   times = 500L
 )
 summary(tm)
-#>          expr      min       lq      mean   median        uq         max neval
-#> 1     RMeCabC 2.674702 3.139551  3.676729 3.398651  3.954751   11.776000   500
-#> 2         pos 3.206701 3.705650  4.319800 4.070301  4.624551    8.729301   500
-#> 3 posParallel 3.215901 3.646752 20.396130 3.978201  4.574301 8050.952301   500
-#> 4      kagome 7.658601 8.734651 10.576105 9.397651 11.120950  107.796701   500
+#>          expr    min      lq      mean  median      uq       max neval
+#> 1     RMeCabC 2.5685 3.05515  8.518103 3.31855 3.77700 2491.8138   500
+#> 2         pos 3.3110 3.75990  4.298283 4.04950 4.60875   23.0919   500
+#> 3 posParallel 3.3323 3.73425 20.157842 4.02270 4.62285 7957.3641   500
+#> 4      kagome 7.5810 8.56650  9.619283 9.13375 9.90700   18.4555   500
 ```
 
 ``` r
@@ -310,10 +272,10 @@ tm <- microbenchmark::microbenchmark(
 )
 summary(tm)
 #>          expr       min        lq      mean    median        uq       max neval
-#> 1     RMeCabC  5.863860  6.140005 21.826306  6.336037  6.847106 159.11359    10
-#> 2         pos  2.021757  2.130650 10.962829  2.171713  2.362333  89.54920    10
-#> 3 posParallel  1.700337  1.708320  3.349709  1.778058  1.825391  17.60427    10
-#> 4      kagome 17.176854 17.811335 18.627469 18.514677 19.183360  20.57439    10
+#> 1     RMeCabC  5.584179  5.832281  8.459582  5.888863  6.162858 31.334395    10
+#> 2         pos  1.409587  1.447397  1.528601  1.482963  1.582918  1.848818    10
+#> 3 posParallel  1.006863  1.039567  3.061842  1.125072  1.279496 20.465482    10
+#> 4      kagome 16.578204 16.759688 17.371959 17.089880 18.129323 18.657516    10
 ```
 
 ``` r
@@ -322,13 +284,6 @@ ggplot2::autoplot(tm)
 ```
 
 <img src="man/figures/README-bench-plot-2-1.png" width="100%" />
-
-## Code of Conduct
-
-Please note that the RcppKagome project is released with a [Contributor
-Code of
-Conduct](https://paithiov909.github.io/RcppKagome/CODE_OF_CONDUCT.html).
-By contributing to this project, you agree to abide by its terms.
 
 ## License
 

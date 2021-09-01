@@ -7,16 +7,10 @@
     <loc>https://paithiov909.github.io/RcppKagome/reference/kagome.html</loc>
   </url>
   <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/kick.html</loc>
-  </url>
-  <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/pack_df.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/pack_list.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/ping.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/pipe.html</loc>
@@ -25,16 +19,7 @@
     <loc>https://paithiov909.github.io/RcppKagome/reference/prettify.html</loc>
   </url>
   <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/queue.html</loc>
-  </url>
-  <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/RcppKagome-package.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/serialize.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/split_segments.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/split_sentences.html</loc>
@@ -43,15 +28,9 @@
     <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_morphemes.html</loc>
   </url>
   <url>
-    <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_segments.html</loc>
-  </url>
-  <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_sentences.html</loc>
   </url>
   <url>
-    <loc>https://paithiov909.github.io/RcppKagome/articles/demo_ja.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/RcppKagome/articles/readme_ja.html</loc>
+    <loc>https://paithiov909.github.io/RcppKagome/articles/RcppKagome.html</loc>
   </url>
 </urlset>

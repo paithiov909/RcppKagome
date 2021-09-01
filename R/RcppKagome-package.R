@@ -4,8 +4,7 @@
 #' @importFrom RcppParallel RcppParallelLibs
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr flatten_chr map map_dfr imap_dfr
-#' @importFrom stringi stri_conv stri_enc_toutf8
-#' @importFrom stringr str_c
+#' @importFrom stringi stri_conv stri_enc_toutf8 stri_c
 #' @import dplyr
 #' @useDynLib RcppKagome, .registration=TRUE
 ## usethis namespace: end

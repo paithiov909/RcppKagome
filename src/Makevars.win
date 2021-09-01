@@ -1,13 +1,7 @@
-ifeq "$(CURDIR)" ""
-	CURDIR = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "cat(getwd())")
-endif
-
-GOPATH = $(CURDIR)/go
-GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
 PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()") -lm -lkagome
-PKG_CPPFLAGS += -I'../inst/include'
+PKG_CPPFLAGS += -I.
 PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 
 .PHONY: all
@@ -15,11 +9,9 @@ PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 all: build copy $(SHLIB)
 
 build:
-	GOOS="windows" GOPATH="$(GOPATH)" CXX=$(CXX11) CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
+	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
 
 copy:
-	@cd $(CURDIR)
-	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
 	@cp libkagome.a ../inst/libs$(R_ARCH)
 	@rm libkagome.a

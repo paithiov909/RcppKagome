@@ -1,9 +1,3 @@
-ifeq "$(CURDIR)" ""
-	CURDIR = $(shell "$(R_HOME)/bin/Rscript" -e "cat(getwd())")
-endif
-
-GOPATH = $(CURDIR)/go
-GOBUILD = go build
 CXX_STD = CXX11
 CXX11 = g++
 PKG_CPPFLAGS += -I'../inst/include'
@@ -15,10 +9,9 @@ all: build copy $(SHLIB)
 
 build:
 	@rm -f ../inst/include/libkagome.h
-	CXX=$(CXX11) GOPATH="$(GOPATH)" CGO_ENABLED=1 $(GOBUILD) -o libkagome.a -i -a -x -compiler gc -buildmode=c-archive github.com/paithiov909/libkagome
+	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
 
 copy:
-	@cd $(CURDIR)
 	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
 	@cp libkagome.a ../inst/libs$(R_ARCH)

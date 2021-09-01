@@ -19,9 +19,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-stopifnot(
-  RcppKagome::ping() == 200L
-)
 ```
 
 ## これは何？
@@ -32,21 +29,9 @@ stopifnot(
 
 ### インストール
 
-64bit Windows向けにはバイナリパッケージをインストールできるようにしています。
-
 ```r
-if (!requireNamespace(c("async", "kagomer"), quietly = TRUE)) {
-  remotes::install_github("gaborcsardi/async")
-  remotes::install_github("paithiov909/kagomer")
-}
-install.packages(
-  "https://github.com/paithiov909/RcppKagome/releases/download/v0.0.2.900/RcppKagome.zip",
-  repos = NULL,
-  quiet = TRUE
-)
+remotes::install_github("paithiov909/RcppKagome")
 ```
-
-ソースからビルドする場合、cloneしたリポジトリ内でsubmoduleをアップデートしたうえでpkgbuildなどを使ってビルドしてください
 
 ### 形態素解析
 
@@ -91,26 +76,6 @@ res <- RcppKagome::kagome("雨にも負けず　風にも負けず")
 RcppKagome::pack_list(res)
 ```
 
-### Web APIの利用
-
-サーバーコマンドを非同期で叩くことができます。kagomeのサーバーモードの利用の仕方については公式の案内にしたがってください。
-デフォルトでは環境変数`KAGOME_URL`に設定したURLにアクセスします。`Sys.setenv(KAGOME_URL = "http://localhost:6060")`などとして環境変数を設定するか、アクセスしたいURLを`RcppKagome::queue(url = "http://localhost:6060")`のように明示的に指定してください。
-
-```{r kick_web_api}
-library(RcppKagome)
-
-sentences <- c(
-  "激しい激しい熱や喘ぎのあいだから、お前は私に頼んだのだ",
-  "銀河や太陽、気圏などと呼ばれた世界の　空から落ちた雪の最後の一碗を"
-)
-
-sentences %>%
-  RcppKagome::serialize() %>%
-  RcppKagome::queue() %>%
-  RcppKagome::kick() %>%
-  RcppKagome::pack_df("surface")
-```
-
 ## 速度比較
 
 RMeCab、RcppMeCabと速度比較しています。
@@ -119,7 +84,7 @@ RMeCab、RcppMeCabと速度比較しています。
   - RcppKagome::kagome
 - [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
   - RMeCab::RMeCabC
-- [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
+- [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)からforkしたもの
   - RcppMeCab::pos
   - RcppMeCab::posParallel
 
@@ -162,9 +127,6 @@ Goには`cgo`というコマンドが用意されていて、Goで書かれた�
 
 ## セッション情報
 
-> [記事のソースコード](https://github.com/paithiov909/RcppKagome/blob/main/vignettes/readme_ja.Rmd)
-
 ```{r session_info}
 sessioninfo::session_info()
 ```
-
