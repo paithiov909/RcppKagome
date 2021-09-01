@@ -33,6 +33,8 @@ knitr::opts_chunk$set(
 remotes::install_github("paithiov909/RcppKagome")
 ```
 
+なお、ソースパッケージからビルドするため、インストールには[System Requirements](https://github.com/paithiov909/RcppKagome#system-requirements)にあげられているものが必要です。
+
 ### 形態素解析
 
 character vectorを渡せます。戻り値はリストです。

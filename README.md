@@ -20,16 +20,19 @@ Japanese morphological analyzer written in pure Go.
 
 ## System Requirements
 
--   GNU make
--   GNU GCC
--   Go
--   C++11
+- GNU make
+- GNU GCC
+- Go (>= 1.16)
+- Kagome (v2 or later)
+- C++11
 
 ## Installation
 
 ``` r
 remotes::install_github("paithiov909/RcppKagome")
 ```
+
+Note that the installation RcppKagome from source package requires ikawaha/kagome (v2 or higher). 
 
 ## Usage
 

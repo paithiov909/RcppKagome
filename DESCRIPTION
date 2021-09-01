@@ -8,7 +8,7 @@ Maintainer: Kato Akiru <paithiov909@gmail.com>
 Description: Interface to ikawaha/kagome; Self-contained Japanese morphological analyzer
     written in pure Go.
 Depends: R (>= 4.0.0)
-SystemRequirements: GNU make, GNU GCC, Go(>= 1.16), Kagome, C++11
+SystemRequirements: GNU make, GNU GCC, Go(>= 1.16), Kagome(v2 or later), C++11
 License: MIT + file LICENSE
 URL: https://github.com/paithiov909/RcppKagome
 BugReports: https://github.com/paithiov909/RcppKagome/issues 
@@ -31,4 +31,5 @@ LinkingTo:
 Suggests: 
     knitr,
     rmarkdown,
-    testthat
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
