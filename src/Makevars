@@ -1,6 +1,6 @@
 CXX_STD = CXX11
 CXX11 = g++
-PKG_CPPFLAGS += -I'../inst/include'
+PKG_CPPFLAGS += -I.
 PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -lm -lkagome
 
 .PHONY: all
@@ -8,11 +8,12 @@ PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin/Rscript" -e "RcppPara
 all: build copy $(SHLIB)
 
 build:
-	@rm -f ../inst/include/libkagome.h
+	@cp ../tools/libkagome/go.mod ./go.mod
+	@cp ../tools/libkagome/go.sum ./go.sum
+	@cp ../tools/libkagome/main.go ./main.go
 	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
 
 copy:
-	@cp libkagome.h ../inst/include
 	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
 	@cp libkagome.a ../inst/libs$(R_ARCH)
 	@rm libkagome.a

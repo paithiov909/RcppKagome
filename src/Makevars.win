@@ -9,6 +9,9 @@ PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 all: build copy $(SHLIB)
 
 build:
+	@cp ../tools/libkagome/go.mod ./go.mod
+	@cp ../tools/libkagome/go.sum ./go.sum
+	@cp ../tools/libkagome/main.go ./main.go
 	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
 
 copy:
