@@ -40,12 +40,10 @@ By default, the package uses a static library generated with Cgo, which contains
 However, you can also specify another dictionary to be bundled before build and install the package. If you would like to use another one, please set `RCPPKAGOME_DIC` as an evironment variable.
 
 ``` r
-Sys.setenv(RCPPKAGOME_DIC = "uni") # for uisng uni-dic
+Sys.setenv(RCPPKAGOME_DIC = "uni") # for using uni-dic
 # Or
-Sys.setenv(RCPPKAGOME_DIC = "ko") # for mecab-ko-dic
+Sys.setenv(RCPPKAGOME_DIC = "ko") # for using mecab-ko-dic
 ```
-
-
 
 ## Usage
 
