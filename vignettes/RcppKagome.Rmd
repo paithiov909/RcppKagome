@@ -25,7 +25,10 @@ knitr::opts_chunk$set(
 ### インストール
 
 ```r
-remotes::install_github("paithiov909/RcppKagome")
+remotes::install_github(
+  "paithiov909/RcppKagome"
+  #, INSTALL_opts = "--no-multiarch" # for windows user
+)
 ```
 
 なお、ソースパッケージからビルドするため、インストールには[System Requirements](https://github.com/paithiov909/RcppKagome#system-requirements)にあげられているものが必要です。

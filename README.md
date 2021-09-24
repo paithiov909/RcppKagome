@@ -27,8 +27,11 @@ Japanese morphological analyzer written in pure Go.
 
 ## Installation
 
-``` r
-remotes::install_github("paithiov909/RcppKagome")
+```r
+remotes::install_github(
+  "paithiov909/RcppKagome"
+  #, INSTALL_opts = "--no-multiarch"  # for windows user
+)
 ```
 
 Note that the installation RcppKagome from source package requires
