@@ -8,14 +8,14 @@ Maintainer: Kato Akiru <paithiov909@gmail.com>
 Description: Interface to ikawaha/kagome; Self-contained Japanese morphological analyzer
     written in pure Go.
 Depends: R (>= 4.0.0)
-SystemRequirements: GNU make, GNU GCC, Go(>= 1.16), Kagome(v2 or later), C++11
+SystemRequirements: GNU make, GNU GCC, Go(>= 1.16), Kagome(v2 or later)
 License: MIT + file LICENSE
 URL: https://github.com/paithiov909/RcppKagome
-BugReports: https://github.com/paithiov909/RcppKagome/issues 
+BugReports: https://github.com/paithiov909/RcppKagome/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Imports:
     dplyr,
@@ -28,7 +28,7 @@ LinkingTo:
     Rcpp,
     RcppParallel,
     RcppThread
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

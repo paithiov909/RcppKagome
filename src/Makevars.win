@@ -4,8 +4,8 @@ endif
 
 CXX_STD = CXX11
 CXX11 = g++
-PKG_LIBS += -L../inst/libs$(R_ARCH) $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()") -lm -lkagome
-PKG_CPPFLAGS += -I.
+PKG_LIBS +=  -L../inst/libs$(R_ARCH) -lkagome $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+PKG_CPPFLAGS += -I. $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 
 .PHONY: all
