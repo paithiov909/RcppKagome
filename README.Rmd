@@ -41,7 +41,6 @@ RcppKagome is an R interface to [ikawaha/kagome](https://github.com/ikawaha/kago
 - GNU GCC
 - Go (>= 1.16)
 - Kagome (v2 or later)
-- C++11
 
 ## Installation
 

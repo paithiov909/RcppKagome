@@ -20,6 +20,12 @@ sentence <- enc2utf8(
   )
 )
 
+test_that("get_feature_names works", {
+  expect_equal(length(get_feature_names("ipa")), 11L)
+  expect_equal(length(get_feature_names("uni")), 19L)
+  expect_equal(length(get_feature_names("ko")), 10L)
+})
+
 test_that("prettify works", {
   res <- kagome(sentence)
   res <- prettify(res)

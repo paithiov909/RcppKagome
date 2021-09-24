@@ -1,9 +1,4 @@
 ---
-ID: 707cbe04dc48d5060053
-Title: "RcppKagome - Rcpp経由でGoのライブラリを呼んで形態素解析するRパッケージ"
-Tags: Go,R,自然言語処理,形態素解析
-Author: Kato Akiru
-Private: false
 title: "About RcppKagome package"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

@@ -24,7 +24,6 @@ Japanese morphological analyzer written in pure Go.
 -   GNU GCC
 -   Go (&gt;= 1.16)
 -   Kagome (v2 or later)
--   C++11
 
 ## Installation
 
