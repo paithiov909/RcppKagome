@@ -10,6 +10,9 @@
     <loc>https://paithiov909.github.io/RcppKagome/reference/kagome.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/RcppKagome/reference/pack.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/pack_df.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/split_sentences.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/RcppKagome/reference/tidyeval.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/RcppKagome/reference/tokenize_morphemes.html</loc>

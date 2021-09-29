@@ -34,13 +34,13 @@ test_that("prettify works", {
 
 test_that("pack_list works", {
   res <- kagome(sentence)
-  res <- pack_list(res)
+  res <- pack(res)
   expect_type(res$text, "character")
 })
 
 test_that("pack_df works", {
   res <- kagome(sentence)
   res <- prettify(res)
-  res <- pack_df(res)
+  res <- pack(res)
   expect_type(res$text, "character")
 })

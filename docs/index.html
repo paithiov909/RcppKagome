@@ -320,7 +320,7 @@
 <h3 class="hasAnchor">
 <a href="#tokenize-character-scalar" class="anchor"></a>Tokenize Character Scalar</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
   RMeCabC <span class="op">=</span> <span class="fu">RMeCabC</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/iconv.html">iconv</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span>, from <span class="op">=</span> <span class="st">"UTF-8"</span>, to <span class="op">=</span> <span class="st">"CP932"</span><span class="op">)</span>,
     mecabrc <span class="op">=</span> <span class="st">"/MeCab/ipadic-shiftjis/mecabrc"</span>
   <span class="op">)</span>,
@@ -336,7 +336,7 @@
 <span class="co">#&gt; 3 posParallel 3.3564 3.79635  4.292475 4.09785  4.49910   11.3043   500</span>
 <span class="co">#&gt; 4      kagome 7.6236 8.61080 10.121088 9.48500 10.49365   40.4014   500</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">autoplot</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
 <p><img src="reference/figures/README-bench-plot-1-1.png" width="100%"></p>
 </div>
@@ -345,7 +345,7 @@
 <a href="#tokenize-character-vector" class="anchor"></a>Tokenize Character Vector</h3>
 <p><code>RMeCabC</code> is wrapped with <code>lapply</code> here because that function is not vectorized.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
   RMeCabC <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="kw">function</span><span class="op">(</span><span class="va">elem</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">RMeCabC</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/iconv.html">iconv</a></span><span class="op">(</span><span class="va">elem</span>, from <span class="op">=</span> <span class="st">"UTF-8"</span>, to <span class="op">=</span> <span class="st">"CP932"</span><span class="op">)</span>,
       mecabrc <span class="op">=</span> <span class="st">"/MeCab/ipadic-shiftjis/mecabrc"</span>
@@ -363,7 +363,7 @@
 <span class="co">#&gt; 3 posParallel  1.008613  1.041375  1.923267  1.052314  1.110713  9.591273    10</span>
 <span class="co">#&gt; 4      kagome 16.248031 16.542258 17.281911 17.355875 17.908366 18.481000    10</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">autoplot</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
 <p><img src="reference/figures/README-bench-plot-2-1.png" width="100%"></p>
 </div>

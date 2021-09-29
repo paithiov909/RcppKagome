@@ -9,7 +9,7 @@ pack_list(list, .collapse = " ")
 \arguments{
 \item{list}{Output of \code{RcppKagome::kagome}.}
 
-\item{.collapse}{This argument will be passed to \code{stringr::str_c()}.}
+\item{.collapse}{This argument is passed to \code{stringi::stri_c()}.}
 }
 \value{
 data.frame.
@@ -17,3 +17,9 @@ data.frame.
 \description{
 Pack ouput of kagome
 }
+\seealso{
+Other pack-fn: 
+\code{\link{pack_df}()},
+\code{\link{pack}()}
+}
+\concept{pack-fn}

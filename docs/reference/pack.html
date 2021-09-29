@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pack prettified output — pack_df • RcppKagome</title>
+<title>Pack output of kagome — pack • RcppKagome</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pack prettified output — pack_df" />
-<meta property="og:description" content="Pack prettified output" />
+<meta property="og:title" content="Pack output of kagome — pack" />
+<meta property="og:description" content="Alias of RcppKagome::pack_list and RcppKagome::pack_df" />
 <meta property="og:image" content="https://paithiov909.github.io/RcppKagome/logo.png" />
 
 
@@ -119,42 +119,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pack prettified output</h1>
+    <h1>Pack output of kagome</h1>
     <small class="dont-index">Source: <a href='https://github.com/paithiov909/RcppKagome/blob/master/R/pack.R'><code>R/pack.R</code></a></small>
-    <div class="hidden name"><code>pack_df.Rd</code></div>
+    <div class="hidden name"><code>pack.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pack prettified output</p>
+    <p>Alias of <code><a href='pack_list.html'>RcppKagome::pack_list</a></code> and <code><a href='pack_df.html'>RcppKagome::pack_df</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>pack_df</span><span class='op'>(</span><span class='va'>df</span>, pull <span class='op'>=</span> <span class='st'>"token"</span>, .collapse <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>pack</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
-      <td><p>Output of <code><a href='prettify.html'>RcppKagome::prettify</a></code>.</p></td>
+      <th>obj</th>
+      <td><p>Object</p></td>
     </tr>
     <tr>
-      <th>pull</th>
-      <td><p>Column name to be packed into data.frame. Default value is <code>token</code>.</p></td>
-    </tr>
-    <tr>
-      <th>.collapse</th>
-      <td><p>This argument is passed to <code><a href='https://rdrr.io/pkg/stringi/man/stri_join.html'>stringi::stri_c()</a></code>.</p></td>
+      <th>...</th>
+      <td><p>Other arguments</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame.</p>
+    <p>data.frame</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other pack-fn: 
-<code><a href='pack_list.html'>pack_list</a>()</code>,
-<code><a href='pack.html'>pack</a>()</code></p></div>
+<code><a href='pack_df.html'>pack_df</a>()</code>,
+<code><a href='pack_list.html'>pack_list</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

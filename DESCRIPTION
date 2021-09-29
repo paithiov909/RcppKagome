@@ -22,6 +22,7 @@ Imports:
     jsonlite,
     purrr,
     Rcpp,
+    rlang (>= 0.1.2),
     RcppParallel,
     stringi
 LinkingTo:
@@ -29,6 +30,7 @@ LinkingTo:
     RcppParallel,
     RcppThread
 Suggests:
+    roxygen2,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

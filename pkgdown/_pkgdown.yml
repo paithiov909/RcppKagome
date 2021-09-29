@@ -9,6 +9,7 @@ reference:
   - title: "Utilities"
     contents:
       - prettify
+      - pack
       - pack_list
       - pack_df
       - split_sentences

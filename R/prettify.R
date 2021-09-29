@@ -5,7 +5,7 @@
 #'
 #' @export
 get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
-  dic <- match.arg(dic)
+  dic <- arg_match(dic)
   res <- c(
     "sentence_id",
     "token",
@@ -67,8 +67,8 @@ get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
 #'
 #' @export
 prettify <- function(list, col_names = get_feature_names("ipa")) {
-  res <- purrr::imap_dfr(list, function(v, i) {
-    purrr::map_dfr(v, function(elem) {
+  res <- imap_dfr(list, function(v, i) {
+    map_dfr(v, function(elem) {
       df <- data.frame(
         "sentence_id" = i,
         "token" = elem$Surface,
@@ -87,11 +87,11 @@ prettify <- function(list, col_names = get_feature_names("ipa")) {
       return(df)
     })
   })
-  return(dplyr::mutate(
+  return(mutate(
     res,
-    dplyr::across(
+    across(
       where(is.character),
-      ~ dplyr::na_if(., "*")
+      ~ na_if(., "*")
     )
   ))
 }

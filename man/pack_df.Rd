@@ -11,7 +11,7 @@ pack_df(df, pull = "token", .collapse = " ")
 
 \item{pull}{Column name to be packed into data.frame. Default value is \code{token}.}
 
-\item{.collapse}{This argument will be passed to \code{stringr::str_c()}.}
+\item{.collapse}{This argument is passed to \code{stringi::stri_c()}.}
 }
 \value{
 data.frame.
@@ -19,3 +19,9 @@ data.frame.
 \description{
 Pack prettified output
 }
+\seealso{
+Other pack-fn: 
+\code{\link{pack_list}()},
+\code{\link{pack}()}
+}
+\concept{pack-fn}
