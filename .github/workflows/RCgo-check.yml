@@ -3,10 +3,10 @@ name: R-CMD-check
 on:
   push:
     branches:
-      - $default-branch
+      - main
   pull_request:
     branches:
-      - $default-branch
+      - main
 
 jobs:
   check:
@@ -36,7 +36,7 @@ jobs:
       - name: Install Kagome
         run: go install github.com/ikawaha/kagome/v2@latest
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = c("--no-multiarch", "--no-vignettes", "--no-manual"), build_args = c("--no-build-vignettes", "--no-manual"), error_on = "error")
+        run: rcmdcheck::rcmdcheck(args = c("--no-multiarch", "--no-vignettes", "--no-manual", "--as-cran"), build_args = c("--no-build-vignettes", "--no-manual"), error_on = "error")
         shell: Rscript {0}
       - name: Codecov
         run: covr::codecov()
