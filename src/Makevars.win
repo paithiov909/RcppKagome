@@ -4,21 +4,16 @@ endif
 
 CXX_STD = CXX11
 CXX11 = g++
-PKG_LIBS +=  -L../inst/libs$(R_ARCH) -lkagome $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+PKG_LIBS +=  -L. -lkagome $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
 PKG_CPPFLAGS += -I. $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "Rcpp:::CxxFlags()")
 PKG_CXXFLAGS += -DDLL_IMPORT -DRCPP_PARALLEL_USE_TBB=1
 
 .PHONY: all
 
-all: build copy $(SHLIB)
+all: build $(SHLIB)
 
 build:
 	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/go.mod ./go.mod
 	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/go.sum ./go.sum
 	@cp ../tools/libkagome/$(RCPPKAGOME_DIC)/main.go ./main.go
-	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.a -x -compiler gc -buildmode=c-archive main.go
-
-copy:
-	@if [ ! -d ../inst/libs$(R_ARCH) ]; then mkdir -p ../inst/libs$(R_ARCH); fi
-	@cp libkagome.a ../inst/libs$(R_ARCH)
-	@rm libkagome.a
+	CXX=$(CXX11) CGO_ENABLED=1 go build -o libkagome.dll -x -compiler gc -buildmode=c-shared main.go

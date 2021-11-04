@@ -4,6 +4,7 @@ endif
 
 CXX_STD = CXX11
 CXX11 = g++
+STATLIB = libkagome.a
 PKG_CPPFLAGS += -I.
 PKG_LIBS += -L. -Wl,-Bstatic,-lkagome,-Bdynamic $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
 
