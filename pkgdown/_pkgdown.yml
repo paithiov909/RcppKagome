@@ -1,6 +1,6 @@
 destination: docs
 
-url: https://paithiov909.github.io/RcppKagome
+url: https://paithiov909.github.io/RcppKagome/
 
 reference:
   - title: "Tokenizer"

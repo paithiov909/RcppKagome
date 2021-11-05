@@ -10,8 +10,7 @@ Description: Interface to ikawaha/kagome; Self-contained Japanese morphological 
 Depends: R (>= 4.0.0)
 SystemRequirements: GNU make, GNU GCC, Go(>= 1.16), Kagome(v2 or later)
 License: MIT + file LICENSE
-URL: https://github.com/paithiov909/RcppKagome,
-    https://paithiov909.github.io/RcppKagome
+URL: https://github.com/paithiov909/RcppKagome
 BugReports: https://github.com/paithiov909/RcppKagome/issues
 Encoding: UTF-8
 LazyData: true
