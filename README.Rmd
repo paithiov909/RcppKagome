@@ -84,7 +84,7 @@ print(res)
 
 In case using IPA dictionary, prettified outputs have these columns.
 
-- sentence_id: 文番号（sentence index）
+- doc_id: 文番号（sentence index）
 - token: 表層形 (surface form)
 - POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 - X5StageUse1: 活用型（ex. 五段, 下二段…）

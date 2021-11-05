@@ -7,7 +7,7 @@
 get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
   dic <- arg_match(dic)
   res <- c(
-    "sentence_id",
+    "doc_id",
     "token",
     "POS1",
     "POS2",
@@ -21,7 +21,7 @@ get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
   )
   if (dic == "ko") {
     res <- c(
-      "sentence_id",
+      "doc_id",
       "token",
       "pos",
       "meaning",
@@ -35,7 +35,7 @@ get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
   }
   if (dic == "uni") {
     res <- c(
-      "sentence_id",
+      "doc_id",
       "token",
       "POS",
       "POS1",

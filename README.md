@@ -135,7 +135,7 @@ res <- RcppKagome::kagome(
 )
 res <- RcppKagome::prettify(res)
 print(res)
-#>    sentence_id    token   POS1       POS2     POS3 POS4      X5StageUse1
+#>         doc_id    token   POS1       POS2     POS3 POS4      X5StageUse1
 #> 1            1       陽   名詞       一般     <NA> <NA>             <NA>
 #> 2            1       が   助詞     格助詞     一般 <NA>             <NA>
 #> 3            1     照っ   動詞       自立     <NA> <NA>       五段・ラ行
@@ -205,7 +205,7 @@ print(res)
 
 In case using IPA dictionary, prettified outputs have these columns.
 
--   sentence\_id: 文番号（sentence index）
+-   doc\_id: 文番号（sentence index）
 -   token: 表層形 (surface form)
 -   POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 -   X5StageUse1: 活用型（ex. 五段, 下二段…）

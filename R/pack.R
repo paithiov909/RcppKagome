@@ -47,7 +47,7 @@ pack_list <- function(list, .collapse = " ") {
 #' @export
 pack_df <- function(df, pull = "token", .collapse = " ") {
   res <- df %>%
-    group_by(!!sym("sentence_id")) %>%
+    group_by(.data$doc_id) %>%
     group_map(
       ~ pull(.x, {{ pull }}) %>%
         stri_c(collapse = .collapse)
