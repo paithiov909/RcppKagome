@@ -22,8 +22,8 @@ Imports:
     jsonlite,
     purrr,
     Rcpp,
-    rlang (>= 0.1.2),
     RcppParallel,
+    rlang (>= 0.1.2),
     stringi
 LinkingTo:
     Rcpp,
