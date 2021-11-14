@@ -54,7 +54,7 @@ print(res)
 
 整形されたデータフレームは次のカラムからなります。
 
-- sentence_id: 文番号（sentence index）
+- doc_id: 文番号（sentence index）
 - token: 表層形（surface form）
 - POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 - X5StageUse1: 活用型（ex. 五段, 下二段…）
@@ -78,19 +78,17 @@ RcppKagome::pack_list(res)
 
 ## 速度比較
 
-RMeCab、RcppMeCabと速度比較しています。
+RcppMeCabと速度比較しています。
 
 - [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
   - RcppKagome::kagome
-- [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
-  - RMeCab::RMeCabC
 - [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)からforkしたもの
   - RcppMeCab::pos
   - RcppMeCab::posParallel
 
 ### 単文を渡す場合
 
-単文の解析速度としてはRMeCabなどと比較してとくに遅いということはないはずです。
+単文の解析速度としてはとくに遅いということはないはずです。
 
 ![bench-plot-1](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png)
 
@@ -98,7 +96,7 @@ RMeCab、RcppMeCabと速度比較しています。
 
 ### 複数の文を渡す場合
 
-ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。なお、`RMeCab::RMeCabC`は長さが1のベクトル（character scalar）しか受けつけないため、ここでは`lapply`でラップして比較しています。
+ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。
 
 ![bench-plot-2](https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png)
 
