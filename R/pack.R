@@ -19,7 +19,7 @@ pack <- function(obj, ...) {
 #' Pack ouput of kagome
 #'
 #' @param list Output of \code{RcppKagome::kagome}.
-#' @param .collapse This argument is passed to \code{stringi::stri_c()}.
+#' @param .collapse This argument is passed to \code{stringi::stri_join()}.
 #' @return data.frame.
 #'
 #' @family pack-fn
@@ -27,9 +27,9 @@ pack <- function(obj, ...) {
 pack_list <- function(list, .collapse = " ") {
   res <- lapply(list, function(elem) {
     elem %>%
-      map(~ pluck(., "Surface")) %>%
-      flatten_chr() %>%
-      stri_c(collapse = .collapse)
+      map(~ purrr::pluck(., "Surface")) %>%
+      purrr::flatten_chr() %>%
+      stringi::stri_join(collapse = .collapse)
   }) %>%
     imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)
@@ -40,17 +40,17 @@ pack_list <- function(list, .collapse = " ") {
 #'
 #' @param df Output of \code{RcppKagome::prettify}.
 #' @param pull Column name to be packed into data.frame. Default value is `token`.
-#' @param .collapse This argument is passed to \code{stringi::stri_c()}.
+#' @param .collapse This argument is passed to \code{stringi::stri_join()}.
 #' @return data.frame.
 #'
 #' @family pack-fn
 #' @export
 pack_df <- function(df, pull = "token", .collapse = " ") {
   res <- df %>%
-    group_by(.data$doc_id) %>%
-    group_map(
-      ~ pull(.x, {{ pull }}) %>%
-        stri_c(collapse = .collapse)
+    dplyr::group_by(.data$doc_id) %>%
+    dplyr::group_map(
+      ~ dplyr::pull(.x, {{ pull }}) %>%
+        stringi::stri_join(collapse = .collapse)
     ) %>%
     imap_dfr(~ data.frame(doc_id = .y, text = .x))
   return(res)

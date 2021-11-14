@@ -8,7 +8,7 @@
 #'
 #' @export
 kagome <- function(text, ...) {
-  json <- tokenize_morphemes(stri_enc_toutf8(text))
+  json <- tokenize_morphemes(stringi::stri_enc_toutf8(text))
   res <- lapply(json, function(elem) {
     Encoding(elem) <- "UTF-8"
     list <- jsonlite::fromJSON(elem, ...)

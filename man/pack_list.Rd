@@ -9,7 +9,7 @@ pack_list(list, .collapse = " ")
 \arguments{
 \item{list}{Output of \code{RcppKagome::kagome}.}
 
-\item{.collapse}{This argument is passed to \code{stringi::stri_c()}.}
+\item{.collapse}{This argument is passed to \code{stringi::stri_join()}.}
 }
 \value{
 data.frame.

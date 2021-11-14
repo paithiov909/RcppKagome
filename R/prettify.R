@@ -67,7 +67,7 @@ get_feature_names <- function(dic = c("ipa", "uni", "ko")) {
 #'
 #' @export
 prettify <- function(list, col_names = get_feature_names("ipa")) {
-  res <- imap_dfr(list, function(v, i) {
+  imap_dfr(list, function(v, i) {
     map_dfr(v, function(elem) {
       df <- data.frame(
         "sentence_id" = i,
@@ -86,12 +86,10 @@ prettify <- function(list, col_names = get_feature_names("ipa")) {
       colnames(df) <- col_names
       return(df)
     })
-  })
-  return(mutate(
-    res,
-    across(
-      where(is.character),
-      ~ na_if(., "*")
+  }) %>%
+    dplyr::mutate(doc_id = as.factor(doc_id)) %>%
+    dplyr::mutate_if(
+      is.character,
+      ~ dplyr::na_if(., "*")
     )
-  ))
 }

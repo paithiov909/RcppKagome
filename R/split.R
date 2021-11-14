@@ -10,10 +10,10 @@
 #'
 #' @export
 split_sentences <- function(text, ...) {
-  json <- tokenize_sentences(stri_enc_toutf8(text))
+  json <- tokenize_sentences(stringi::stri_enc_toutf8(text))
   res <- lapply(json, function(elem) {
     Encoding(elem) <- "UTF-8"
-    return(fromJSON(elem, ...))
+    return(jsonlite::fromJSON(elem, ...))
   })
   return(res)
 }
