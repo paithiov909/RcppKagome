@@ -199,73 +199,19 @@
   <span class="op">)</span>
 <span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;         doc_id    token   POS1       POS2     POS3 POS4      X5StageUse1</span>
-<span class="co">#&gt; 1            1       陽   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 2            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 3            1     照っ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
-<span class="co">#&gt; 4            1       て   助詞   接続助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 5            1       鳥   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 6            1       が   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 7            1     啼き   動詞       自立     &lt;NA&gt; &lt;NA&gt; 五段・カ行イ音便</span>
-<span class="co">#&gt; 8            1       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 9            1 あちこち   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 10           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 11           1       楢   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 12           1       の   助詞     連体化     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 13           1       林   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 14           1       も   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 15           1       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 16           1   けむる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
-<span class="co">#&gt; 17           1     とき   名詞     非自立 副詞可能 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 18           2 ぎちぎち   副詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 19           2       と   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 20           2     鳴る   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
-<span class="co">#&gt; 21           2       　   記号       空白     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 22           2     汚い 形容詞       自立     &lt;NA&gt; &lt;NA&gt; 形容詞・アウオ段</span>
-<span class="co">#&gt; 23           2       掌   名詞       一般     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 24           2       を   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 25           2       、   記号       読点     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 26           2     おれ   名詞     代名詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 27           2       は   助詞     係助詞     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 28           2 これから   副詞 助詞類接続     &lt;NA&gt; &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 29           2     もつ   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・タ行</span>
-<span class="co">#&gt; 30           2     こと   名詞     非自立     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 31           2       に   助詞     格助詞     一般 &lt;NA&gt;             &lt;NA&gt;</span>
-<span class="co">#&gt; 32           2     なる   動詞       自立     &lt;NA&gt; &lt;NA&gt;       五段・ラ行</span>
-<span class="co">#&gt;    X5StageUse2 Original      Yomi1      Yomi2</span>
-<span class="co">#&gt; 1         &lt;NA&gt;       陽         ヒ         ヒ</span>
-<span class="co">#&gt; 2         &lt;NA&gt;       が         ガ         ガ</span>
-<span class="co">#&gt; 3   連用タ接続     照る       テッ       テッ</span>
-<span class="co">#&gt; 4         &lt;NA&gt;       て         テ         テ</span>
-<span class="co">#&gt; 5         &lt;NA&gt;       鳥       トリ       トリ</span>
-<span class="co">#&gt; 6         &lt;NA&gt;       が         ガ         ガ</span>
-<span class="co">#&gt; 7       連用形     啼く       ナキ       ナキ</span>
-<span class="co">#&gt; 8         &lt;NA&gt;       　         　         　</span>
-<span class="co">#&gt; 9         &lt;NA&gt; あちこち   アチコチ   アチコチ</span>
-<span class="co">#&gt; 10        &lt;NA&gt;       の         ノ         ノ</span>
-<span class="co">#&gt; 11        &lt;NA&gt;       楢       ナラ       ナラ</span>
-<span class="co">#&gt; 12        &lt;NA&gt;       の         ノ         ノ</span>
-<span class="co">#&gt; 13        &lt;NA&gt;       林     ハヤシ     ハヤシ</span>
-<span class="co">#&gt; 14        &lt;NA&gt;       も         モ         モ</span>
-<span class="co">#&gt; 15        &lt;NA&gt;       、         、         、</span>
-<span class="co">#&gt; 16      基本形   けむる     ケムル     ケムル</span>
-<span class="co">#&gt; 17        &lt;NA&gt;     とき       トキ       トキ</span>
-<span class="co">#&gt; 18        &lt;NA&gt; ぎちぎち   ギチギチ   ギチギチ</span>
-<span class="co">#&gt; 19        &lt;NA&gt;       と         ト         ト</span>
-<span class="co">#&gt; 20      基本形     鳴る       ナル       ナル</span>
-<span class="co">#&gt; 21        &lt;NA&gt;       　         　         　</span>
-<span class="co">#&gt; 22      基本形     汚い   キタナイ   キタナイ</span>
-<span class="co">#&gt; 23        &lt;NA&gt;       掌 タナゴコロ タナゴコロ</span>
-<span class="co">#&gt; 24        &lt;NA&gt;       を         ヲ         ヲ</span>
-<span class="co">#&gt; 25        &lt;NA&gt;       、         、         、</span>
-<span class="co">#&gt; 26        &lt;NA&gt;     おれ       オレ       オレ</span>
-<span class="co">#&gt; 27        &lt;NA&gt;       は         ハ         ワ</span>
-<span class="co">#&gt; 28        &lt;NA&gt; これから   コレカラ   コレカラ</span>
-<span class="co">#&gt; 29      基本形     もつ       モツ       モツ</span>
-<span class="co">#&gt; 30        &lt;NA&gt;     こと       コト       コト</span>
-<span class="co">#&gt; 31        &lt;NA&gt;       に         ニ         ニ</span>
-<span class="co">#&gt; 32      基本形     なる       ナル       ナル</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+<span class="co">#&gt; 'data.frame':    32 obs. of  11 variables:</span>
+<span class="co">#&gt;  $ doc_id     : Factor w/ 2 levels "1","2": 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ token      : chr  "陽" "が" "照っ" "て" ...</span>
+<span class="co">#&gt;  $ POS1       : chr  "名詞" "助詞" "動詞" "助詞" ...</span>
+<span class="co">#&gt;  $ POS2       : chr  "一般" "格助詞" "自立" "接続助詞" ...</span>
+<span class="co">#&gt;  $ POS3       : chr  NA "一般" NA NA ...</span>
+<span class="co">#&gt;  $ POS4       : chr  NA NA NA NA ...</span>
+<span class="co">#&gt;  $ X5StageUse1: chr  NA NA "五段・ラ行" NA ...</span>
+<span class="co">#&gt;  $ X5StageUse2: chr  NA NA "連用タ接続" NA ...</span>
+<span class="co">#&gt;  $ Original   : chr  "陽" "が" "照る" "て" ...</span>
+<span class="co">#&gt;  $ Yomi1      : chr  "ヒ" "ガ" "テッ" "テ" ...</span>
+<span class="co">#&gt;  $ Yomi2      : chr  "ヒ" "ガ" "テッ" "テ" ...</span></code></pre></div>
 <p>In case using IPA dictionary, prettified outputs have these columns.</p>
 <ul>
 <li>doc_id: 文番号（sentence index）</li>
@@ -293,12 +239,6 @@
 </ul>
 </li>
 <li>
-<a href="https://github.com/IshidaMotohiro/RMeCab">IshidaMotohiro/RMeCab</a>
-<ul>
-<li>RMeCab::RMeCabC</li>
-</ul>
-</li>
-<li>
 <a href="https://github.com/paithiov909/RcppMeCab">paithiov909/RcppMeCab</a>: a fork originally from <a href="https://github.com/junhewk/RcppMeCab">junhewk/RcppMeCab</a>
 <ul>
 <li>RcppMeCab::pos</li>
@@ -310,31 +250,27 @@
 <div id="data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h3>
-<p>Here uses the <code>NekoText</code> dataset provided in <a href="https://github.com/paithiov909/ldccr">{ldccr}</a> package, that is whole text of ‘Wagahai Wa Neko Dearu’ written by Natsume Souseki. The text is originally from <a href="https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip">Aozora Bunko</a>.</p>
+<p>Here uses whole text of ‘Wagahai Wa Neko Dearu’ written by Natsume Souseki. The text is originally from <a href="https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip">Aozora Bunko</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sentences</span> <span class="op">&lt;-</span> <span class="fu">ldccr</span><span class="fu">::</span><span class="va">NekoText</span>
+<code class="sourceCode R"><span class="va">sentences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"inst/NekoText.gz"</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span>
 <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>
-<span class="co">#&gt;  chr [1:2258] "吾輩は猫である" "夏目漱石" "一" ...</span></code></pre></div>
+<span class="co">#&gt;  chr [1:2344] "吾輩は猫である" "夏目漱石" "" "" "一" "" ...</span></code></pre></div>
 </div>
 <div id="tokenize-character-scalar" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tokenize-character-scalar" class="anchor"></a>Tokenize Character Scalar</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
-  RMeCabC <span class="op">=</span> <span class="fu">RMeCabC</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/iconv.html">iconv</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span>, from <span class="op">=</span> <span class="st">"UTF-8"</span>, to <span class="op">=</span> <span class="st">"CP932"</span><span class="op">)</span>,
-    mecabrc <span class="op">=</span> <span class="st">"/MeCab/ipadic-shiftjis/mecabrc"</span>
-  <span class="op">)</span>,
-  pos <span class="op">=</span> <span class="fu">pos</span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
-  posParallel <span class="op">=</span> <span class="fu">posParallel</span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
-  kagome <span class="op">=</span> <span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
+  pos <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu">pos</span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
+  posParallel <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu">posParallel</span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
+  kagome <span class="op">=</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">[</span><span class="fl">30</span><span class="op">]</span><span class="op">)</span>,
   times <span class="op">=</span> <span class="fl">500L</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
-<span class="co">#&gt;          expr    min      lq      mean  median       uq       max neval</span>
-<span class="co">#&gt; 1     RMeCabC 2.5750 2.99870  6.999727 3.24175  3.61930 1805.7920   500</span>
-<span class="co">#&gt; 2         pos 3.3255 3.79935  8.054130 4.08480  4.54245 1915.2999   500</span>
-<span class="co">#&gt; 3 posParallel 3.3564 3.79635  4.292475 4.09785  4.49910   11.3043   500</span>
-<span class="co">#&gt; 4      kagome 7.6236 8.61080 10.121088 9.48500 10.49365   40.4014   500</span></code></pre></div>
+<span class="co">#&gt;          expr    min      lq     mean  median      uq     max neval</span>
+<span class="co">#&gt; 1         pos 3.3877 3.73535 4.198587 3.93740 4.37230 15.6786   500</span>
+<span class="co">#&gt; 2 posParallel 3.3530 3.73395 4.202371 3.94565 4.40490  9.1248   500</span>
+<span class="co">#&gt; 3      kagome 3.1074 3.52720 4.037607 3.81570 4.14655 11.2245   500</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">autoplot</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
@@ -343,25 +279,22 @@
 <div id="tokenize-character-vector" class="section level3">
 <h3 class="hasAnchor">
 <a href="#tokenize-character-vector" class="anchor"></a>Tokenize Character Vector</h3>
-<p><code>RMeCabC</code> is wrapped with <code>lapply</code> here because that function is not vectorized.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu">microbenchmark</span><span class="op">(</span>
-  RMeCabC <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="kw">function</span><span class="op">(</span><span class="va">elem</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">RMeCabC</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/iconv.html">iconv</a></span><span class="op">(</span><span class="va">elem</span>, from <span class="op">=</span> <span class="st">"UTF-8"</span>, to <span class="op">=</span> <span class="st">"CP932"</span><span class="op">)</span>,
-      mecabrc <span class="op">=</span> <span class="st">"/MeCab/ipadic-shiftjis/mecabrc"</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>,
-  pos <span class="op">=</span> <span class="fu">pos</span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
-  posParallel <span class="op">=</span> <span class="fu">posParallel</span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
-  kagome <span class="op">=</span> <span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
+  pos <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu">pos</span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
+  posParallel <span class="op">=</span> <span class="fu">RcppMeCab</span><span class="fu">::</span><span class="fu">posParallel</span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
+  kagome <span class="op">=</span> <span class="fu">RcppKagome</span><span class="fu">::</span><span class="fu"><a href="reference/kagome.html">kagome</a></span><span class="op">(</span><span class="va">sentences</span><span class="op">)</span>,
   times <span class="op">=</span> <span class="fl">10L</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
-<span class="co">#&gt;          expr       min        lq      mean    median        uq       max neval</span>
-<span class="co">#&gt; 1     RMeCabC  5.805136  5.839948 10.256494  5.901558  6.013439 49.283217    10</span>
-<span class="co">#&gt; 2         pos  1.397774  1.425251  1.456929  1.434485  1.473289  1.611007    10</span>
-<span class="co">#&gt; 3 posParallel  1.008613  1.041375  1.923267  1.052314  1.110713  9.591273    10</span>
-<span class="co">#&gt; 4      kagome 16.248031 16.542258 17.281911 17.355875 17.908366 18.481000    10</span></code></pre></div>
+<span class="co">#&gt;          expr        min        lq      mean    median        uq       max</span>
+<span class="co">#&gt; 1         pos  1473.8525  1503.463  1577.414  1535.095  1578.254  1811.067</span>
+<span class="co">#&gt; 2 posParallel   999.2133  1046.868  1092.551  1076.754  1083.400  1318.865</span>
+<span class="co">#&gt; 3      kagome 16849.0704 17071.989 17285.732 17178.416 17562.991 17745.126</span>
+<span class="co">#&gt;   neval</span>
+<span class="co">#&gt; 1    10</span>
+<span class="co">#&gt; 2    10</span>
+<span class="co">#&gt; 3    10</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu">autoplot</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span>
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
