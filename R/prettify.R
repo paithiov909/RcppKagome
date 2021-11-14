@@ -87,7 +87,7 @@ prettify <- function(list, col_names = get_feature_names("ipa")) {
       return(df)
     })
   }) %>%
-    dplyr::mutate(doc_id = as.factor(doc_id)) %>%
+    dplyr::mutate(doc_id = as.factor(.data$doc_id)) %>%
     dplyr::mutate_if(
       is.character,
       ~ dplyr::na_if(., "*")
