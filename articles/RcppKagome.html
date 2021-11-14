@@ -256,7 +256,7 @@
 <span class="co">#&gt; 32     なる       ナル       ナル</span></code></pre></div>
 <p>整形されたデータフレームは次のカラムからなります。</p>
 <ul>
-<li>sentence_id: 文番号（sentence index）</li>
+<li>doc_id: 文番号（sentence index）</li>
 <li>token: 表層形（surface form）</li>
 <li>POS1~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3</li>
 <li>X5StageUse1: 活用型（ex. 五段, 下二段…）</li>
@@ -282,18 +282,12 @@
 <div id="速度比較" class="section level2">
 <h2 class="hasAnchor">
 <a href="#%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BC%83" class="anchor"></a>速度比較</h2>
-<p>RMeCab、RcppMeCabと速度比較しています。</p>
+<p>RcppMeCabと速度比較しています。</p>
 <ul>
 <li>
 <a href="https://github.com/paithiov909/RcppKagome">paithiov909/RcppKagome</a>
 <ul>
 <li>RcppKagome::kagome</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/IshidaMotohiro/RMeCab">IshidaMotohiro/RMeCab</a>
-<ul>
-<li>RMeCab::RMeCabC</li>
 </ul>
 </li>
 <li>
@@ -307,7 +301,7 @@
 <div id="単文を渡す場合" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E5%8D%98%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>単文を渡す場合</h3>
-<p>単文の解析速度としてはRMeCabなどと比較してとくに遅いということはないはずです。</p>
+<p>単文の解析速度としてはとくに遅いということはないはずです。</p>
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-1-1.png" alt=""><p class="caption">bench-plot-1</p>
 </div>
@@ -316,7 +310,7 @@
 <div id="複数の文を渡す場合" class="section level3">
 <h3 class="hasAnchor">
 <a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E6%96%87%E3%82%92%E6%B8%A1%E3%81%99%E5%A0%B4%E5%90%88" class="anchor"></a>複数の文を渡す場合</h3>
-<p>ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。なお、<code>RMeCab::RMeCabC</code>は長さが1のベクトル（character scalar）しか受けつけないため、ここでは<code>lapply</code>でラップして比較しています。</p>
+<p>ベクトル（2258 elements, 1.1MB）を渡す場合、ふつうに使うかぎりではRcppMeCabが速いと思われます。</p>
 <div class="figure">
 <img src="https://raw.githack.com/paithiov909/RcppKagome/main/man/figures/README-bench-plot-2-1.png" alt=""><p class="caption">bench-plot-2</p>
 </div>
