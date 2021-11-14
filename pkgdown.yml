@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   RcppKagome: RcppKagome.html
-last_built: 2021-11-14T05:21Z
+last_built: 2021-11-14T05:36Z
 urls:
   reference: https://paithiov909.github.io/RcppKagome//reference
   article: https://paithiov909.github.io/RcppKagome//articles
