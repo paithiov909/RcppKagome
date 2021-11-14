@@ -22,12 +22,12 @@ Japanese morphological analyzer written in pure Go.
 
 -   GNU make
 -   GNU GCC
--   Go (&gt;= 1.16)
+-   Go (>= 1.16)
 -   Kagome (v2 or later)
 
 ## Installation
 
-```r
+``` r
 remotes::install_github(
   "paithiov909/RcppKagome"
   #, INSTALL_opts = "--no-multiarch"  # for windows user
@@ -37,9 +37,12 @@ remotes::install_github(
 Note that the installation RcppKagome from source package requires
 ikawaha/kagome (v2 or later).
 
-By default, the package uses a static library generated with Cgo, which contains the Japanese IPA dictionary.
+By default, the package uses a static library generated with Cgo, which
+contains the Japanese IPA dictionary.
 
-However, you can also specify another dictionary to be bundled before build and install the package. If you would like to use another one, please set `RCPPKAGOME_DIC` as an evironment variable.
+However, you can also specify another dictionary to be bundled before
+build and install the package. If you would like to use another one,
+please set `RCPPKAGOME_DIC` as an evironment variable.
 
 ``` r
 Sys.setenv(RCPPKAGOME_DIC = "uni") # for using uni-dic
@@ -134,78 +137,24 @@ res <- RcppKagome::kagome(
   )
 )
 res <- RcppKagome::prettify(res)
-print(res)
-#>         doc_id    token   POS1       POS2     POS3 POS4      X5StageUse1
-#> 1            1       陽   名詞       一般     <NA> <NA>             <NA>
-#> 2            1       が   助詞     格助詞     一般 <NA>             <NA>
-#> 3            1     照っ   動詞       自立     <NA> <NA>       五段・ラ行
-#> 4            1       て   助詞   接続助詞     <NA> <NA>             <NA>
-#> 5            1       鳥   名詞       一般     <NA> <NA>             <NA>
-#> 6            1       が   助詞     格助詞     一般 <NA>             <NA>
-#> 7            1     啼き   動詞       自立     <NA> <NA> 五段・カ行イ音便
-#> 8            1       　   記号       空白     <NA> <NA>             <NA>
-#> 9            1 あちこち   名詞     代名詞     一般 <NA>             <NA>
-#> 10           1       の   助詞     連体化     <NA> <NA>             <NA>
-#> 11           1       楢   名詞       一般     <NA> <NA>             <NA>
-#> 12           1       の   助詞     連体化     <NA> <NA>             <NA>
-#> 13           1       林   名詞       一般     <NA> <NA>             <NA>
-#> 14           1       も   助詞     係助詞     <NA> <NA>             <NA>
-#> 15           1       、   記号       読点     <NA> <NA>             <NA>
-#> 16           1   けむる   動詞       自立     <NA> <NA>       五段・ラ行
-#> 17           1     とき   名詞     非自立 副詞可能 <NA>             <NA>
-#> 18           2 ぎちぎち   副詞       一般     <NA> <NA>             <NA>
-#> 19           2       と   助詞     格助詞     一般 <NA>             <NA>
-#> 20           2     鳴る   動詞       自立     <NA> <NA>       五段・ラ行
-#> 21           2       　   記号       空白     <NA> <NA>             <NA>
-#> 22           2     汚い 形容詞       自立     <NA> <NA> 形容詞・アウオ段
-#> 23           2       掌   名詞       一般     <NA> <NA>             <NA>
-#> 24           2       を   助詞     格助詞     一般 <NA>             <NA>
-#> 25           2       、   記号       読点     <NA> <NA>             <NA>
-#> 26           2     おれ   名詞     代名詞     一般 <NA>             <NA>
-#> 27           2       は   助詞     係助詞     <NA> <NA>             <NA>
-#> 28           2 これから   副詞 助詞類接続     <NA> <NA>             <NA>
-#> 29           2     もつ   動詞       自立     <NA> <NA>       五段・タ行
-#> 30           2     こと   名詞     非自立     一般 <NA>             <NA>
-#> 31           2       に   助詞     格助詞     一般 <NA>             <NA>
-#> 32           2     なる   動詞       自立     <NA> <NA>       五段・ラ行
-#>    X5StageUse2 Original      Yomi1      Yomi2
-#> 1         <NA>       陽         ヒ         ヒ
-#> 2         <NA>       が         ガ         ガ
-#> 3   連用タ接続     照る       テッ       テッ
-#> 4         <NA>       て         テ         テ
-#> 5         <NA>       鳥       トリ       トリ
-#> 6         <NA>       が         ガ         ガ
-#> 7       連用形     啼く       ナキ       ナキ
-#> 8         <NA>       　         　         　
-#> 9         <NA> あちこち   アチコチ   アチコチ
-#> 10        <NA>       の         ノ         ノ
-#> 11        <NA>       楢       ナラ       ナラ
-#> 12        <NA>       の         ノ         ノ
-#> 13        <NA>       林     ハヤシ     ハヤシ
-#> 14        <NA>       も         モ         モ
-#> 15        <NA>       、         、         、
-#> 16      基本形   けむる     ケムル     ケムル
-#> 17        <NA>     とき       トキ       トキ
-#> 18        <NA> ぎちぎち   ギチギチ   ギチギチ
-#> 19        <NA>       と         ト         ト
-#> 20      基本形     鳴る       ナル       ナル
-#> 21        <NA>       　         　         　
-#> 22      基本形     汚い   キタナイ   キタナイ
-#> 23        <NA>       掌 タナゴコロ タナゴコロ
-#> 24        <NA>       を         ヲ         ヲ
-#> 25        <NA>       、         、         、
-#> 26        <NA>     おれ       オレ       オレ
-#> 27        <NA>       は         ハ         ワ
-#> 28        <NA> これから   コレカラ   コレカラ
-#> 29      基本形     もつ       モツ       モツ
-#> 30        <NA>     こと       コト       コト
-#> 31        <NA>       に         ニ         ニ
-#> 32      基本形     なる       ナル       ナル
+str(res)
+#> 'data.frame':    32 obs. of  11 variables:
+#>  $ doc_id     : Factor w/ 2 levels "1","2": 1 1 1 1 1 1 1 1 1 1 ...
+#>  $ token      : chr  "陽" "が" "照っ" "て" ...
+#>  $ POS1       : chr  "名詞" "助詞" "動詞" "助詞" ...
+#>  $ POS2       : chr  "一般" "格助詞" "自立" "接続助詞" ...
+#>  $ POS3       : chr  NA "一般" NA NA ...
+#>  $ POS4       : chr  NA NA NA NA ...
+#>  $ X5StageUse1: chr  NA NA "五段・ラ行" NA ...
+#>  $ X5StageUse2: chr  NA NA "連用タ接続" NA ...
+#>  $ Original   : chr  "陽" "が" "照る" "て" ...
+#>  $ Yomi1      : chr  "ヒ" "ガ" "テッ" "テ" ...
+#>  $ Yomi2      : chr  "ヒ" "ガ" "テッ" "テ" ...
 ```
 
 In case using IPA dictionary, prettified outputs have these columns.
 
--   doc\_id: 文番号（sentence index）
+-   doc_id: 文番号（sentence index）
 -   token: 表層形 (surface form)
 -   POS1\~POS4: 品詞, 品詞細分類1, 品詞細分類2, 品詞細分類3
 -   X5StageUse1: 活用型（ex. 五段, 下二段…）
@@ -220,8 +169,6 @@ In case using IPA dictionary, prettified outputs have these columns.
 
 -   [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
     -   RcppKagome::kagome
--   [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
-    -   RMeCab::RMeCabC
 -   [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): a
     fork originally from
     [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
@@ -230,36 +177,30 @@ In case using IPA dictionary, prettified outputs have these columns.
 
 ### Data
 
-Here uses the `NekoText` dataset provided in
-[{ldccr}](https://github.com/paithiov909/ldccr) package, that is whole
-text of ‘Wagahai Wa Neko Dearu’ written by Natsume Souseki. The text is
-originally from [Aozora
+Here uses whole text of ‘Wagahai Wa Neko Dearu’ written by Natsume
+Souseki. The text is originally from [Aozora
 Bunko](https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip).
 
 ``` r
-sentences <- ldccr::NekoText
+sentences <- readLines("inst/NekoText.gz", encoding = "UTF-8")
 dplyr::glimpse(sentences)
-#>  chr [1:2258] "吾輩は猫である" "夏目漱石" "一" ...
+#>  chr [1:2344] "吾輩は猫である" "夏目漱石" "" "" "一" "" ...
 ```
 
 ### Tokenize Character Scalar
 
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCabC(iconv(sentences[30], from = "UTF-8", to = "CP932"),
-    mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
-  ),
-  pos = pos(sentences[30]),
-  posParallel = posParallel(sentences[30]),
-  kagome = kagome(sentences[30]),
+  pos = RcppMeCab::pos(sentences[30]),
+  posParallel = RcppMeCab::posParallel(sentences[30]),
+  kagome = RcppKagome::kagome(sentences[30]),
   times = 500L
 )
 summary(tm)
-#>          expr    min      lq      mean  median       uq       max neval
-#> 1     RMeCabC 2.5750 2.99870  6.999727 3.24175  3.61930 1805.7920   500
-#> 2         pos 3.3255 3.79935  8.054130 4.08480  4.54245 1915.2999   500
-#> 3 posParallel 3.3564 3.79635  4.292475 4.09785  4.49910   11.3043   500
-#> 4      kagome 7.6236 8.61080 10.121088 9.48500 10.49365   40.4014   500
+#>          expr    min      lq     mean  median      uq     max neval
+#> 1         pos 3.3877 3.73535 4.198587 3.93740 4.37230 15.6786   500
+#> 2 posParallel 3.3530 3.73395 4.202371 3.94565 4.40490  9.1248   500
+#> 3      kagome 3.1074 3.52720 4.037607 3.81570 4.14655 11.2245   500
 ```
 
 ``` r
@@ -271,27 +212,22 @@ ggplot2::autoplot(tm)
 
 ### Tokenize Character Vector
 
-`RMeCabC` is wrapped with `lapply` here because that function is not
-vectorized.
-
 ``` r
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = lapply(sentences, function(elem) {
-    RMeCabC(iconv(elem, from = "UTF-8", to = "CP932"),
-      mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"
-    )
-  }),
-  pos = pos(sentences),
-  posParallel = posParallel(sentences),
-  kagome = kagome(sentences),
+  pos = RcppMeCab::pos(sentences),
+  posParallel = RcppMeCab::posParallel(sentences),
+  kagome = RcppKagome::kagome(sentences),
   times = 10L
 )
 summary(tm)
-#>          expr       min        lq      mean    median        uq       max neval
-#> 1     RMeCabC  5.805136  5.839948 10.256494  5.901558  6.013439 49.283217    10
-#> 2         pos  1.397774  1.425251  1.456929  1.434485  1.473289  1.611007    10
-#> 3 posParallel  1.008613  1.041375  1.923267  1.052314  1.110713  9.591273    10
-#> 4      kagome 16.248031 16.542258 17.281911 17.355875 17.908366 18.481000    10
+#>          expr        min        lq      mean    median        uq       max
+#> 1         pos  1473.8525  1503.463  1577.414  1535.095  1578.254  1811.067
+#> 2 posParallel   999.2133  1046.868  1092.551  1076.754  1083.400  1318.865
+#> 3      kagome 16849.0704 17071.989 17285.732 17178.416 17562.991 17745.126
+#>   neval
+#> 1    10
+#> 2    10
+#> 3    10
 ```
 
 ``` r

@@ -12,13 +12,12 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
 stopifnot(
-  require(RMeCab),
   require(RcppMeCab),
   require(RcppKagome)
 )
 ## Initial loads of dynamic libraries ---
-RMeCabC("test load", mecabrc = "/MeCab/ipadic-shiftjis/mecabrc")
 pos("test load")
 posParallel("test load")
 kagome("test load")
@@ -79,7 +78,7 @@ res <- RcppKagome::kagome(
   c("陽が照って鳥が啼き　あちこちの楢の林も、けむるとき",
     "ぎちぎちと鳴る　汚い掌を、おれはこれからもつことになる"))
 res <- RcppKagome::prettify(res)
-print(res)
+str(res)
 ```
 
 In case using IPA dictionary, prettified outputs have these columns.
@@ -99,18 +98,16 @@ In case using IPA dictionary, prettified outputs have these columns.
 
 - [paithiov909/RcppKagome](https://github.com/paithiov909/RcppKagome)
   - RcppKagome::kagome
-- [IshidaMotohiro/RMeCab](https://github.com/IshidaMotohiro/RMeCab)
-  - RMeCab::RMeCabC
 - [paithiov909/RcppMeCab](https://github.com/paithiov909/RcppMeCab): a fork originally from [junhewk/RcppMeCab](https://github.com/junhewk/RcppMeCab)
   - RcppMeCab::pos
   - RcppMeCab::posParallel
 
 ### Data
 
-Here uses the `NekoText` dataset provided in [{ldccr}](https://github.com/paithiov909/ldccr) package, that is whole text of 'Wagahai Wa Neko Dearu' written by Natsume Souseki. The text is originally from [Aozora Bunko](https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip).
+Here uses whole text of 'Wagahai Wa Neko Dearu' written by Natsume Souseki. The text is originally from [Aozora Bunko](https://www.aozora.gr.jp/cards/000148/files/789_ruby_5639.zip).
 
 ```{r bench-prep}
-sentences <- ldccr::NekoText
+sentences <- readLines("inst/NekoText.gz", encoding = "UTF-8")
 dplyr::glimpse(sentences)
 ```
 
@@ -118,11 +115,9 @@ dplyr::glimpse(sentences)
 
 ```{r bench-summary_1}
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = RMeCabC(iconv(sentences[30], from = "UTF-8", to = "CP932")
-, mecabrc = "/MeCab/ipadic-shiftjis/mecabrc"),
-  pos = pos(sentences[30]),
-  posParallel = posParallel(sentences[30]),
-  kagome = kagome(sentences[30]),
+  pos = RcppMeCab::pos(sentences[30]),
+  posParallel = RcppMeCab::posParallel(sentences[30]),
+  kagome = RcppKagome::kagome(sentences[30]),
   times = 500L
 )
 summary(tm)
@@ -134,15 +129,11 @@ ggplot2::autoplot(tm)
 
 ### Tokenize Character Vector
 
-`RMeCabC` is wrapped with `lapply` here because that function is not vectorized.
-
 ```{r bench-summary_2}
 tm <- microbenchmark::microbenchmark(
-  RMeCabC = lapply(sentences, function(elem){ RMeCabC(iconv(elem, from = "UTF-8", to = "CP932")
-, mecabrc = "/MeCab/ipadic-shiftjis/mecabrc") }),
-  pos = pos(sentences),
-  posParallel = posParallel(sentences),
-  kagome = kagome(sentences),
+  pos = RcppMeCab::pos(sentences),
+  posParallel = RcppMeCab::posParallel(sentences),
+  kagome = RcppKagome::kagome(sentences),
   times = 10L
 )
 summary(tm)
